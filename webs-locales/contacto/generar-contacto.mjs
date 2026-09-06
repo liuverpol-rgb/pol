@@ -12,39 +12,12 @@
  * escribe el correo. Ese permiso es lo que convierte el correo en legal.
  * Ver alemania/RECHT.md.
  */
-import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { writeFileSync, mkdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { leerCsv, saludo, pruebaDeQueEsPersonal, enlace } from './textos.mjs';
 
 const RAIZ = dirname(fileURLToPath(import.meta.url));
-
-/** CSV separado por punto y coma: es lo que produce Excel en aleman. */
-function leerCsv(ruta) {
-  const [cabecera, ...lineas] = readFileSync(ruta, 'utf8').trim().split('\n');
-  const campos = cabecera.split(';').map((c) => c.trim());
-  return lineas.filter(Boolean).map((linea) => {
-    const valores = linea.split(';');
-    return Object.fromEntries(campos.map((c, i) => [c, (valores[i] || '').trim()]));
-  });
-}
-
-/** "Frau Meyer" -> "Sehr geehrte Frau Meyer". Sin nombre, formula neutra. */
-function saludo(ansprechpartner) {
-  if (!ansprechpartner) return 'Sehr geehrte Damen und Herren,';
-  const forma = ansprechpartner.startsWith('Frau') ? 'Sehr geehrte' : 'Sehr geehrter';
-  return `${forma} ${ansprechpartner},`;
-}
-
-/** La frase que demuestra que no es un envio masivo. Es la pieza clave. */
-function pruebaDeQueEsPersonal(p) {
-  if (p.beobachtung) return `mir ist aufgefallen: ${p.beobachtung}.`;
-  if (p.bewertungen) {
-    return `Ihr Betrieb hat bei Google ${p.bewertungen} Bewertungen mit ${p.sterne || 'sehr guter'} Bewertung — aber keine eigene Website.`;
-  }
-  return 'mir ist aufgefallen, dass Ihr Betrieb keine eigene Website hat.';
-}
-
-const enlace = (p) => p.demo_url || '[LINK ZUR FERTIGEN SEITE EINFÜGEN]';
 
 function guionTelefono(p) {
   return `## 1. Anruf  (zuerst — das ist der legale Weg)
@@ -187,4 +160,36 @@ ${carta(p)}`;
   console.log(`✓ ${p.name} → contacto/salida/${p.id}.md`);
 }
 
+// Hoja unica para trabajar el dia de llamadas sin abrir trece archivos.
+const anrufliste = `# Anrufliste — ${new Intl.DateTimeFormat('de-DE', { dateStyle: 'long' }).format(new Date())}
+
+Di–Do, 10:00–11:30 oder 14:30–16:30. **Vor jedem Anruf den Namen googeln:**
+hat der Betrieb doch eine gute Seite → durchstreichen, nicht anrufen.
+
+Ein Nein ist ein Nein. Kein zweiter Anruf. Die ersten drei sind Übung.
+
+| # | Betrieb | Telefon | Einstiegssatz | ☎ | Ja? | Einwilligung notiert |
+| ---: | --- | --- | --- | :-: | :-: | --- |
+${prospectos.map((p, i) => `| ${i + 1} | **${p.name}** | ${p.telefon || '—'} | ${p.beobachtung ? `„Mir ist aufgefallen: ${p.beobachtung}."` : '—'} | ☐ | ☐ | ____ Uhr, ________ |`).join('\n')}
+
+## Der Anruf in vier Sätzen
+
+1. „Guten Tag, mein Name ist [DEIN NAME]. Ich baue Websites für Betriebe hier in Reinbek."
+2. Der Einstiegssatz aus der Tabelle — **das ist der ganze Anruf**.
+3. „Deshalb habe ich Ihnen schon eine gebaut, damit Sie sehen, wie sie aussehen würde."
+4. „**Darf ich Ihnen den Link kurz per E-Mail schicken?**"
+
+Bei Ja → E-Mail-Adresse und Uhrzeit in die letzte Spalte. **Ohne diese Notiz
+keine E-Mail** (siehe alemania/RECHT.md).
+
+## Die drei Antworten, die kommen
+
+- **„Wir haben genug Arbeit."** → „Verstehe ich. Mir geht es auch weniger um neue
+  Kunden — auf der Seite ist eine Stellenanzeige eingebaut. Suchen Sie Leute?"
+- **„Macht mein Neffe."** → „Alles klar, dann lasse ich Sie in Ruhe." Auflegen.
+- **„Schicken Sie was per Post."** → „Mache ich. An welche Adresse?" Das ist ein Ja.
+`;
+writeFileSync(join(RAIZ, 'salida', 'anrufliste.md'), anrufliste);
+
 console.log(`\n${prospectos.length} Kontaktpakete erstellt.`);
+console.log('Arbeitsblatt für den Anruftag: contacto/salida/anrufliste.md');

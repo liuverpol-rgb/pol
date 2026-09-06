@@ -84,11 +84,25 @@ la acepta y la paga. Quita el `demo` solo entonces.
 ## Contacto con los clientes
 
 ```bash
-node webs-locales/contacto/generar-contacto.mjs
+node webs-locales/contacto/generar-contacto.mjs        # textos por negocio
+node webs-locales/contacto/generar-cartas.mjs          # cartas para imprimir
 ```
 
-Lee `contacto/prospectos.csv` y deja en `contacto/salida/` un archivo por negocio con
-los tres textos ya personalizados: guion de llamada, correo y carta.
+El primero deja en `contacto/salida/` un archivo por negocio con los tres textos
+personalizados —guion de llamada, correo y carta— y una `anrufliste.md` con los diez
+en una sola hoja para el día de llamadas.
+
+El segundo produce `salida/cartas.html`: una carta por página A4 con el **código QR
+del sitio de ese cliente**, lista para imprimir con Strg+P. Pon tus datos en
+`contacto/remitente.json`.
+
+**La carta es el único canal comercial en frío permitido en Alemania sin
+consentimiento previo.** El correo exige un sí previo por teléfono. Ver
+[`alemania/RECHT.md`](alemania/RECHT.md).
+
+Los QR se generan en `contacto/qr.mjs`, sin dependencias ni servicios externos: el
+enlace de un cliente no tiene por qué pasar por el servidor de un tercero, y la carta
+se imprime sin internet.
 
 ## Documentos
 
