@@ -11,10 +11,52 @@
  */
 
 const DIAS = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo'];
-const DIAS_LARGOS = {
-  lunes: 'Lunes', martes: 'Martes', miercoles: 'Miércoles', jueves: 'Jueves',
-  viernes: 'Viernes', sabado: 'Sábado', domingo: 'Domingo',
+
+/**
+ * Las fichas pueden escribir los dias en espanol o en aleman. Internamente
+ * se usa siempre la clave espanola, asi que aqui se normaliza la entrada.
+ */
+const ALIAS_DIAS = {
+  montag: 'lunes', dienstag: 'martes', mittwoch: 'miercoles', donnerstag: 'jueves',
+  freitag: 'viernes', samstag: 'sabado', sonnabend: 'sabado', sonntag: 'domingo',
+  miércoles: 'miercoles', sábado: 'sabado',
 };
+
+/** Textos de la interfaz. El idioma se elige con el campo "idioma". */
+const TEXTOS = {
+  es: {
+    lang: 'es',
+    dias: { lunes: 'Lunes', martes: 'Martes', miercoles: 'Miércoles', jueves: 'Jueves', viernes: 'Viernes', sabado: 'Sábado', domingo: 'Domingo' },
+    abierto: 'Abierto ahora', cerradoAhora: 'Cerrado ahora', cerrado: 'Cerrado',
+    llamar: 'Llamar', comoLlegar: 'Cómo llegar', ir: 'Ir',
+    horario: 'Horario', elSitio: 'El sitio', loQueDicen: 'Lo que dicen',
+    donde: 'Dónde estamos', abrirMapa: 'Abrir en el mapa',
+    propuestaTitulo: (n) => `Propuesta de página web para ${n}`,
+    propuestaTexto: 'Ejemplo preparado para enseñar cómo quedaría. No es la web oficial del negocio y no está publicada.',
+    propuestaAutor: (a) => `Preparada por ${a}.`,
+  },
+  de: {
+    lang: 'de',
+    dias: { lunes: 'Montag', martes: 'Dienstag', miercoles: 'Mittwoch', jueves: 'Donnerstag', viernes: 'Freitag', sabado: 'Samstag', domingo: 'Sonntag' },
+    abierto: 'Jetzt geöffnet', cerradoAhora: 'Zurzeit geschlossen', cerrado: 'Geschlossen',
+    llamar: 'Anrufen', comoLlegar: 'Route', ir: 'Route',
+    horario: 'Öffnungszeiten', elSitio: 'Eindrücke', loQueDicen: 'Das sagen Gäste',
+    donde: 'So finden Sie uns', abrirMapa: 'In Google Maps öffnen',
+    propuestaTitulo: (n) => `Website-Vorschlag für ${n}`,
+    propuestaTexto: 'Unverbindliches Muster, um zu zeigen, wie die Seite aussehen könnte. Dies ist nicht die offizielle Website des Betriebs und sie ist nicht veröffentlicht.',
+    propuestaAutor: (a) => `Erstellt von ${a}.`,
+  },
+};
+
+/** Pasa las claves del horario a las internas, vengan en el idioma que vengan. */
+function normalizarHorario(horario = {}) {
+  const salida = {};
+  for (const [clave, valor] of Object.entries(horario)) {
+    const k = clave.toLowerCase().trim();
+    salida[ALIAS_DIAS[k] || k] = valor;
+  }
+  return salida;
+}
 
 /** Escapa texto para insertarlo en HTML. Los datos vienen de un JSON a mano. */
 export function esc(valor = '') {
@@ -28,18 +70,18 @@ function telEnlace(telefono = '') {
   return telefono.replace(/[^\d+]/g, '');
 }
 
-function seccionHorario(horario = {}) {
+function seccionHorario(horario = {}, t) {
   const filas = DIAS.map((dia) => {
     const tramos = horario[dia];
     const texto = !tramos || tramos.length === 0
-      ? '<span class="cerrado">Cerrado</span>'
+      ? `<span class="cerrado">${t.cerrado}</span>`
       : tramos.map(([a, b]) => `${esc(a)} – ${esc(b)}`).join('<br>');
-    return `<tr data-dia="${dia}"><th>${DIAS_LARGOS[dia]}</th><td>${texto}</td></tr>`;
+    return `<tr data-dia="${dia}"><th>${t.dias[dia]}</th><td>${texto}</td></tr>`;
   }).join('');
 
   return `
   <section class="bloque" id="horario">
-    <h2>Horario</h2>
+    <h2>${t.horario}</h2>
     <table class="horario">${filas}</table>
   </section>`;
 }
@@ -64,24 +106,24 @@ function seccionesContenido(secciones = []) {
   }).join('');
 }
 
-function seccionGaleria(galeria = []) {
+function seccionGaleria(galeria = [], t) {
   if (!galeria.length) return '';
   const fotos = galeria.map((f) => `
     <figure><img src="${esc(f.url)}" alt="${esc(f.alt || '')}" loading="lazy"></figure>`).join('');
   return `
   <section class="bloque" id="galeria">
-    <h2>El sitio</h2>
+    <h2>${t.elSitio}</h2>
     <div class="galeria">${fotos}</div>
   </section>`;
 }
 
-function seccionResenas(resenas = []) {
+function seccionResenas(resenas = [], t) {
   if (!resenas.length) return '';
   const items = resenas.map((r) => `
     <blockquote><p>${esc(r.texto)}</p><cite>${esc(r.autor)}</cite></blockquote>`).join('');
   return `
   <section class="bloque" id="resenas">
-    <h2>Lo que dicen</h2>
+    <h2>${t.loQueDicen}</h2>
     <div class="resenas">${items}</div>
   </section>`;
 }
@@ -107,20 +149,21 @@ function datosEstructurados(n) {
   return `<script type="application/ld+json">${json}</script>`;
 }
 
-export function renderSitio(n) {
+export function renderSitio(negocioEntrada) {
+  const t = TEXTOS[negocioEntrada.idioma] || TEXTOS.es;
+  const n = { ...negocioEntrada, horario: normalizarHorario(negocioEntrada.horario) };
   const tel = telEnlace(n.telefono);
   const acento = n.colores?.acento || '#b03a2e';
   const titulo = `${n.nombre} · ${n.tipo}${n.ciudad ? ` en ${n.ciudad}` : ''}`;
 
   const avisoDemo = n.demo ? `
   <div class="aviso-demo">
-    <strong>Propuesta de página web para ${esc(n.nombre)}</strong>
-    Ejemplo preparado para enseñar cómo quedaría. No es la web oficial del negocio
-    y no está publicada. ${n.propuesta_de ? `Preparada por ${esc(n.propuesta_de)}.` : ''}
+    <strong>${esc(t.propuestaTitulo(n.nombre))}</strong>
+    ${esc(t.propuestaTexto)} ${n.propuesta_de ? esc(t.propuestaAutor(n.propuesta_de)) : ''}
   </div>` : '';
 
   return `<!doctype html>
-<html lang="es">
+<html lang="${t.lang}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -146,24 +189,24 @@ ${avisoDemo}
     ${n.claim ? `<p class="claim">${esc(n.claim)}</p>` : ''}
     <p class="estado" id="estado" hidden></p>
     <div class="acciones">
-      ${tel ? `<a class="boton primario" href="tel:${esc(tel)}">Llamar</a>` : ''}
+      ${tel ? `<a class="boton primario" href="tel:${esc(tel)}">${t.llamar}</a>` : ''}
       ${n.whatsapp ? `<a class="boton" href="https://wa.me/${esc(n.whatsapp)}" target="_blank" rel="noopener">WhatsApp</a>` : ''}
-      ${n.mapa ? `<a class="boton" href="${esc(n.mapa)}" target="_blank" rel="noopener">Cómo llegar</a>` : ''}
+      ${n.mapa ? `<a class="boton" href="${esc(n.mapa)}" target="_blank" rel="noopener">${t.comoLlegar}</a>` : ''}
     </div>
   </div>
 </header>
 
 <main class="envoltorio">
   ${seccionesContenido(n.secciones)}
-  ${seccionHorario(n.horario)}
-  ${seccionGaleria(n.galeria)}
-  ${seccionResenas(n.resenas)}
+  ${seccionHorario(n.horario, t)}
+  ${seccionGaleria(n.galeria, t)}
+  ${seccionResenas(n.resenas, t)}
 
   <section class="bloque" id="donde">
-    <h2>Dónde estamos</h2>
+    <h2>${t.donde}</h2>
     <p class="direccion">${esc(n.direccion || '')}${n.ciudad ? `<br>${esc(n.ciudad)}` : ''}</p>
     <div class="acciones">
-      ${n.mapa ? `<a class="boton primario" href="${esc(n.mapa)}" target="_blank" rel="noopener">Abrir en el mapa</a>` : ''}
+      ${n.mapa ? `<a class="boton primario" href="${esc(n.mapa)}" target="_blank" rel="noopener">${t.abrirMapa}</a>` : ''}
       ${tel ? `<a class="boton" href="tel:${esc(tel)}">${esc(n.telefono)}</a>` : ''}
     </div>
   </section>
@@ -177,9 +220,9 @@ ${avisoDemo}
 </footer>
 
 <nav class="barra-movil">
-  ${tel ? `<a href="tel:${esc(tel)}">Llamar</a>` : ''}
+  ${tel ? `<a href="tel:${esc(tel)}">${t.llamar}</a>` : ''}
   ${n.whatsapp ? `<a href="https://wa.me/${esc(n.whatsapp)}" target="_blank" rel="noopener">WhatsApp</a>` : ''}
-  ${n.mapa ? `<a href="${esc(n.mapa)}" target="_blank" rel="noopener">Ir</a>` : ''}
+  ${n.mapa ? `<a href="${esc(n.mapa)}" target="_blank" rel="noopener">${t.ir}</a>` : ''}
 </nav>
 
 <script>
@@ -197,7 +240,7 @@ ${avisoDemo}
     return minutos >= (+a[0] * 60 + +a[1]) && minutos < (+b[0] * 60 + +b[1]);
   });
   var el = document.getElementById('estado');
-  el.textContent = abierto ? 'Abierto ahora' : 'Cerrado ahora';
+  el.textContent = abierto ? ${JSON.stringify(t.abierto)} : ${JSON.stringify(t.cerradoAhora)};
   el.className = 'estado ' + (abierto ? 'abierto' : 'cerrado');
   el.hidden = false;
 

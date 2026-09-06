@@ -6,3 +6,6 @@ _shot.mjs
 
 # Salida generada: se regenera con "node webs-locales/generar.mjs --todos"
 webs-locales/sitios/
+
+# Textos de contacto generados
+webs-locales/contacto/salida/

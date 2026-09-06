@@ -3,7 +3,14 @@
 Vendes páginas web a bares, peluquerías y talleres de tu zona por 300 €.
 Tú hablas con ellos; el resto está automatizado aquí.
 
-**Empieza por [`VENTAS.md`](VENTAS.md).** Es lo único que decide si esto gana dinero.
+## ¿Dónde vives?
+
+| | Empieza por |
+| --- | --- |
+| **Alemania** | **[`alemania/RECHT.md`](alemania/RECHT.md)** y luego [`alemania/AKQUISE.md`](alemania/AKQUISE.md). El correo en frío es ilícito allí: el orden es llamada → permiso → correo. |
+| España / Latinoamérica | [`VENTAS.md`](VENTAS.md) — puerta fría |
+
+Es lo único que decide si esto gana dinero. La web la genera el ordenador.
 
 ## Cómo se hace una web
 
@@ -37,12 +44,13 @@ el resto se omite solo si no lo pones.
 | Campo | Para qué |
 | --- | --- |
 | `demo` | `true` muestra el aviso de propuesta y bloquea la indexación. **Déjalo en `true` hasta que el cliente pague.** |
+| `idioma` | `"de"` para alemán, `"es"` para español. Traduce toda la interfaz. |
 | `claim` | Una frase bajo el nombre |
 | `whatsapp` | Número con prefijo y sin signos: `34600000000` |
 | `mapa` | Enlace de Google Maps |
 | `emoji` | Icono de la pestaña |
 | `colores.acento` | Color de la marca |
-| `horario` | Por día, lista de tramos: `[["09:00","14:00"],["17:00","20:00"]]`. Vacío = cerrado |
+| `horario` | Por día, lista de tramos: `[["09:00","14:00"],["17:00","20:00"]]`. Vacío = cerrado. Las claves valen en alemán (`montag`) o español (`lunes`) |
 | `secciones` | Carta o servicios, con `nombre`, `descripcion` y `precio` |
 | `galeria`, `resenas`, `redes` | Opcionales |
 | `schema` | `Restaurant`, `HairSalon`, `AutoRepair`… ayuda a Google |
@@ -54,8 +62,19 @@ es deliberado: **una web con el nombre de un negocio que no la ha encargado no p
 publicarse como si fuera la oficial.** Es una propuesta comercial hasta que el dueño
 la acepta y la paga. Quita el `demo` solo entonces.
 
+## Contacto con los clientes
+
+```bash
+node webs-locales/contacto/generar-contacto.mjs
+```
+
+Lee `contacto/prospectos.csv` y deja en `contacto/salida/` un archivo por negocio con
+los tres textos ya personalizados: guion de llamada, correo y carta.
+
 ## Documentos
 
-- [`VENTAS.md`](VENTAS.md) — a quién visitar, qué decir, precios y objeciones
+- [`alemania/RECHT.md`](alemania/RECHT.md) — **qué es legal en Alemania.** Léelo antes de escribir a nadie
+- [`alemania/AKQUISE.md`](alemania/AKQUISE.md) — plan de 100 negocios y qué hace que el mensaje funcione
+- [`VENTAS.md`](VENTAS.md) — versión España: a quién visitar, qué decir, precios y objeciones
 - [`clientes/lista.md`](clientes/lista.md) — las 20 puertas
 - [`docs/PRESUPUESTO.md`](docs/PRESUPUESTO.md) — presupuesto para mandar por WhatsApp

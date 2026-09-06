@@ -63,3 +63,41 @@ test('incluye datos estructurados de negocio local', () => {
   assert.equal(datos.name, 'Bar de Prueba');
   assert.equal(datos.address.addressLocality, 'Getafe');
 });
+
+test('el idioma aleman traduce toda la interfaz', () => {
+  const html = renderSitio({ ...negocio, idioma: 'de' });
+  assert.ok(html.includes('<html lang="de">'));
+  assert.ok(html.includes('Öffnungszeiten'));
+  assert.ok(html.includes('>Anrufen<'));
+  assert.ok(html.includes('Geschlossen'), 'los dias sin horario en aleman');
+  assert.ok(html.includes('<th>Montag</th>') && html.includes('<th>Sonntag</th>'));
+  assert.ok(html.includes('Jetzt geöffnet') && html.includes('Zurzeit geschlossen'));
+  assert.ok(!html.includes('Öffnungszeiten</h2>\n    <h2>Horario'), 'sin mezcla de idiomas');
+});
+
+test('el aviso de propuesta se traduce al aleman', () => {
+  const html = renderSitio({ ...negocio, idioma: 'de', demo: true, propuesta_de: 'Ana' });
+  assert.ok(html.includes('Website-Vorschlag für Bar de Prueba'));
+  assert.ok(html.includes('nicht die offizielle Website'));
+  assert.ok(html.includes('Erstellt von Ana.'));
+  assert.ok(html.includes('noindex'));
+});
+
+test('los dias del horario se aceptan en aleman o en espanol', () => {
+  const enAleman = renderSitio({
+    ...negocio,
+    idioma: 'de',
+    horario: { montag: [], dienstag: [['09:00', '14:00']], sonntag: [['10:00', '12:00']] },
+  });
+  assert.ok(enAleman.includes('data-dia="martes"'), 'dienstag se normaliza a martes');
+  assert.ok(enAleman.includes('09:00 – 14:00'));
+  assert.ok(enAleman.includes('10:00 – 12:00'), 'sonntag tambien');
+  // Y la version espanola sigue funcionando igual.
+  assert.ok(renderSitio(negocio).includes('09:00 – 14:00'));
+});
+
+test('un idioma desconocido no rompe: cae en espanol', () => {
+  const html = renderSitio({ ...negocio, idioma: 'zz' });
+  assert.ok(html.includes('<html lang="es">'));
+  assert.ok(html.includes('Horario'));
+});

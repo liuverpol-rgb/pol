@@ -1,0 +1,53 @@
+{
+  "demo": true,
+  "idioma": "de",
+  "propuesta_de": "[dein Name]",
+  "nombre": "Gaststätte Zur Linde",
+  "tipo": "Gasthaus & Biergarten",
+  "emoji": "🍺",
+  "ciudad": "Musterstadt",
+  "claim": "Deutsche Küche, Mittagstisch und der ruhigste Biergarten im Viertel. Seit 1998.",
+  "telefono": "+49 000 0000000",
+  "whatsapp": "",
+  "direccion": "Beispielstraße 12",
+  "mapa": "https://www.google.com/maps/search/?api=1&query=Beispielstra%C3%9Fe+12+Musterstadt",
+  "schema": "Restaurant",
+  "colores": { "acento": "#7a5230" },
+  "seo": {
+    "descripcion": "Gaststätte Zur Linde in Musterstadt: Mittagstisch ab 11,50 €, deutsche Küche und Biergarten. Dienstag bis Sonntag geöffnet."
+  },
+  "horario": {
+    "montag": [],
+    "dienstag": [["11:30", "14:30"], ["17:00", "22:00"]],
+    "mittwoch": [["11:30", "14:30"], ["17:00", "22:00"]],
+    "donnerstag": [["11:30", "14:30"], ["17:00", "22:00"]],
+    "freitag": [["11:30", "14:30"], ["17:00", "23:00"]],
+    "samstag": [["12:00", "23:00"]],
+    "sonntag": [["11:30", "20:00"]]
+  },
+  "secciones": [
+    {
+      "titulo": "Mittagstisch",
+      "entradilla": "Dienstag bis Freitag von 11:30 bis 14:30 Uhr. Wechselnde Karte, inklusive Suppe.",
+      "items": [
+        { "nombre": "Tagesgericht", "descripcion": "Wechselnd, mit Suppe oder Salat", "precio": "11,50 €" },
+        { "nombre": "Schnitzel mit Pommes", "descripcion": "Hausgemacht, paniert", "precio": "13,90 €" },
+        { "nombre": "Vegetarisches Gericht", "descripcion": "Täglich wechselnd", "precio": "10,50 €" }
+      ]
+    },
+    {
+      "titulo": "Aus der Küche",
+      "items": [
+        { "nombre": "Schweinebraten mit Knödel", "precio": "16,90 €" },
+        { "nombre": "Currywurst mit Pommes", "precio": "8,50 €" },
+        { "nombre": "Kartoffelsuppe", "descripcion": "Mit Würstchen", "precio": "6,50 €" },
+        { "nombre": "Helles vom Fass", "descripcion": "0,5 l", "precio": "4,20 €" }
+      ]
+    }
+  ],
+  "resenas": [
+    { "texto": "Bester Mittagstisch in der Gegend und man wird nicht gehetzt. Portionen wie früher.", "autor": "Google-Bewertung" },
+    { "texto": "Seit zwanzig Jahren mein Stammlokal. Mehr muss man nicht sagen.", "autor": "Gast aus dem Viertel" }
+  ],
+  "redes": {}
+}
