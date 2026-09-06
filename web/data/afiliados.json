@@ -1,0 +1,30 @@
+{
+  "activo": false,
+  "nota_activacion": "Pon 'activo' en true cuando tengas al menos un enlace de afiliado real. Mientras sea false, el bloque no se muestra: es preferible no ensenar nada a ensenar un enlace roto o un placeholder.",
+  "titulo": "Lo siguiente que deberias hacer",
+  "entradilla": "Ya sabes cuanto apartar. El problema es acordarse cada trimestre.",
+  "descargo": "Algunos enlaces son de afiliacion: si contratas, esta web recibe una comision sin coste adicional para ti. La recomendacion se escribio antes de mirar que comision paga cada uno.",
+  "opciones": [
+    {
+      "nombre": "[Software de facturacion]",
+      "url": "https://ejemplo.com/?ref=REEMPLAZA",
+      "gancho": "Lleva las facturas y los modelos trimestrales solo.",
+      "para_quien": "Si facturas mas de 20.000 EUR y sigues con hojas de calculo.",
+      "afiliado": true
+    },
+    {
+      "nombre": "[Gestoria online]",
+      "url": "https://ejemplo.com/?ref=REEMPLAZA",
+      "gancho": "Alguien presenta tus impuestos por ti.",
+      "para_quien": "Si el IVA o el IRPF te han dado un susto alguna vez.",
+      "afiliado": true
+    },
+    {
+      "nombre": "Hacerlo tu mismo",
+      "url": "metodologia.html",
+      "gancho": "Todas las formulas estan publicadas.",
+      "para_quien": "Si te apanas y solo querias el numero.",
+      "afiliado": false
+    }
+  ]
+}

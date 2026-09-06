@@ -83,13 +83,42 @@ function pintar(r, tarifas) {
   }
 }
 
+/**
+ * Pinta la unica superficie comercial del sitio. Se muestra debajo del
+ * resultado, cuando el usuario ya ha visto su cifra y sabe que tiene un
+ * problema: es el momento en que una recomendacion es util y no publicidad.
+ */
+function pintarRecomendacion(config) {
+  if (!config?.activo || !config.opciones?.length) return;
+
+  const seccion = document.getElementById('recomendacion');
+  const tarjetas = config.opciones.map((o) => `
+    <a class="opcion" href="${o.url}"${o.afiliado ? ' rel="sponsored noopener" target="_blank"' : ''}>
+      <div class="nombre">${o.nombre}${o.afiliado ? '<span class="marca-afiliado">afiliado</span>' : ''}</div>
+      <div class="gancho">${o.gancho}</div>
+      <div class="para-quien">${o.para_quien}</div>
+    </a>`).join('');
+
+  seccion.innerHTML = `
+    <h2>${config.titulo}</h2>
+    <p>${config.entradilla}</p>
+    <div class="opciones">${tarjetas}</div>
+    <p class="descargo">${config.descargo}</p>`;
+  seccion.hidden = false;
+}
+
 async function arrancar() {
-  const respuesta = await fetch('data/tarifas-2026.json');
-  const tarifas = await respuesta.json();
+  // Las recomendaciones son opcionales: si el archivo falta o esta
+  // desactivado, la calculadora sigue funcionando igual.
+  const [tarifas, afiliados] = await Promise.all([
+    fetch('data/tarifas-2026.json').then((r) => r.json()),
+    fetch('data/afiliados.json').then((r) => r.json()).catch(() => null),
+  ]);
 
   const actualizar = () => pintar(calcular(leerFormulario(), tarifas), tarifas);
   formulario.addEventListener('input', actualizar);
   actualizar();
+  pintarRecomendacion(afiliados);
 }
 
 arrancar().catch((error) => {

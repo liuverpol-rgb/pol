@@ -21,6 +21,7 @@ web/
   js/calculadora.js     Motor de cálculo puro, sin DOM. Reutilizable.
   js/app.js             Interfaz
   data/tarifas-2026.json  TODA la fiscalidad vive aquí
+  data/afiliados.json     Bloque de recomendaciones. Desactivado hasta que pongas enlaces reales
 test/                   Suite con node:test, sin dependencias
 docs/VERIFICAR-TARIFAS.md  Qué contrastar antes de publicar
 ```
@@ -43,6 +44,9 @@ para ejecutar los tests.
 2. **Rellena el aviso legal** con los datos del titular en `web/aviso-legal.html`.
 3. **Cambia el dominio** en `web/robots.txt`, `web/sitemap.xml` y las etiquetas
    `canonical` y `og:` de los HTML.
+4. **Activa los ingresos.** Sustituye los enlaces de ejemplo de
+   `web/data/afiliados.json` por los tuyos reales y pon `"activo": true`. Mientras
+   esté en `false` el bloque no se pinta: nunca se muestra un enlace de relleno.
 
 ## Despliegue
 

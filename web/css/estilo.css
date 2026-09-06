@@ -192,3 +192,32 @@ article.texto code {
   border-radius: 4px;
   font-size: .88em;
 }
+
+/* Bloque de recomendaciones: la unica superficie comercial del sitio. */
+.opciones { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin-top: 18px; }
+.opcion {
+  display: block;
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: 18px;
+  text-decoration: none;
+  color: inherit;
+}
+.opcion:hover { border-color: var(--acento); }
+.opcion .nombre { font-weight: 650; margin-bottom: 4px; }
+.opcion .gancho { font-size: .92rem; margin-bottom: 8px; }
+.opcion .para-quien { font-size: .82rem; color: var(--suave); }
+.opcion .marca-afiliado {
+  display: inline-block;
+  font-size: .7rem;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--suave);
+  border: 1px solid var(--borde);
+  border-radius: 4px;
+  padding: 1px 5px;
+  margin-left: 6px;
+  vertical-align: 2px;
+}
+.descargo { font-size: .8rem; color: var(--suave); margin-top: 14px; }
