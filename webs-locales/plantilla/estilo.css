@@ -167,3 +167,35 @@ blockquote cite { font-size: .85rem; color: var(--suave); font-style: normal; }
   .barra-movil { display: none; }
   body { padding-bottom: 0; }
 }
+
+/* Barra de urgencias: lo primero que se ve, para el domingo con una fuga. */
+.notdienst {
+  background: var(--acento);
+  color: #fff;
+  padding: 11px 20px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  font-size: .93rem;
+}
+.notdienst-etiqueta {
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  font-size: .7rem;
+  font-weight: 700;
+  border: 1px solid rgba(255, 255, 255, .55);
+  border-radius: 4px;
+  padding: 2px 7px;
+}
+.notdienst-tel { color: #fff; font-weight: 700; text-decoration: none; white-space: nowrap; }
+
+/* Empleo: para un negocio artesanal, la seccion que mas dinero vale. */
+.bloque.destacado {
+  background: var(--tenue);
+  border-radius: var(--radio);
+  padding: 28px 22px;
+  margin: 40px 0;
+  border-bottom: 0;
+}

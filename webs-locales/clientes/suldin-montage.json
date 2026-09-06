@@ -1,0 +1,58 @@
+{
+  "_nota": "Datos verificados en fuentes publicas (web propia y directorios). Todo lo marcado [bestätigen] hay que confirmarlo con el dueno: NO inventar servicios ni precios de una empresa real.",
+  "demo": true,
+  "idioma": "de",
+  "propuesta_de": "[dein Name]",
+  "nombre": "Suldin Montage & Demontage Service",
+  "tipo": "Montage & Demontage",
+  "emoji": "🔧",
+  "ciudad": "Reinbek",
+  "claim": "Montage und Demontage im Kreis Stormarn und Hamburg. Termin per Anruf oder WhatsApp.",
+  "telefono": "+49 176 86244250",
+  "whatsapp": "4917686244250",
+  "email": "info@suldin-montage-service.de",
+  "direccion": "[Adresse bestätigen]",
+  "schema": "HomeAndConstructionBusiness",
+  "colores": { "acento": "#1f5f8b" },
+  "seo": {
+    "descripcion": "Suldin Montage & Demontage Service in Reinbek: Möbelmontage, Demontage und Umzugshilfe im Kreis Stormarn und Hamburg."
+  },
+  "horario": {
+    "montag": [["07:00", "18:00"]],
+    "dienstag": [["07:00", "18:00"]],
+    "mittwoch": [["07:00", "18:00"]],
+    "donnerstag": [["07:00", "18:00"]],
+    "freitag": [["07:00", "18:00"]],
+    "samstag": [["09:00", "14:00"]],
+    "sonntag": []
+  },
+  "secciones": [
+    {
+      "titulo": "Leistungen",
+      "entradilla": "Alle Angaben unverbindlich — bitte im Gespräch bestätigen und ergänzen.",
+      "items": [
+        { "nombre": "Möbelmontage", "descripcion": "[bestätigen] Aufbau von Möbeln und Einbauten" },
+        { "nombre": "Demontage", "descripcion": "[bestätigen] Fachgerechter Rückbau und Abtransport" },
+        { "nombre": "Küchenmontage", "descripcion": "[bestätigen]" },
+        { "nombre": "Umzugshilfe", "descripcion": "[bestätigen]" }
+      ]
+    },
+    {
+      "titulo": "So läuft es ab",
+      "items": [
+        { "nombre": "1. Anrufen oder WhatsApp", "descripcion": "Kurz beschreiben, worum es geht — Foto reicht" },
+        { "nombre": "2. Festpreis", "descripcion": "Sie bekommen den Preis vorher, nicht hinterher" },
+        { "nombre": "3. Termin", "descripcion": "[bestätigen] Meist innerhalb weniger Tage" }
+      ]
+    }
+  ],
+  "jobs": {
+    "titulo": "Wir suchen Verstärkung",
+    "texto": "[bestätigen — falls Bedarf besteht] Monteure und Helfer für Aufträge in Hamburg und Stormarn.",
+    "puestos": [
+      { "titulo": "Monteur (m/w/d)", "detalle": "Erfahrung von Vorteil, Führerschein B", "tipo": "Vollzeit" },
+      { "titulo": "Helfer (m/w/d)", "detalle": "Auch als Nebenjob möglich", "tipo": "Teilzeit" }
+    ]
+  },
+  "redes": {}
+}

@@ -31,6 +31,8 @@ const TEXTOS = {
     llamar: 'Llamar', comoLlegar: 'Cómo llegar', ir: 'Ir',
     horario: 'Horario', elSitio: 'El sitio', loQueDicen: 'Lo que dicen',
     donde: 'Dónde estamos', abrirMapa: 'Abrir en el mapa',
+    notdienst: 'Urgencias', jobs: 'Trabaja con nosotros', contacto: 'Contacto',
+    escribir: 'Escribir', pedirPresupuesto: 'Pedir presupuesto',
     propuestaTitulo: (n) => `Propuesta de página web para ${n}`,
     propuestaTexto: 'Ejemplo preparado para enseñar cómo quedaría. No es la web oficial del negocio y no está publicada.',
     propuestaAutor: (a) => `Preparada por ${a}.`,
@@ -42,6 +44,8 @@ const TEXTOS = {
     llamar: 'Anrufen', comoLlegar: 'Route', ir: 'Route',
     horario: 'Öffnungszeiten', elSitio: 'Eindrücke', loQueDicen: 'Das sagen Gäste',
     donde: 'So finden Sie uns', abrirMapa: 'In Google Maps öffnen',
+    notdienst: 'Notdienst', jobs: 'Wir stellen ein', contacto: 'Kontakt',
+    escribir: 'E-Mail', pedirPresupuesto: 'Angebot anfordern',
     propuestaTitulo: (n) => `Website-Vorschlag für ${n}`,
     propuestaTexto: 'Unverbindliches Muster, um zu zeigen, wie die Seite aussehen könnte. Dies ist nicht die offizielle Website des Betriebs und sie ist nicht veröffentlicht.',
     propuestaAutor: (a) => `Erstellt von ${a}.`,
@@ -128,8 +132,46 @@ function seccionResenas(resenas = [], t) {
   </section>`;
 }
 
+/**
+ * Barra de urgencias. En calefaccion o fontaneria es lo primero que busca
+ * quien entra en la web un domingo con una fuga.
+ */
+function barraNotdienst(notdienst, t) {
+  if (!notdienst) return '';
+  const tel = telEnlace(notdienst.telefono || '');
+  return `
+  <div class="notdienst">
+    <span class="notdienst-etiqueta">${t.notdienst}</span>
+    <span class="notdienst-texto">${esc(notdienst.texto || '')}</span>
+    ${tel ? `<a class="notdienst-tel" href="tel:${esc(tel)}">${esc(notdienst.telefono)}</a>` : ''}
+  </div>`;
+}
+
+/**
+ * Ofertas de empleo. Para un negocio artesanal aleman esta es la seccion
+ * que mas vale: casi todos tienen mas trabajo que gente para hacerlo, y
+ * ningun portal de empleo les funciona tan bien como su propia pagina.
+ */
+function seccionJobs(jobs, t) {
+  if (!jobs) return '';
+  const puestos = (jobs.puestos || []).map((p) => `
+      <li class="item">
+        <div class="item-texto">
+          <span class="item-nombre">${esc(p.titulo)}</span>
+          ${p.detalle ? `<span class="item-desc">${esc(p.detalle)}</span>` : ''}
+        </div>
+        ${p.tipo ? `<span class="item-precio">${esc(p.tipo)}</span>` : ''}
+      </li>`).join('');
+  return `
+  <section class="bloque destacado" id="jobs">
+    <h2>${esc(jobs.titulo || t.jobs)}</h2>
+    ${jobs.texto ? `<p class="entradilla">${esc(jobs.texto)}</p>` : ''}
+    ${puestos ? `<ul class="lista-items">${puestos}</ul>` : ''}
+  </section>`;
+}
+
 /** Datos estructurados: como Google entiende que esto es un negocio local. */
-function datosEstructurados(n) {
+function datosEstructurados(n, t) {
   const datos = {
     '@context': 'https://schema.org',
     '@type': n.schema || 'LocalBusiness',
@@ -140,7 +182,7 @@ function datosEstructurados(n) {
       '@type': 'PostalAddress',
       streetAddress: n.direccion,
       addressLocality: n.ciudad,
-      addressCountry: 'ES',
+      addressCountry: n.pais || (t.lang === 'de' ? 'DE' : 'ES'),
     },
   };
   // JSON.stringify no escapa "</script>", asi que un nombre con etiquetas
@@ -153,6 +195,11 @@ export function renderSitio(negocioEntrada) {
   const t = TEXTOS[negocioEntrada.idioma] || TEXTOS.es;
   const n = { ...negocioEntrada, horario: normalizarHorario(negocioEntrada.horario) };
   const tel = telEnlace(n.telefono);
+  // Muchas direcciones ya incluyen la ciudad ("Borsigstr. 17, 21465 Reinbek").
+  // Repetirla detras queda mal, asi que solo se anade si falta.
+  const ciudadAparte = n.ciudad && !(n.direccion || '').toLowerCase().includes(n.ciudad.toLowerCase())
+    ? n.ciudad
+    : '';
   const acento = n.colores?.acento || '#b03a2e';
   const titulo = `${n.nombre} · ${n.tipo}${n.ciudad ? ` en ${n.ciudad}` : ''}`;
 
@@ -177,10 +224,11 @@ ${n.demo ? '<meta name="robots" content="noindex, nofollow">' : ''}
 <link rel="stylesheet" href="estilo.css">
 <link rel="icon" href="data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><text y="26" font-size="26">${n.emoji || '📍'}</text></svg>`)}">
 <style>:root { --acento: ${esc(acento)}; }</style>
-${datosEstructurados(n)}
+${datosEstructurados(n, t)}
 </head>
 <body>
 ${avisoDemo}
+${barraNotdienst(n.notdienst, t)}
 
 <header class="portada">
   <div class="envoltorio">
@@ -192,6 +240,7 @@ ${avisoDemo}
       ${tel ? `<a class="boton primario" href="tel:${esc(tel)}">${t.llamar}</a>` : ''}
       ${n.whatsapp ? `<a class="boton" href="https://wa.me/${esc(n.whatsapp)}" target="_blank" rel="noopener">WhatsApp</a>` : ''}
       ${n.mapa ? `<a class="boton" href="${esc(n.mapa)}" target="_blank" rel="noopener">${t.comoLlegar}</a>` : ''}
+      ${n.email ? `<a class="boton" href="mailto:${esc(n.email)}">${t.escribir}</a>` : ''}
     </div>
   </div>
 </header>
@@ -201,10 +250,11 @@ ${avisoDemo}
   ${seccionHorario(n.horario, t)}
   ${seccionGaleria(n.galeria, t)}
   ${seccionResenas(n.resenas, t)}
+  ${seccionJobs(n.jobs, t)}
 
   <section class="bloque" id="donde">
     <h2>${t.donde}</h2>
-    <p class="direccion">${esc(n.direccion || '')}${n.ciudad ? `<br>${esc(n.ciudad)}` : ''}</p>
+    <p class="direccion">${esc(n.direccion || '')}${ciudadAparte ? `<br>${esc(ciudadAparte)}` : ''}</p>
     <div class="acciones">
       ${n.mapa ? `<a class="boton primario" href="${esc(n.mapa)}" target="_blank" rel="noopener">${t.abrirMapa}</a>` : ''}
       ${tel ? `<a class="boton" href="tel:${esc(tel)}">${esc(n.telefono)}</a>` : ''}
@@ -214,7 +264,7 @@ ${avisoDemo}
 
 <footer class="pie">
   <div class="envoltorio">
-    <p><strong>${esc(n.nombre)}</strong>${n.direccion ? ` · ${esc(n.direccion)}` : ''}${n.ciudad ? `, ${esc(n.ciudad)}` : ''}</p>
+    <p><strong>${esc(n.nombre)}</strong>${n.direccion ? ` · ${esc(n.direccion)}` : ''}${ciudadAparte ? `, ${esc(ciudadAparte)}` : ''}</p>
     ${n.redes?.instagram ? `<p><a href="${esc(n.redes.instagram)}" target="_blank" rel="noopener">Instagram</a></p>` : ''}
   </div>
 </footer>

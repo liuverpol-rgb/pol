@@ -1,0 +1,56 @@
+{
+  "_nota": "Datos verificados en registro mercantil y directorios. Los servicios concretos NO estan confirmados: hay que preguntarselos al Sr. Lukic. No inventar.",
+  "demo": true,
+  "idioma": "de",
+  "propuesta_de": "[dein Name]",
+  "nombre": "Lukic-System-Montage GmbH",
+  "tipo": "System- und Baumontage",
+  "emoji": "🏗️",
+  "ciudad": "Glinde",
+  "claim": "Systemmontage für Bauvorhaben in Hamburg und Umgebung.",
+  "telefono": "+49 40 32527683",
+  "email": "info@lukic-system-montage.de",
+  "direccion": "Am Alten Lokschuppen 13, 21509 Glinde",
+  "mapa": "https://www.google.com/maps/search/?api=1&query=Am+Alten+Lokschuppen+13+21509+Glinde",
+  "schema": "HomeAndConstructionBusiness",
+  "colores": { "acento": "#2c4a63" },
+  "seo": {
+    "descripcion": "Lukic-System-Montage GmbH in Glinde bei Hamburg: Systemmontage und Bauleistungen im Kreis Stormarn."
+  },
+  "horario": {
+    "montag": [["07:00", "16:30"]],
+    "dienstag": [["07:00", "16:30"]],
+    "mittwoch": [["07:00", "16:30"]],
+    "donnerstag": [["07:00", "16:30"]],
+    "freitag": [["07:00", "14:00"]],
+    "samstag": [],
+    "sonntag": []
+  },
+  "secciones": [
+    {
+      "titulo": "Leistungen",
+      "entradilla": "Platzhalter — im Gespräch mit Herrn Lukic bestätigen und ergänzen.",
+      "items": [
+        { "nombre": "Systemmontage", "descripcion": "[bestätigen]" },
+        { "nombre": "Trockenbau", "descripcion": "[bestätigen]" },
+        { "nombre": "Bauleistungen", "descripcion": "[bestätigen]" }
+      ]
+    },
+    {
+      "titulo": "Auftraggeber",
+      "entradilla": "Für Bauunternehmen, Generalunternehmer und Objektbetreuer im Großraum Hamburg.",
+      "items": [
+        { "nombre": "Angebot in 48 Stunden", "descripcion": "[bestätigen] Anfrage per E-Mail oder Telefon" },
+        { "nombre": "Eigene Monteure", "descripcion": "[bestätigen]" }
+      ]
+    }
+  ],
+  "jobs": {
+    "titulo": "Wir stellen ein",
+    "texto": "[bestätigen] Monteure für Baustellen im Großraum Hamburg.",
+    "puestos": [
+      { "titulo": "Monteur (m/w/d)", "detalle": "Baustellen in Hamburg und Umgebung", "tipo": "Vollzeit" }
+    ]
+  },
+  "redes": {}
+}

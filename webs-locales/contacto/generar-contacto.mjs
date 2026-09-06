@@ -54,11 +54,16 @@ Beste Zeit: Di–Do, 10:00–11:30 oder 14:30–16:30 Uhr. Nie zur Essenszeit.
 > Guten Tag, mein Name ist [DEIN NAME]. Ich baue Websites für Betriebe hier
 > in ${p.ort || '[ORT]'}.
 >
-> Ich habe gesehen, dass ${p.name} keine eigene Website hat — ich habe Ihnen
-> schon eine gebaut, damit Sie sehen, wie sie aussehen würde.
+> ${p.beobachtung ? `Ich habe gesehen: ${p.beobachtung}.` : `Ich habe gesehen, dass ${p.name} keine eigene Website hat.`}
+> Deshalb habe ich Ihnen schon eine gebaut, damit Sie sehen, wie sie
+> aussehen würde.
 >
 > **Darf ich Ihnen den Link kurz per E-Mail schicken? Anschauen dauert
 > 30 Sekunden.**
+
+Die erste Zeile ist der ganze Anruf. Sie beweist, dass du dir seinen Betrieb
+angesehen hast — und sie ist zugleich deine rechtliche Grundlage (siehe
+alemania/RECHT.md).
 
 Wenn ja → E-Mail-Adresse notieren, Datum und Uhrzeit hier eintragen:
 
@@ -68,9 +73,21 @@ Wenn ja → E-Mail-Adresse notieren, Datum und Uhrzeit hier eintragen:
 
 Wenn nein → freundlich bedanken, auflegen, Haken dran. Kein zweiter Anruf.
 
-Wenn "kein Interesse, wir haben Instagram":
-> Verstehe ich. Nur: wer bei Google nach *${p.typ || '[BRANCHE]'} in ${p.ort || '[ORT]'}*
-> sucht, findet Sie so nicht. Soll ich es Ihnen trotzdem kurz schicken?
+### Die drei Antworten, die wirklich kommen
+
+**"Wir haben genug Arbeit."** — Die häufigste Antwort im Handwerk. Nicht
+gegen sie argumentieren, sondern das Thema wechseln:
+> Das glaube ich Ihnen sofort. Mir geht es auch weniger um neue Kunden —
+> auf der Seite ist eine Stellenanzeige eingebaut. Suchen Sie gerade Leute?
+
+**"Das macht mein Neffe / haben wir schon vergeben."**
+> Alles klar, dann lasse ich Sie in Ruhe. Falls es doch nichts wird, melden
+> Sie sich einfach.
+Und auflegen. Nicht dagegen anreden.
+
+**"Schicken Sie mal was per Post."**
+> Mache ich gern. An welche Adresse am besten?
+Brief ist ohnehin erlaubt — das ist ein gutes Ergebnis, kein Nein.
 `;
 }
 

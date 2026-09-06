@@ -1,0 +1,61 @@
+{
+  "_nota": "OJO: esta empresa YA TIENE web (lochte-h-s-f.de). Compruébala en tu movil antes de llamar: si es moderna y responsive, no la llames. Esta demo solo sirve si su web actual esta anticuada o no se ve en movil. Datos de directorios publicos; los servicios concretos hay que confirmarlos.",
+  "demo": true,
+  "idioma": "de",
+  "propuesta_de": "[dein Name]",
+  "nombre": "O. & T. Lochte Heizung-Sanitär-Fliesen GmbH",
+  "tipo": "Heizung · Sanitär · Fliesen",
+  "emoji": "🔥",
+  "ciudad": "Reinbek",
+  "claim": "Heizung, Bad und Fliesen aus einer Hand — seit Jahren in Reinbek.",
+  "telefono": "+49 40 7273820",
+  "email": "olaf.lochte@lochte-h-s-f.de",
+  "direccion": "Borsigstraße 17 B, 21465 Reinbek",
+  "mapa": "https://www.google.com/maps/search/?api=1&query=Borsigstra%C3%9Fe+17B+21465+Reinbek",
+  "schema": "PlumbingBusiness",
+  "colores": { "acento": "#9c4221" },
+  "notdienst": {
+    "texto": "Heizung ausgefallen oder Wasserrohrbruch?",
+    "telefono": "+49 40 7273820"
+  },
+  "seo": {
+    "descripcion": "O. & T. Lochte in Reinbek: Heizungsbau, Gas- und Ölheizung, Sanitär und Fliesenarbeiten im Kreis Stormarn."
+  },
+  "horario": {
+    "montag": [["07:30", "16:30"]],
+    "dienstag": [["07:30", "16:30"]],
+    "mittwoch": [["07:30", "16:30"]],
+    "donnerstag": [["07:30", "16:30"]],
+    "freitag": [["07:30", "13:00"]],
+    "samstag": [],
+    "sonntag": []
+  },
+  "secciones": [
+    {
+      "titulo": "Leistungen",
+      "entradilla": "Öffnungszeiten und Leistungen bitte vor Veröffentlichung bestätigen lassen.",
+      "items": [
+        { "nombre": "Heizungsbau", "descripcion": "Gasheizung, Ölheizung, Wartung und Reparatur" },
+        { "nombre": "Sanitär", "descripcion": "Bad, Installation und Reparatur" },
+        { "nombre": "Fliesenarbeiten", "descripcion": "Bad und Wohnraum aus einer Hand" },
+        { "nombre": "Heizungswartung", "descripcion": "[bestätigen] Jährliche Wartung im Wartungsvertrag" }
+      ]
+    },
+    {
+      "titulo": "Warum aus einer Hand",
+      "items": [
+        { "nombre": "Ein Ansprechpartner", "descripcion": "Heizung, Sanitär und Fliesen ohne drei Firmen zu koordinieren" },
+        { "nombre": "Aus Reinbek", "descripcion": "Kurze Wege im Kreis Stormarn" }
+      ]
+    }
+  ],
+  "jobs": {
+    "titulo": "Wir suchen Verstärkung",
+    "texto": "[bestätigen] Anlagenmechaniker SHK und Auszubildende für den Standort Reinbek.",
+    "puestos": [
+      { "titulo": "Anlagenmechaniker SHK (m/w/d)", "detalle": "Heizung, Sanitär, Klima", "tipo": "Vollzeit" },
+      { "titulo": "Auszubildende (m/w/d)", "detalle": "Ausbildung zum Anlagenmechaniker SHK", "tipo": "Ausbildung" }
+    ]
+  },
+  "redes": {}
+}

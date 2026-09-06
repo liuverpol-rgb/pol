@@ -53,7 +53,11 @@ el resto se omite solo si no lo pones.
 | `horario` | Por día, lista de tramos: `[["09:00","14:00"],["17:00","20:00"]]`. Vacío = cerrado. Las claves valen en alemán (`montag`) o español (`lunes`) |
 | `secciones` | Carta o servicios, con `nombre`, `descripcion` y `precio` |
 | `galeria`, `resenas`, `redes` | Opcionales |
-| `schema` | `Restaurant`, `HairSalon`, `AutoRepair`… ayuda a Google |
+| `schema` | `Restaurant`, `HairSalon`, `PlumbingBusiness`… ayuda a Google |
+| `pais` | Código del país en los datos estructurados. Por defecto lo deduce del idioma |
+| `email` | Añade botón de correo en la portada |
+| `notdienst` | `{texto, telefono}` — barra roja de urgencias arriba del todo |
+| `jobs` | `{titulo, texto, puestos:[{titulo, detalle, tipo}]}` — ofertas de empleo. **En el Handwerk alemán es la sección que más vale** |
 
 ## Aviso importante
 
@@ -73,6 +77,7 @@ los tres textos ya personalizados: guion de llamada, correo y carta.
 
 ## Documentos
 
+- [`alemania/REINBEK.md`](alemania/REINBEK.md) — **los tres primeros prospectos, investigados y con sus webs hechas**
 - [`alemania/RECHT.md`](alemania/RECHT.md) — **qué es legal en Alemania.** Léelo antes de escribir a nadie
 - [`alemania/AKQUISE.md`](alemania/AKQUISE.md) — plan de 100 negocios y qué hace que el mensaje funcione
 - [`VENTAS.md`](VENTAS.md) — versión España: a quién visitar, qué decir, precios y objeciones

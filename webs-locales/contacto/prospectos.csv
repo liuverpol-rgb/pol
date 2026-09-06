@@ -1,3 +1,4 @@
 id;name;typ;ort;telefon;email;ansprechpartner;bewertungen;sterne;beobachtung;demo_url
-zur-linde;Gaststätte Zur Linde;Gasthaus;Musterstadt;+49 000 0000000;info@beispiel.de;Frau Meyer;184;4,6;bei Google stehen noch die alten Öffnungszeiten vom Sommer;https://beispiel.pages.dev
-salon-schmitt;Friseursalon Schmitt;Friseur;Musterstadt;+49 000 0000001;;Herr Schmitt;96;4,8;Sie sind der einzige Salon im Viertel mit Termin am Samstag;
+suldin-montage;Suldin Montage & Demontage Service;Montage & Demontage;Reinbek;+49 176 86244250;info@suldin-montage-service.de;;;;auf Ihrer Seite suldin-montage-service.de steht seit einer Weile nur "Bald verfügbar" — die Domain haben Sie schon, die Seite fehlt noch;
+lukic-system-montage;Lukic-System-Montage GmbH;System- und Baumontage;Glinde;+49 40 32527683;info@lukic-system-montage.de;Herr Lukic;;;Ihre Seite läuft noch über http statt https — Chrome zeigt Besuchern deshalb "Nicht sicher" an, und auf dem Handy ist sie schwer zu lesen;
+lochte-hsf;O. & T. Lochte Heizung-Sanitär-Fliesen GmbH;Heizung · Sanitär · Fliesen;Reinbek;+49 40 7273820;olaf.lochte@lochte-h-s-f.de;Herr Lochte;12;4,8;Sie haben 4,8 Sterne bei 12 Bewertungen — aber auf Ihrer Seite finde ich keine Stellenanzeige, dabei sucht gerade jeder SHK-Betrieb Monteure;

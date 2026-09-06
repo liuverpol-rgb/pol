@@ -101,3 +101,39 @@ test('un idioma desconocido no rompe: cae en espanol', () => {
   assert.ok(html.includes('<html lang="es">'));
   assert.ok(html.includes('Horario'));
 });
+
+test('la ciudad no se repite cuando ya viene en la direccion', () => {
+  const conCp = renderSitio({
+    ...negocio, ciudad: 'Reinbek', direccion: 'Borsigstraße 17 B, 21465 Reinbek',
+  });
+  assert.ok(!conCp.includes('21465 Reinbek<br>Reinbek'));
+  assert.ok(!conCp.includes('21465 Reinbek, Reinbek'));
+
+  // Pero si la direccion no la lleva, la ciudad si se muestra.
+  const sinCiudad = renderSitio({ ...negocio, ciudad: 'Glinde', direccion: 'Am Alten Lokschuppen 13' });
+  assert.ok(sinCiudad.includes('Am Alten Lokschuppen 13<br>Glinde'));
+});
+
+test('la barra de urgencias y el bloque de empleo solo salen si se configuran', () => {
+  const basico = renderSitio(negocio);
+  assert.ok(!basico.includes('class="notdienst"'));
+  assert.ok(!basico.includes('id="jobs"'));
+
+  const completo = renderSitio({
+    ...negocio,
+    idioma: 'de',
+    notdienst: { texto: 'Rohrbruch?', telefono: '+49 40 111' },
+    jobs: { puestos: [{ titulo: 'Monteur (m/w/d)', tipo: 'Vollzeit' }] },
+  });
+  assert.ok(completo.includes('Notdienst'));
+  assert.ok(completo.includes('href="tel:+4940111"'));
+  assert.ok(completo.includes('Wir stellen ein'), 'titulo por defecto en aleman');
+  assert.ok(completo.includes('Monteur (m/w/d)'));
+});
+
+test('el pais de los datos estructurados sigue al idioma', () => {
+  const leer = (html) => JSON.parse(html.match(/ld\+json">(.*?)<\/script>/s)[1]);
+  assert.equal(leer(renderSitio({ ...negocio, idioma: 'de' })).address.addressCountry, 'DE');
+  assert.equal(leer(renderSitio(negocio)).address.addressCountry, 'ES');
+  assert.equal(leer(renderSitio({ ...negocio, pais: 'AT' })).address.addressCountry, 'AT');
+});
