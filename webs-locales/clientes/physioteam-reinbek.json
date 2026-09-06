@@ -1,0 +1,104 @@
+{
+  "_nota": "Generada desde prospectos.csv. Todo lo marcado [bestätigen] hay que preguntarlo en la llamada: es un negocio real y no se le atribuye nada que no haya dicho.",
+  "demo": true,
+  "idioma": "de",
+  "propuesta_de": "[dein Name]",
+  "nombre": "Physioteam Reinbek UG",
+  "tipo": "Physiotherapie",
+  "emoji": "🤲",
+  "ciudad": "Reinbek",
+  "claim": "[bestätigen] — ein Satz, der den Betrieb beschreibt.",
+  "telefono": "+49 40 72810720",
+  "email": "",
+  "direccion": "Bergstraße 4, 21465 Reinbek",
+  "schema": "Physiotherapy",
+  "colores": {
+    "acento": "#1f6f6b"
+  },
+  "seo": {
+    "descripcion": "Physioteam Reinbek UG in Reinbek: Physiotherapie. [bestätigen]"
+  },
+  "horario": {
+    "montag": [
+      [
+        "08:00",
+        "18:00"
+      ]
+    ],
+    "dienstag": [
+      [
+        "08:00",
+        "18:00"
+      ]
+    ],
+    "mittwoch": [
+      [
+        "08:00",
+        "18:00"
+      ]
+    ],
+    "donnerstag": [
+      [
+        "08:00",
+        "18:00"
+      ]
+    ],
+    "freitag": [
+      [
+        "08:00",
+        "14:00"
+      ]
+    ],
+    "samstag": [],
+    "sonntag": []
+  },
+  "secciones": [
+    {
+      "titulo": "Behandlungen",
+      "entradilla": "Alle Angaben [bestätigen].",
+      "items": [
+        {
+          "nombre": "Krankengymnastik",
+          "descripcion": "Auf Rezept und privat"
+        },
+        {
+          "nombre": "Manuelle Therapie",
+          "descripcion": "[bestätigen]"
+        },
+        {
+          "nombre": "Manuelle Lymphdrainage",
+          "descripcion": "[bestätigen]"
+        },
+        {
+          "nombre": "Massage",
+          "descripcion": "[bestätigen]"
+        }
+      ]
+    },
+    {
+      "titulo": "Termin",
+      "items": [
+        {
+          "nombre": "Rezept vom Arzt",
+          "descripcion": "Einfach anrufen, wir buchen die Serie zusammen"
+        },
+        {
+          "nombre": "Wartezeit",
+          "descripcion": "[bestätigen] — aktuell freie Termine?"
+        }
+      ]
+    }
+  ],
+  "jobs": {
+    "titulo": "Wir suchen Verstärkung",
+    "texto": "[bestätigen] — nur aufnehmen, wenn wirklich Bedarf besteht.",
+    "puestos": [
+      {
+        "titulo": "Physiotherapeut/in (m/w/d)",
+        "tipo": "Voll- oder Teilzeit"
+      }
+    ]
+  },
+  "redes": {},
+  "mapa": "https://www.google.com/maps/search/?api=1&query=Bergstra%C3%9Fe%204%2C%2021465%20Reinbek"
+}

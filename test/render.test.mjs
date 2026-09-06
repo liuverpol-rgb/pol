@@ -137,3 +137,12 @@ test('el pais de los datos estructurados sigue al idioma', () => {
   assert.equal(leer(renderSitio(negocio)).address.addressCountry, 'ES');
   assert.equal(leer(renderSitio({ ...negocio, pais: 'AT' })).address.addressCountry, 'AT');
 });
+
+test('el titulo de la pestana no mezcla idiomas', () => {
+  const de = renderSitio({ ...negocio, idioma: 'de', ciudad: 'Reinbek' });
+  assert.ok(de.includes('<title>Bar de Prueba · Bar in Reinbek</title>'));
+  assert.ok(!de.includes(' en Reinbek'), 'nada de "en" espanol en una pagina alemana');
+
+  const es = renderSitio({ ...negocio, ciudad: 'Getafe' });
+  assert.ok(es.includes('<title>Bar de Prueba · Bar en Getafe</title>'));
+});

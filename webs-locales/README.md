@@ -14,10 +14,25 @@ Es lo único que decide si esto gana dinero. La web la genera el ordenador.
 
 ## Cómo se hace una web
 
+Desde un prospecto del CSV, que es lo normal:
+
+```bash
+node webs-locales/nueva-ficha.mjs salon-schoenmeier   # ficha con la base del gremio
+# rellenas los [bestätigen] con lo que te digan
+node webs-locales/generar.mjs clientes/salon-schoenmeier.json
+```
+
+O partiendo de un ejemplo:
+
 ```bash
 cp clientes/bar-la-parra.json clientes/mi-cliente.json   # cambia los datos
 node generar.mjs clientes/mi-cliente.json                # web lista
 ```
+
+`nueva-ficha.mjs` conoce seis gremios (`friseur`, `physio`, `kosmetik`,
+`fahrschule`, `gastro`, `handwerk`) y monta la estructura de servicios y el
+horario típico de cada uno, todo marcado `[bestätigen]` para que nadie publique
+un precio inventado de un negocio real.
 
 Sale una carpeta en `sitios/mi-cliente/` con la web terminada. Ábrela con doble clic
 o enséñala en el móvil. Para publicarla, arrastra esa carpeta a

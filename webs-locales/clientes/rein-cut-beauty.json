@@ -1,0 +1,94 @@
+{
+  "_nota": "Generada desde prospectos.csv. Todo lo marcado [bestätigen] hay que preguntarlo en la llamada: es un negocio real y no se le atribuye nada que no haya dicho.",
+  "demo": true,
+  "idioma": "de",
+  "propuesta_de": "[dein Name]",
+  "nombre": "Rein Cut & Beauty",
+  "tipo": "Friseur",
+  "emoji": "💇",
+  "ciudad": "Reinbek",
+  "claim": "[bestätigen] — ein Satz, der den Betrieb beschreibt.",
+  "telefono": "[Telefon prüfen]",
+  "email": "",
+  "direccion": "Bahnhofstraße 4, 21465 Reinbek",
+  "schema": "HairSalon",
+  "colores": {
+    "acento": "#8a4a6d"
+  },
+  "seo": {
+    "descripcion": "Rein Cut & Beauty in Reinbek: Friseur. [bestätigen]"
+  },
+  "horario": {
+    "montag": [],
+    "dienstag": [
+      [
+        "09:00",
+        "18:00"
+      ]
+    ],
+    "mittwoch": [
+      [
+        "09:00",
+        "18:00"
+      ]
+    ],
+    "donnerstag": [
+      [
+        "09:00",
+        "20:00"
+      ]
+    ],
+    "freitag": [
+      [
+        "09:00",
+        "18:00"
+      ]
+    ],
+    "samstag": [
+      [
+        "08:00",
+        "14:00"
+      ]
+    ],
+    "sonntag": []
+  },
+  "secciones": [
+    {
+      "titulo": "Leistungen & Preise",
+      "items": [
+        {
+          "nombre": "Waschen, Schneiden, Föhnen — Damen",
+          "precio": "[bestätigen] €"
+        },
+        {
+          "nombre": "Herrenhaarschnitt",
+          "precio": "[bestätigen] €"
+        },
+        {
+          "nombre": "Kinder bis 12 Jahre",
+          "precio": "[bestätigen] €"
+        },
+        {
+          "nombre": "Färben / Strähnen",
+          "precio": "ab [bestätigen] €"
+        }
+      ]
+    }
+  ],
+  "jobs": {
+    "titulo": "Wir suchen Verstärkung",
+    "texto": "[bestätigen] — nur aufnehmen, wenn wirklich Bedarf besteht.",
+    "puestos": [
+      {
+        "titulo": "Friseur/in (m/w/d)",
+        "tipo": "Voll- oder Teilzeit"
+      },
+      {
+        "titulo": "Auszubildende (m/w/d)",
+        "tipo": "Ausbildung"
+      }
+    ]
+  },
+  "redes": {},
+  "mapa": "https://www.google.com/maps/search/?api=1&query=Bahnhofstra%C3%9Fe%204%2C%2021465%20Reinbek"
+}

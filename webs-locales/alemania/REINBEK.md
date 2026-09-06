@@ -1,9 +1,82 @@
-# Reinbek — tus tres primeros prospectos
+# Reinbek — tus prospectos
 
-Investigados en fuentes públicas (directorios, registro mercantil, sus propias
-webs). **Las tres webs están hechas y en `sitios/`.** Aquí va el análisis honesto.
+Investigados en fuentes públicas (directorios, registro mercantil, portales del
+sector). **Las 13 webs están generadas en `sitios/`** y los guiones de llamada en
+`contacto/salida/`.
 
-## Ranking
+> ### ⚠️ Lee esto antes de llamar a nadie
+>
+> «No encontré web» **no es lo mismo que «no tiene web»**. No puedo abrir páginas
+> alemanas desde aquí (el proxy las bloquea), así que la columna `webseite` sale
+> de resultados de búsqueda, no de haberlas visitado.
+>
+> **Googlea el nombre de cada negocio antes de marcar.** Cuesta 20 segundos y es
+> lo que sostiene tu base legal para la llamada: si resulta que tiene una web
+> moderna, no le llames. Táchalo y sigue.
+
+## Los 10 nuevos, por orden de ataque
+
+| # | Negocio | Gremio | Teléfono | El gancho |
+| ---: | --- | --- | --- | --- |
+| 1 | **Zur Mühle** (Hannemanns Mühle) | Restaurante | 040 72810538 | Web en **Jimdo gratuito** — sin dominio propio |
+| 2 | **Salon Schönmeier** | Peluquería | 040 7103079 | Solo en portales de reservas, sin web propia |
+| 3 | **Physioteam Reinbek** (Frau Nohr) | Fisioterapia | 040 72810720 | Nombre de la dueña conocido, sin web |
+| 4 | **Studio Beauty Time** | Cosmética | 040 78876577 | Ofrece mucho, en los portales aparece una parte |
+| 5 | **Physiotherapiepraxis Reinbek** | Fisioterapia | 040 32086646 | Solo en guías, sin web |
+| 6 | **Physiotherapie Zietz und Weber** | Fisioterapia | 040 7227696 | Dos consultas en la misma plaza, ninguna con web |
+| 7 | **Cosmetic Christ** | Cosmética | 040 24433614 | Depende de un portal que le cobra comisión |
+| 8 | **Fahrschule am Bahnhof** | Autoescuela | 040 7226665 | Las otras autoescuelas de Reinbek sí tienen web |
+| 9 | **Rein Cut & Beauty** | Peluquería | *falta* | En plena Bahnhofstraße, sin horarios en Google |
+| 10 | **Wertz & Rehfeldt** | Fisioterapia | *falta* | Solo en el listín |
+
+Las direcciones reales están en sus fichas de `clientes/`. Los dos teléfonos que
+faltan los sacas de Google Maps en un minuto.
+
+### El número 1 merece explicación
+
+**Zur Mühle** sirve su web desde `hannemansmuehle.jimdofree.com`. Es una dirección
+gratuita de Jimdo: sin dominio propio, casi seguro anticuada y mal legible en
+móvil. Un restaurante con menú del día que no puede enseñar su carta en el móvil
+está perdiendo clientes cada mediodía. Ese argumento se defiende solo.
+
+### Por qué fisioterapia aparece cuatro veces
+
+En Reinbek hay al menos cinco consultas y ninguna destaca en Google. **El primero
+que tenga una web decente se lleva las búsquedas de todo el pueblo.** Y ese
+argumento —«su competencia de la misma plaza tampoco tiene, pero alguien la va a
+tener»— es de los pocos que mueven a un profesional sanitario.
+
+Además todas buscan personal. La sección de empleo vale aquí tanto como en el
+Handwerk.
+
+### Descartados a propósito
+
+Frisurenland, SchönWerk, Restaurant Dubrovnik, Berliner Prinz, Sparks, Fahrschule
+Fehrmann, FAB, Erfurt y Lucht **ya tienen web propia**. No los llames: ni hay
+argumento ni hay base legal.
+
+*Physiotherapie Paris* (`physiotherapie-paris.de`) aparece servida por **http sin
+cifrar**, igual que Lukic. Si al abrirla en el móvil lo confirmas, entra en la
+lista con el mismo gancho que él.
+
+## Cómo se preparan los 10 de golpe
+
+```bash
+node webs-locales/nueva-ficha.mjs --todos       # fichas desde el CSV
+# rellenas los [bestätigen] con lo que te digan
+node webs-locales/generar.mjs --todos           # las 13 webs
+node webs-locales/contacto/generar-contacto.mjs # llamada, correo y carta
+```
+
+`nueva-ficha.mjs` conoce seis gremios —peluquería, fisioterapia, cosmética,
+autoescuela, hostelería y oficios— y monta la estructura de servicios típica de
+cada uno. **Todo sale marcado `[bestätigen]`**: son negocios reales y no se les
+atribuye un precio, un horario ni un servicio que no hayan dicho. Eso se pregunta
+en la llamada. Enseñar una web con un precio inventado te hunde en el primer
+minuto.
+
+## Los tres del principio
+
 
 ### 🥇 1. Suldin Montage & Demontage Service — **empieza por este**
 
@@ -67,6 +140,7 @@ Pero su verdadero punto débil no es la web, sino el otro: **un taller SHK con 4
 estrellas no encuentra montadores ni aprendices.** Por eso su demo lleva la
 sección de empleo con *Anlagenmechaniker SHK* y *Auszubildende*. Ahí es donde le
 duele de verdad.
+
 
 ---
 

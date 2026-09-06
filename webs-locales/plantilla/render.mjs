@@ -31,6 +31,7 @@ const TEXTOS = {
     llamar: 'Llamar', comoLlegar: 'Cómo llegar', ir: 'Ir',
     horario: 'Horario', elSitio: 'El sitio', loQueDicen: 'Lo que dicen',
     donde: 'Dónde estamos', abrirMapa: 'Abrir en el mapa',
+    en: 'en',
     notdienst: 'Urgencias', jobs: 'Trabaja con nosotros', contacto: 'Contacto',
     escribir: 'Escribir', pedirPresupuesto: 'Pedir presupuesto',
     propuestaTitulo: (n) => `Propuesta de página web para ${n}`,
@@ -44,6 +45,7 @@ const TEXTOS = {
     llamar: 'Anrufen', comoLlegar: 'Route', ir: 'Route',
     horario: 'Öffnungszeiten', elSitio: 'Eindrücke', loQueDicen: 'Das sagen Gäste',
     donde: 'So finden Sie uns', abrirMapa: 'In Google Maps öffnen',
+    en: 'in',
     notdienst: 'Notdienst', jobs: 'Wir stellen ein', contacto: 'Kontakt',
     escribir: 'E-Mail', pedirPresupuesto: 'Angebot anfordern',
     propuestaTitulo: (n) => `Website-Vorschlag für ${n}`,
@@ -201,7 +203,7 @@ export function renderSitio(negocioEntrada) {
     ? n.ciudad
     : '';
   const acento = n.colores?.acento || '#b03a2e';
-  const titulo = `${n.nombre} · ${n.tipo}${n.ciudad ? ` en ${n.ciudad}` : ''}`;
+  const titulo = `${n.nombre} · ${n.tipo}${n.ciudad ? ` ${t.en} ${n.ciudad}` : ''}`;
 
   const avisoDemo = n.demo ? `
   <div class="aviso-demo">

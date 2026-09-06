@@ -1,0 +1,119 @@
+{
+  "_nota": "Generada desde prospectos.csv. Todo lo marcado [bestätigen] hay que preguntarlo en la llamada: es un negocio real y no se le atribuye nada que no haya dicho.",
+  "demo": true,
+  "idioma": "de",
+  "propuesta_de": "[dein Name]",
+  "nombre": "Zur Mühle Reinbek — Hannemanns Mühle",
+  "tipo": "Restaurant",
+  "emoji": "🍽️",
+  "ciudad": "Reinbek",
+  "claim": "[bestätigen] — ein Satz, der den Betrieb beschreibt.",
+  "telefono": "+49 40 72810538",
+  "email": "",
+  "direccion": "Mühlenweg 1, 21465 Reinbek",
+  "schema": "Restaurant",
+  "colores": {
+    "acento": "#a8552c"
+  },
+  "seo": {
+    "descripcion": "Zur Mühle Reinbek — Hannemanns Mühle in Reinbek: Restaurant. [bestätigen]"
+  },
+  "horario": {
+    "montag": [],
+    "dienstag": [
+      [
+        "11:30",
+        "14:30"
+      ],
+      [
+        "17:00",
+        "22:00"
+      ]
+    ],
+    "mittwoch": [
+      [
+        "11:30",
+        "14:30"
+      ],
+      [
+        "17:00",
+        "22:00"
+      ]
+    ],
+    "donnerstag": [
+      [
+        "11:30",
+        "14:30"
+      ],
+      [
+        "17:00",
+        "22:00"
+      ]
+    ],
+    "freitag": [
+      [
+        "11:30",
+        "14:30"
+      ],
+      [
+        "17:00",
+        "23:00"
+      ]
+    ],
+    "samstag": [
+      [
+        "12:00",
+        "23:00"
+      ]
+    ],
+    "sonntag": [
+      [
+        "11:30",
+        "20:00"
+      ]
+    ]
+  },
+  "secciones": [
+    {
+      "titulo": "Mittagstisch",
+      "entradilla": "Zeiten und Preise [bestätigen].",
+      "items": [
+        {
+          "nombre": "Tagesgericht",
+          "descripcion": "Wechselnd",
+          "precio": "[bestätigen] €"
+        },
+        {
+          "nombre": "Wochenkarte",
+          "descripcion": "[bestätigen]",
+          "precio": "[bestätigen] €"
+        }
+      ]
+    },
+    {
+      "titulo": "Feiern & Gruppen",
+      "items": [
+        {
+          "nombre": "Familienfeiern",
+          "descripcion": "[bestätigen] — bis wie viele Personen?"
+        }
+      ]
+    }
+  ],
+  "jobs": {
+    "titulo": "Wir suchen Verstärkung",
+    "texto": "[bestätigen] — nur aufnehmen, wenn wirklich Bedarf besteht.",
+    "puestos": [
+      {
+        "titulo": "Servicekraft (m/w/d)",
+        "tipo": "Voll- oder Teilzeit"
+      },
+      {
+        "titulo": "Küchenhilfe (m/w/d)",
+        "tipo": "Teilzeit"
+      }
+    ]
+  },
+  "redes": {},
+  "mapa": "https://www.google.com/maps/search/?api=1&query=M%C3%BChlenweg%201%2C%2021465%20Reinbek"
+}

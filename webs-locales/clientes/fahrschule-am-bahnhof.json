@@ -1,0 +1,84 @@
+{
+  "_nota": "Generada desde prospectos.csv. Todo lo marcado [bestätigen] hay que preguntarlo en la llamada: es un negocio real y no se le atribuye nada que no haya dicho.",
+  "demo": true,
+  "idioma": "de",
+  "propuesta_de": "[dein Name]",
+  "nombre": "Fahrschule am Bahnhof",
+  "tipo": "Fahrschule",
+  "emoji": "🚗",
+  "ciudad": "Reinbek",
+  "claim": "[bestätigen] — ein Satz, der den Betrieb beschreibt.",
+  "telefono": "+49 40 7226665",
+  "email": "",
+  "direccion": "Sophienstraße 2, 21465 Reinbek",
+  "schema": "DrivingSchool",
+  "colores": {
+    "acento": "#1f5f8b"
+  },
+  "seo": {
+    "descripcion": "Fahrschule am Bahnhof in Reinbek: Fahrschule. [bestätigen]"
+  },
+  "horario": {
+    "montag": [
+      [
+        "16:00",
+        "19:00"
+      ]
+    ],
+    "dienstag": [
+      [
+        "16:00",
+        "19:00"
+      ]
+    ],
+    "mittwoch": [],
+    "donnerstag": [
+      [
+        "16:00",
+        "19:00"
+      ]
+    ],
+    "freitag": [
+      [
+        "16:00",
+        "19:00"
+      ]
+    ],
+    "samstag": [],
+    "sonntag": []
+  },
+  "secciones": [
+    {
+      "titulo": "Führerscheinklassen",
+      "items": [
+        {
+          "nombre": "Klasse B — Auto",
+          "precio": "Grundbetrag [bestätigen] €"
+        },
+        {
+          "nombre": "Klasse AM / A1 / A",
+          "precio": "[bestätigen]"
+        },
+        {
+          "nombre": "Intensivkurs / Ferienkurs",
+          "descripcion": "[bestätigen]"
+        }
+      ]
+    },
+    {
+      "titulo": "Theorieunterricht",
+      "items": [
+        {
+          "nombre": "Termine",
+          "descripcion": "[bestätigen] — welche Tage und Uhrzeiten?"
+        },
+        {
+          "nombre": "Anmeldung",
+          "descripcion": "Einfach vorbeikommen oder anrufen"
+        }
+      ]
+    }
+  ],
+  "redes": {},
+  "mapa": "https://www.google.com/maps/search/?api=1&query=Sophienstra%C3%9Fe%202%2C%2021465%20Reinbek"
+}

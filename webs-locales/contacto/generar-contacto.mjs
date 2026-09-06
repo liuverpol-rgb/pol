@@ -158,11 +158,20 @@ mkdirSync(join(RAIZ, 'salida'), { recursive: true });
 
 for (const p of prospectos) {
   if (!p.id || !p.name) continue;
+  // Si ya tiene web, hay que comprobarla antes de llamar: de eso depende
+  // el argumento comercial y, sobre todo, la base legal de la llamada.
+  const avisoWeb = p.webseite && p.webseite !== 'keine gefunden'
+    ? `\n> ⚠️ **Vorhandene Seite: ${p.webseite}** — vor dem Anruf auf dem Handy öffnen.
+> Ist sie modern und gut lesbar: nicht anrufen, durchstreichen. Nur wenn sie
+> veraltet, unsicher oder am Handy unbrauchbar ist, hast du ein Argument —
+> und die rechtliche Grundlage.\n`
+    : '';
+
   const texto = `# ${p.name}${p.ort ? ` · ${p.ort}` : ''}
 
 ${p.typ ? `Branche: ${p.typ}  ` : ''}${p.telefon ? `Telefon: ${p.telefon}  ` : ''}
 ${p.bewertungen ? `Google: ${p.bewertungen} Bewertungen, ${p.sterne || '?'} Sterne` : ''}
-
+${avisoWeb}
 Reihenfolge: **Anruf → Einwilligung → E-Mail.** Der Brief geht auch ohne Anruf.
 
 ---
