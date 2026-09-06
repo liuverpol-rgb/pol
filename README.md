@@ -1,3 +1,17 @@
+# Dos negocios con poco capital
+
+Este repositorio contiene dos negocios construidos, no dos ideas:
+
+| | Qué es | Tu parte | Dinero |
+| --- | --- | --- | --- |
+| **[`webs-locales/`](webs-locales/README.md)** | Vender webs a bares y peluquerías por 300 € | Hablar con dueños de negocio | Días. **Empieza por aquí.** |
+| **`web/`** (abajo) | Calculadora fiscal con ingresos por afiliación | Escribir contenido | 3-6 meses, incierto |
+
+Si solo vas a hacer una cosa, lee **[`webs-locales/VENTAS.md`](webs-locales/VENTAS.md)**.
+El plan de la calculadora está en [`NEGOCIO.md`](NEGOCIO.md).
+
+---
+
 # Cuánto me queda
 
 Calculadora de impuestos para autónomos en España: cuota del RETA, IRPF e IVA en un
@@ -29,7 +43,7 @@ docs/VERIFICAR-TARIFAS.md  Qué contrastar antes de publicar
 ## Desarrollo
 
 ```bash
-npm test        # 13 pruebas del motor de cálculo
+npm test        # 20 pruebas: motor de cálculo y generador de webs
 npm run dev     # sirve web/ en http://localhost:8080
 ```
 

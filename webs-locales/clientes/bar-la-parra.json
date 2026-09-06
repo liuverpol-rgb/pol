@@ -1,0 +1,124 @@
+{
+  "demo": true,
+  "propuesta_de": "[tu nombre]",
+  "nombre": "Bar La Parra",
+  "tipo": "Bar y cocina casera",
+  "emoji": "🍺",
+  "ciudad": "Getafe",
+  "claim": "Menú del día, tapas y la terraza más tranquila del barrio. Desde 1998.",
+  "telefono": "+34 600 00 00 00",
+  "whatsapp": "34600000000",
+  "direccion": "Calle de Ejemplo, 12",
+  "mapa": "https://www.google.com/maps/search/?api=1&query=Calle+de+Ejemplo+12+Getafe",
+  "schema": "Restaurant",
+  "colores": {
+    "acento": "#a8442c"
+  },
+  "seo": {
+    "descripcion": "Bar La Parra en Getafe: menú del día por 13 €, tapas caseras y terraza. Abierto de martes a domingo."
+  },
+  "horario": {
+    "lunes": [],
+    "martes": [
+      [
+        "07:30",
+        "16:30"
+      ]
+    ],
+    "miercoles": [
+      [
+        "07:30",
+        "16:30"
+      ]
+    ],
+    "jueves": [
+      [
+        "07:30",
+        "16:30"
+      ],
+      [
+        "19:30",
+        "23:30"
+      ]
+    ],
+    "viernes": [
+      [
+        "07:30",
+        "16:30"
+      ],
+      [
+        "19:30",
+        "00:30"
+      ]
+    ],
+    "sabado": [
+      [
+        "09:00",
+        "00:30"
+      ]
+    ],
+    "domingo": [
+      [
+        "09:00",
+        "17:00"
+      ]
+    ]
+  },
+  "secciones": [
+    {
+      "titulo": "Menú del día",
+      "entradilla": "De martes a viernes, de 13:00 a 16:00. Incluye primero, segundo, pan, bebida y postre.",
+      "items": [
+        {
+          "nombre": "Menú completo",
+          "descripcion": "Dos platos a elegir entre seis",
+          "precio": "13 €"
+        },
+        {
+          "nombre": "Menú corto",
+          "descripcion": "Plato único con postre o café",
+          "precio": "9,50 €"
+        },
+        {
+          "nombre": "Menú fin de semana",
+          "descripcion": "Sábados y domingos al mediodía",
+          "precio": "17 €"
+        }
+      ]
+    },
+    {
+      "titulo": "La barra",
+      "items": [
+        {
+          "nombre": "Tortilla de patata",
+          "descripcion": "Hecha cada mañana, jugosa",
+          "precio": "3,20 €"
+        },
+        {
+          "nombre": "Croquetas de jamón",
+          "descripcion": "Ración de seis",
+          "precio": "7 €"
+        },
+        {
+          "nombre": "Bocadillo de calamares",
+          "precio": "5,50 €"
+        },
+        {
+          "nombre": "Caña",
+          "precio": "1,80 €"
+        }
+      ]
+    }
+  ],
+  "resenas": [
+    {
+      "texto": "El menú del día mejor de la zona y sin prisas. La tortilla es de las de antes.",
+      "autor": "Reseña de Google"
+    },
+    {
+      "texto": "Llevo veinte años desayunando aquí. Eso lo dice todo.",
+      "autor": "Cliente del barrio"
+    }
+  ],
+  "redes": {}
+}
