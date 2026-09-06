@@ -1,0 +1,12 @@
+{
+  "name": "cuanto-me-queda",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Calculadora de impuestos para autonomos en Espana. Sitio estatico sin dependencias.",
+  "type": "module",
+  "scripts": {
+    "test": "node --test test/*.test.mjs",
+    "dev": "node --version && python3 -m http.server 8080 --directory web"
+  },
+  "license": "MIT"
+}

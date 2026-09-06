@@ -1,0 +1,59 @@
+{
+  "ejercicio": 2026,
+  "estado": "pendiente_verificacion",
+  "nota_estado": "Las cifras se han cargado a partir de fuentes secundarias. ANTES DE PUBLICAR, verifícalas contra la tabla oficial de la Seguridad Social y el BOE. Ver docs/VERIFICAR-TARIFAS.md. Cuando estén verificadas, cambia 'estado' a 'verificado' y el aviso desaparece de la web.",
+  "fuentes": [
+    "https://www.seg-social.es/wps/portal/wss/internet/Trabajadores/CotizacionRecaudacionTrabajadores/36537",
+    "https://www.agenciatributaria.es"
+  ],
+  "reta": {
+    "tipo_cotizacion": 0.315,
+    "mei": 0.009,
+    "nota": "El tipo del 31,5% ya incluye el MEI de 2026 (0,9%). La cuota mensual de cada tramo es el resultado de aplicar ese tipo a la base minima del tramo.",
+    "tarifa_plana": {
+      "cuota_mensual": 80,
+      "meses": 12,
+      "nota": "Cuota reducida para nuevas altas. Prorrogable 12 meses mas si los rendimientos netos siguen por debajo del SMI."
+    },
+    "tramos": [
+      { "tramo": 1,  "tabla": "reducida", "desde": 0,       "hasta": 670,     "cuota_mensual": 200 },
+      { "tramo": 2,  "tabla": "reducida", "desde": 670,     "hasta": 900,     "cuota_mensual": 220 },
+      { "tramo": 3,  "tabla": "reducida", "desde": 900,     "hasta": 1166.70, "cuota_mensual": 260 },
+      { "tramo": 4,  "tabla": "reducida", "desde": 1166.70, "hasta": 1300,    "cuota_mensual": 291 },
+      { "tramo": 5,  "tabla": "reducida", "desde": 1300,    "hasta": 1500,    "cuota_mensual": 294 },
+      { "tramo": 6,  "tabla": "reducida", "desde": 1500,    "hasta": 1700,    "cuota_mensual": 294 },
+      { "tramo": 7,  "tabla": "general",  "desde": 1700,    "hasta": 1850,    "cuota_mensual": 350 },
+      { "tramo": 8,  "tabla": "general",  "desde": 1850,    "hasta": 2030,    "cuota_mensual": 370 },
+      { "tramo": 9,  "tabla": "general",  "desde": 2030,    "hasta": 2330,    "cuota_mensual": 390 },
+      { "tramo": 10, "tabla": "general",  "desde": 2330,    "hasta": 2760,    "cuota_mensual": 415 },
+      { "tramo": 11, "tabla": "general",  "desde": 2760,    "hasta": 3190,    "cuota_mensual": 465 },
+      { "tramo": 12, "tabla": "general",  "desde": 3190,    "hasta": 3620,    "cuota_mensual": 490 },
+      { "tramo": 13, "tabla": "general",  "desde": 3620,    "hasta": 4050,    "cuota_mensual": 525 },
+      { "tramo": 14, "tabla": "general",  "desde": 4050,    "hasta": 6000,    "cuota_mensual": 545 },
+      { "tramo": 15, "tabla": "general",  "desde": 6000,    "hasta": null,    "cuota_mensual": 590 }
+    ]
+  },
+  "irpf": {
+    "nota": "Escala agregada (estatal + autonomica de referencia). La parte autonomica varia por comunidad; esto es una estimacion, no una liquidacion.",
+    "minimo_personal": 5550,
+    "gastos_dificil_justificacion": { "porcentaje": 0.07, "limite_anual": 2000 },
+    "deduccion_generica_rendimientos": {
+      "porcentaje_persona_fisica": 0.07,
+      "porcentaje_societario": 0.03,
+      "nota": "Se aplica sobre el rendimiento neto para determinar el tramo de cotizacion del RETA."
+    },
+    "escala": [
+      { "desde": 0,      "hasta": 12450,  "tipo": 0.19 },
+      { "desde": 12450,  "hasta": 20200,  "tipo": 0.24 },
+      { "desde": 20200,  "hasta": 35200,  "tipo": 0.30 },
+      { "desde": 35200,  "hasta": 60000,  "tipo": 0.37 },
+      { "desde": 60000,  "hasta": 300000, "tipo": 0.45 },
+      { "desde": 300000, "hasta": null,   "tipo": 0.47 }
+    ],
+    "retenciones_disponibles": [0, 0.07, 0.15]
+  },
+  "iva": {
+    "tipos_disponibles": [0.21, 0.10, 0.04, 0],
+    "nota": "El tipo 0 representa operaciones exentas o no sujetas (formacion, sanidad, intracomunitario con ROI...)."
+  }
+}

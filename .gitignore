@@ -1,0 +1,5 @@
+node_modules/
+package-lock.json
+captura.png
+_shot.mjs
+.DS_Store

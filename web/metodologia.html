@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Metodología del cálculo — Cuánto me queda</title>
+<meta name="description" content="Cómo calculamos la cuota de autónomos, el IRPF y el IVA: fórmulas, orden de aplicación y límites de la estimación.">
+<link rel="stylesheet" href="css/estilo.css">
+</head>
+<body>
+<div class="envoltorio">
+  <header class="principal">
+    <a class="marca" href="/">Cuánto me<span>queda</span></a>
+    <h1>Cómo se calcula</h1>
+    <p class="entradilla">Sin caja negra. Este es el orden exacto de operaciones y dónde están sus límites.</p>
+  </header>
+
+  <article class="texto">
+    <h2>1. Rendimiento neto previo</h2>
+    <p><code>facturación − gastos deducibles</code>, ambos sin IVA y sin incluir todavía tu cuota de autónomos.</p>
+
+    <h2>2. Tramo de cotización</h2>
+    <p>
+      La Seguridad Social aplica al rendimiento neto una deducción genérica del 7 %
+      (3 % si eres autónomo societario), lo divide entre 12 y busca el tramo mensual
+      correspondiente entre los 15 de la tabla. Ese tramo fija tu cuota. Si estás en
+      tarifa plana, la cuota reducida sustituye a la del tramo pero el tramo se
+      sigue mostrando para que veas lo que pagarás al terminar la bonificación.
+    </p>
+
+    <h2>3. IRPF</h2>
+    <p>
+      La cuota de autónomos es gasto deducible, así que se resta antes de calcular el
+      impuesto. Sobre el resultado se aplica el 7 % de gastos de difícil justificación,
+      con el límite legal anual. A esa base se le aplica la escala progresiva: cada
+      tramo tributa solo por la parte que cae dentro de él. El mínimo personal no se
+      resta de la base — se calcula su cuota con la misma escala y se descuenta del
+      impuesto, que es como funciona de verdad.
+    </p>
+    <p>
+      Lo que tus clientes ya te han retenido en factura no es un impuesto extra: es un
+      anticipo. Por eso se descuenta al final para saber si la renta te sale a pagar o
+      a devolver, sin alterar el impuesto debido.
+    </p>
+
+    <h2>4. IVA</h2>
+    <p>
+      IVA repercutido menos IVA soportado en los gastos deducibles. No entra en ningún
+      momento en el cálculo del neto: el IVA que cobras nunca ha sido tuyo.
+    </p>
+
+    <h2>5. Qué apartar de cada factura</h2>
+    <p>
+      El porcentaje que ves arriba es <code>(cuota + IRPF − retenciones + IVA) ÷ facturación</code>.
+      Es la fracción de cada cobro que deberías mover a otra cuenta el mismo día que entra.
+    </p>
+
+    <h2>Límites que debes conocer</h2>
+    <ul>
+      <li>Asume <strong>estimación directa simplificada</strong>. No cubre módulos, recargo de equivalencia ni sociedades.</li>
+      <li>La escala de IRPF es agregada estatal + autonómica de referencia. Tu comunidad puede variarla algunos puntos.</li>
+      <li>Solo aplica el mínimo personal general: no incluye hijos, discapacidad, planes de pensiones ni deducciones autonómicas.</li>
+      <li>Supone que cotizas por la base mínima de tu tramo y todo el año en alta.</li>
+      <li>Es una estimación orientativa. Para liquidar, tu asesor.</li>
+    </ul>
+
+    <div class="acciones">
+      <a class="boton" href="/">Volver a la calculadora</a>
+    </div>
+  </article>
+
+  <footer class="principal">
+    <nav><a href="/">Calculadora</a><a href="aviso-legal.html">Aviso legal y privacidad</a></nav>
+  </footer>
+</div>
+</body>
+</html>

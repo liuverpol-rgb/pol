@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cuánto me queda — calculadora de impuestos para autónomos 2026</title>
+<meta name="description" content="Calcula gratis y sin registro cuánto pagas de cuota de autónomos, IRPF e IVA en 2026, y qué porcentaje debes apartar de cada factura.">
+<link rel="canonical" href="https://cuantomequeda.es/">
+<meta property="og:title" content="Cuánto me queda — calculadora para autónomos 2026">
+<meta property="og:description" content="Facturas 40.000 €. ¿Cuánto es tuyo de verdad? Cuota, IRPF, IVA y el porcentaje que deberías apartar de cada factura.">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="css/estilo.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>🧮</text></svg>">
+</head>
+<body>
+
+<div class="envoltorio">
+  <header class="principal">
+    <a class="marca" href="/">Cuánto me<span>queda</span></a>
+    <h1>Facturas 40.000 €. ¿Cuánto es tuyo de verdad?</h1>
+    <p class="entradilla">
+      Cuota de autónomos, IRPF e IVA de 2026 en un solo cálculo. Sin registro, sin
+      correo, sin guardar nada: todo se calcula en tu navegador.
+    </p>
+  </header>
+
+  <div id="aviso-datos" class="aviso" hidden>
+    <strong>Datos pendientes de verificación oficial</strong>
+    La tabla de tramos cargada aún no se ha contrastado con el BOE y la Seguridad Social.
+    Úsala como orientación, no como liquidación.
+  </div>
+
+  <main>
+    <div class="panel">
+      <form class="tarjeta" id="formulario" autocomplete="off">
+        <h2>Tus números del año</h2>
+
+        <div class="campo">
+          <label for="ingresos">Facturación anual sin IVA (€)</label>
+          <input type="number" id="ingresos" name="ingresos" min="0" step="100" value="40000" inputmode="decimal">
+        </div>
+
+        <div class="campo">
+          <label for="gastos">Gastos deducibles al año sin IVA (€)
+            <span class="pista">Material, software, alquiler, suministros… sin incluir tu cuota de autónomos.</span>
+          </label>
+          <input type="number" id="gastos" name="gastos" min="0" step="100" value="6000" inputmode="decimal">
+        </div>
+
+        <div class="campo">
+          <label for="gastosConIva">De esos gastos, con IVA deducible (€)</label>
+          <input type="number" id="gastosConIva" name="gastosConIva" min="0" step="100" value="6000" inputmode="decimal">
+        </div>
+
+        <div class="dos">
+          <div class="campo">
+            <label for="tipoIva">IVA que repercutes</label>
+            <select id="tipoIva" name="tipoIva">
+              <option value="0.21" selected>21 % general</option>
+              <option value="0.10">10 % reducido</option>
+              <option value="0.04">4 % superreducido</option>
+              <option value="0">Exento / no sujeto</option>
+            </select>
+          </div>
+          <div class="campo">
+            <label for="tipoRetencion">Retención en tus facturas</label>
+            <select id="tipoRetencion" name="tipoRetencion">
+              <option value="0.15" selected>15 %</option>
+              <option value="0.07">7 % (nuevo autónomo)</option>
+              <option value="0">Sin retención</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="campo">
+          <label for="porcentajeAEmpresas">Facturación a empresas y profesionales (%)
+            <span class="pista">Solo esas facturas llevan retención. A particulares, 0 %.</span>
+          </label>
+          <input type="number" id="porcentajeAEmpresas" name="porcentajeAEmpresas" min="0" max="100" step="5" value="100" inputmode="decimal">
+        </div>
+
+        <label class="casilla">
+          <input type="checkbox" id="tarifaPlana" name="tarifaPlana">
+          <span>Estoy en tarifa plana de nueva alta</span>
+        </label>
+        <label class="casilla">
+          <input type="checkbox" id="societario" name="societario">
+          <span>Soy autónomo societario</span>
+        </label>
+      </form>
+
+      <div class="tarjeta" id="resultado" aria-live="polite">
+        <h2>Lo que te queda</h2>
+        <div class="titular">
+          <div class="etiqueta">Neto real al mes, después de impuestos</div>
+          <div class="cifra" id="netoMensual">—</div>
+          <div class="pie" id="tipoEfectivo"></div>
+        </div>
+
+        <div class="titular" style="background:transparent;border-style:dashed">
+          <div class="etiqueta">Aparta de cada factura que cobres</div>
+          <div class="cifra" id="porcentajeApartar">—</div>
+          <div class="pie">Cubre IVA, IRPF pendiente y cuota. Guárdalo en otra cuenta el día que cobras.</div>
+        </div>
+
+        <table class="desglose">
+          <tbody id="desglose"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <section class="bloque">
+      <h2>Por qué la mayoría de autónomos se equivoca</h2>
+      <p>
+        El error más caro no es calcular mal el IRPF: es tratar el IVA como ingreso.
+        Cobras una factura de 4.840 €, ves el saldo del banco y das por bueno el mes.
+        Pero 840 € nunca fueron tuyos, y en abril hay que ingresarlos. Esta calculadora
+        separa las tres capas — IVA, IRPF y cuota — y te dice un solo número:
+        qué porcentaje apartar el día que cobras.
+      </p>
+      <div class="acciones">
+        <a class="boton secundario" href="metodologia.html">Cómo se calcula, paso a paso</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="principal">
+    <nav>
+      <a href="metodologia.html">Metodología</a>
+      <a href="aviso-legal.html">Aviso legal y privacidad</a>
+    </nav>
+    <p>
+      Estimación orientativa basada en estimación directa simplificada. No es
+      asesoramiento fiscal ni sustituye a un asesor. No usamos cookies ni
+      guardamos tus datos: el cálculo ocurre entero en tu navegador.
+    </p>
+  </footer>
+</div>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
