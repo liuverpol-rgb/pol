@@ -39,7 +39,9 @@ o enséñala en el móvil. Para publicarla, arrastra esa carpeta a
 [Cloudflare Pages](https://pages.cloudflare.com) o [Netlify Drop](https://app.netlify.com/drop):
 gratis, con HTTPS y en un minuto.
 
-`node generar.mjs --todos` regenera todas las fichas de golpe.
+`node generar.mjs --todos` regenera todas las fichas de golpe y escribe
+`sitios/index.html`, un muestrario con todas las webs a la vez. Ábrelo con
+`npm run webs` (los iframes no cargan desde `file://`).
 
 ## Qué lleva cada web
 
@@ -85,16 +87,24 @@ la acepta y la paga. Quita el `demo` solo entonces.
 
 ```bash
 node webs-locales/contacto/generar-contacto.mjs        # textos por negocio
-node webs-locales/contacto/generar-cartas.mjs          # cartas para imprimir
+node webs-locales/contacto/generar-cartas.mjs          # una carta por cliente
+node webs-locales/datos-necesarios.mjs                # qué datos faltan de cada uno
 ```
 
 El primero deja en `contacto/salida/` un archivo por negocio con los tres textos
 personalizados —guion de llamada, correo y carta— y una `anrufliste.md` con los diez
 en una sola hoja para el día de llamadas.
 
-El segundo produce `salida/cartas.html`: una carta por página A4 con el **código QR
-del sitio de ese cliente**, lista para imprimir con Strg+P. Pon tus datos en
+El segundo deja **una carta por cliente** en `salida/cartas/<id>.html`, cada una con
+el **código QR de su sitio**, lista para imprimir con Strg+P. Así imprimes solo la que
+necesitas y corriges una sin tocar las demás. Con `--juntas` salen todas en un archivo,
+y con un id (`generar-cartas.mjs zur-muehle`) solo esa. Pon tus datos una vez en
 `contacto/remitente.json`.
+
+`datos-necesarios.mjs` lista, cliente por cliente, exactamente qué falta por preguntar,
+y con `--escribir` deja una hoja por negocio en `clientes/datos-que-faltan/` para
+llevarla a la llamada. El horario siempre sale como pendiente aunque la demo tenga uno:
+ese es el típico del gremio, no el suyo.
 
 **La carta es el único canal comercial en frío permitido en Alemania sin
 consentimiento previo.** El correo exige un sí previo por teléfono. Ver

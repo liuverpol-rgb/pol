@@ -6,7 +6,10 @@
   "type": "module",
   "scripts": {
     "test": "node --test test/*.test.mjs",
-    "dev": "node --version && python3 -m http.server 8080 --directory web"
+    "dev": "node --version && python3 -m http.server 8080 --directory web",
+    "webs": "python3 -m http.server 8080 --directory webs-locales/sitios",
+    "cartas": "node webs-locales/contacto/generar-cartas.mjs",
+    "datos": "node webs-locales/datos-necesarios.mjs"
   },
   "license": "MIT"
 }

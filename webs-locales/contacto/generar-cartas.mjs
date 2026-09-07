@@ -2,11 +2,14 @@
 /**
  * Genera las cartas listas para imprimir.
  *
- *   node webs-locales/contacto/generar-cartas.mjs
+ *   node webs-locales/contacto/generar-cartas.mjs                 una por cliente
+ *   node webs-locales/contacto/generar-cartas.mjs --juntas         todas en un archivo
+ *   node webs-locales/contacto/generar-cartas.mjs zur-muehle       solo esa
  *   node webs-locales/contacto/generar-cartas.mjs --limite 10
  *
- * Produce salida/cartas.html: una carta por pagina A4. Se abre en el
- * navegador, Strg+P, y salen todas listas para meter en el sobre.
+ * Por defecto deja salida/cartas/<id>.html, un archivo por cliente: asi se
+ * imprime solo la que hace falta, se corrige una sin tocar las demas y se
+ * puede enviar por separado. Con --juntas salen todas en una tirada.
  *
  * La carta es el unico canal comercial en frio permitido en Alemania sin
  * consentimiento previo. Por eso es lo primero que se envia. Ver
@@ -67,19 +70,13 @@ function carta(p, remitente, fecha) {
 </article>`;
 }
 
-const limiteArg = process.argv.indexOf('--limite');
-const limite = limiteArg > -1 ? Number(process.argv[limiteArg + 1]) : Infinity;
-
-const prospectos = leerCsv(join(RAIZ, 'prospectos.csv')).filter((p) => p.id).slice(0, limite);
-const remitente = leerRemitente();
-const fecha = new Intl.DateTimeFormat('de-DE', { day: 'numeric', month: 'long', year: 'numeric' })
-  .format(new Date());
-
-const html = `<!doctype html>
+/** Envuelve una o varias cartas en un documento imprimible. */
+function documento(titulo, cuerpo, aviso = '') {
+  return `<!doctype html>
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<title>Briefe — ${prospectos.length} Stück</title>
+<title>${esc(titulo)}</title>
 <style>
   @page { size: A4; margin: 25mm 20mm 20mm 25mm; }
   body { font: 11pt/1.5 "Helvetica Neue", Arial, sans-serif; color: #111; margin: 0; }
@@ -102,25 +99,69 @@ const html = `<!doctype html>
 </style>
 </head>
 <body>
-${prospectos.some(sinEnlace) ? `<div class="aviso">
-  <strong>Achtung — bei ${prospectos.filter(sinEnlace).length} von ${prospectos.length} Briefen fehlt der Link.</strong>
-  Erst die Demo-Seiten veröffentlichen (Netlify Drop), die Adresse in die Spalte
-  <code>demo_url</code> der prospectos.csv eintragen und neu erzeugen.
-  Ein Brief ohne Link ist verschwendetes Porto. Dieser Hinweis wird nicht mitgedruckt.
-</div>` : ''}
-${prospectos.map((p) => carta(p, remitente, fecha)).join('\n')}
+${aviso}
+${cuerpo}
 </body>
 </html>
 `;
+}
 
+const avisoFaltaEnlace = (n, total) => `<div class="aviso">
+  <strong>Achtung — bei ${n} von ${total} Briefen fehlt der Link.</strong>
+  Erst die Demo-Seiten veröffentlichen (Netlify Drop), die Adresse in die Spalte
+  <code>demo_url</code> der prospectos.csv eintragen und neu erzeugen.
+  Ein Brief ohne Link ist verschwendetes Porto. Dieser Hinweis wird nicht mitgedruckt.
+</div>`;
+
+const limiteArg = process.argv.indexOf('--limite');
+const limite = limiteArg > -1 ? Number(process.argv[limiteArg + 1]) : Infinity;
+
+const argumentos = process.argv.slice(2).filter((a) => !a.startsWith('--'));
+const soloUno = argumentos[0];
+
+let prospectos = leerCsv(join(RAIZ, 'prospectos.csv')).filter((p) => p.id);
+if (soloUno) {
+  prospectos = prospectos.filter((p) => p.id === soloUno);
+  if (!prospectos.length) {
+    console.error(`No hay ningún prospecto con id "${soloUno}" en prospectos.csv.`);
+    process.exit(1);
+  }
+}
+prospectos = prospectos.slice(0, limite);
+
+const remitente = leerRemitente();
+const fecha = new Intl.DateTimeFormat('de-DE', { day: 'numeric', month: 'long', year: 'numeric' })
+  .format(new Date());
+
+const juntas = process.argv.includes('--juntas');
 mkdirSync(join(RAIZ, 'salida'), { recursive: true });
-const destino = join(RAIZ, 'salida', 'cartas.html');
-writeFileSync(destino, html);
+
+if (juntas) {
+  const faltan = prospectos.filter(sinEnlace).length;
+  const html = documento(
+    `Briefe — ${prospectos.length} Stück`,
+    prospectos.map((p) => carta(p, remitente, fecha)).join('\n'),
+    faltan ? avisoFaltaEnlace(faltan, prospectos.length) : '',
+  );
+  writeFileSync(join(RAIZ, 'salida', 'cartas.html'), html);
+  console.log(`✓ ${prospectos.length} Briefe → contacto/salida/cartas.html`);
+} else {
+  const dir = join(RAIZ, 'salida', 'cartas');
+  mkdirSync(dir, { recursive: true });
+  for (const p of prospectos) {
+    const html = documento(
+      `Brief — ${p.name}`,
+      carta(p, remitente, fecha),
+      sinEnlace(p) ? avisoFaltaEnlace(1, 1) : '',
+    );
+    writeFileSync(join(dir, `${p.id}.html`), html);
+    console.log(`${sinEnlace(p) ? '·' : '✓'} ${p.name}\n    contacto/salida/cartas/${p.id}.html${sinEnlace(p) ? '  (ohne Link)' : ''}`);
+  }
+  console.log(`\n${prospectos.length} Briefe. Im Browser öffnen und drucken (Strg+P).`);
+}
 
 const faltan = prospectos.filter(sinEnlace).length;
-console.log(`✓ ${prospectos.length} Briefe → contacto/salida/cartas.html`);
-console.log('  Im Browser öffnen und drucken (Strg+P / Cmd+P).');
 if (faltan) {
-  console.log(`\n⚠️  Bei ${faltan} Briefen fehlt noch der Link zur fertigen Seite.`);
+  console.log(`\n⚠️  Bei ${faltan} von ${prospectos.length} Briefen fehlt der Link zur fertigen Seite.`);
   console.log('   Erst veröffentlichen, dann demo_url in prospectos.csv eintragen.');
 }
