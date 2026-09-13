@@ -85,8 +85,20 @@ envío y devoluciones. Todo el cálculo ocurre en el navegador del usuario.
 
 ## Prácticas de privacidad (formulario de datos del usuario)
 
-Marca **no** en todas las categorías de recogida de datos. Y las tres casillas
-del certificado, que en este caso son ciertas:
+En la versión gratuita no sale nada del equipo. En la de pago se envía la clave
+de licencia y un identificador aleatorio de la instalación, así que en el
+formulario marca **«Información de autenticación»** y describe:
+
+```
+Solo en la versión de pago: la clave de licencia que el usuario ha comprado y
+un identificador aleatorio de su instalación, enviados a nuestro servidor para
+comprobar que la licencia es válida y respetar el límite de dos equipos por
+clave. No se recoge ningún otro dato y la versión gratuita no hace ninguna
+petición a Internet.
+```
+
+El resto de categorías, **no**. Y las tres casillas del certificado, que en este
+caso son ciertas:
 
 - No se venden datos a terceros.
 - Los datos no se usan para fines ajenos a la funcionalidad principal.

@@ -5,7 +5,7 @@
 
 import { almacenChrome } from './lib/almacen.mjs';
 import { consumirUso, leerUso, proximoReinicio } from './lib/uso.mjs';
-import { activar, desactivar, estadoLicencia, ErrorLicencia } from './lib/licencia.mjs';
+import { activar, desactivar, estadoLicencia, idDeEquipo, ErrorLicencia } from './lib/licencia.mjs';
 import { analizar, categoriaSugerida } from './lib/calculo.mjs';
 import { redondear } from './lib/margen.mjs';
 import { esFichaDeProducto } from './lib/amazon.mjs';
@@ -13,6 +13,10 @@ import { CLAVE_COSTES, COSTES_POR_DEFECTO, LIMITE_GRATIS, TIENDA } from './confi
 
 const $ = (id) => document.getElementById(id);
 const almacen = almacenChrome();
+// El identificador de equipo va en el almacen LOCAL: si viajara con la
+// sincronizacion de Chrome, todos los perfiles del usuario serian el mismo
+// equipo y el tope de la licencia no contaria nada.
+const almacenLocal = almacenChrome(globalThis.chrome?.storage?.local);
 const euros = (n) => `${redondear(n).toFixed(2).replace('.', ',')} €`;
 const porcentaje = (n) => `${(n * 100).toFixed(1).replace('.', ',')} %`;
 
@@ -32,9 +36,14 @@ async function arrancar() {
   // El formulario de la clave se ve siempre que no haya Pro: quien compra
   // con usos gratis todavia en el bolsillo tambien tiene que poder activarla.
   $('activar').hidden = pro;
-  if (licencia.motivo === 'sin-conexion') {
-    $('pie').textContent = 'Sin conexión: la licencia se revalidará cuando vuelvas a tener red.';
-  }
+  const nota = {
+    'sin-conexion': 'Sin conexión: la licencia se revalidará cuando vuelvas a tener red.',
+    'sin-conexion-agotada': 'Llevas demasiado tiempo sin conexión para comprobar la licencia.',
+    'equipo-liberado': 'Esta clave se ha liberado desde otro equipo. Vuelve a activarla aquí si quieres usarla.',
+    revocada: 'Esta clave ya no es válida. Si crees que es un error, escríbenos.',
+    caducada: 'Esta clave ha caducado.',
+  }[licencia.motivo];
+  if (nota) $('pie').textContent = nota;
 
   const ficha = await leerFicha();
   if (!ficha) return;
@@ -227,13 +236,13 @@ $('form-licencia').addEventListener('submit', async (e) => {
   const aviso = $('licencia-estado');
   aviso.textContent = 'Activando…';
   try {
-    await activar($('clave').value, { almacen, config: TIENDA });
+    await activar($('clave').value, { almacen, config: TIENDA, equipo: await idDeEquipo(almacenLocal) });
     aviso.textContent = 'Listo. Pro activo en este equipo.';
     setTimeout(() => location.reload(), 700);
   } catch (error) {
     aviso.textContent =
       error instanceof ErrorLicencia
-        ? { 'sin-conexion': 'Sin conexión con el servidor de licencias. Prueba en un minuto.', 'limite-equipos': 'Esa clave ya está en demasiados equipos. Libérala en el otro.', caducada: 'Esa clave ha caducado.', revocada: 'Esa clave ya no vale.' }[error.motivo] ?? error.message
+        ? { 'sin-conexion': 'Sin conexión con el servidor de licencias. Prueba en un minuto.', 'limite-equipos': 'Esa clave ya está en todos los equipos que permite. Libérala en uno («Usar en otro equipo») y vuelve a intentarlo.', caducada: 'Esa clave ha caducado.', revocada: 'Esa clave ya no vale.' }[error.motivo] ?? error.message
         : 'No se ha podido activar.';
   }
 });

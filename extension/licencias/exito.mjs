@@ -72,8 +72,9 @@ footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--borde)
     <li>Pega la clave y pulsa <strong>Activar</strong>. Eso es todo.</li>
   </ol>
   <p class="suave">
-    La clave es tuya: actívala en los equipos que uses. Si algún día quieres
-    quitarla de uno, «Usar en otro equipo» la borra de ese navegador.
+    Vale para dos navegadores. Si cambias de ordenador, pulsa «Usar en otro
+    equipo» en el primero: eso libera la plaza y la clave vuelve a estar
+    disponible.
   </p>
 
   <footer>

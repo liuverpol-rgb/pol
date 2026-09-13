@@ -6,10 +6,31 @@ tú. **Coste: 0 €/mes** (el plan gratuito da 100.000 peticiones al día; vende
 licencias gasta cuatro).
 
 ```
-worker.mjs      las cuatro rutas: /stripe, /exito, /clave, /validar
+worker.mjs      las rutas: /stripe, /exito, /clave, /activar, /desactivar, /validar
 exito.mjs       la página donde el comprador ve su clave
 wrangler.toml   configuración del despliegue
 ```
+
+## Tope de equipos
+
+Una clave vale para **dos navegadores** (`LIMITE_EQUIPOS` en `worker.mjs`;
+cambiar el número y desplegar es todo). La extensión manda un identificador de
+instalación —azar, sin ningún dato personal— al activar y al revalidar:
+
+- reinstalar en el mismo navegador no gasta plaza;
+- «Usar en otro equipo» libera la plaza y el equipo liberado vuelve a gratis
+  en su siguiente revalidación, como mucho siete días después;
+- el identificador se guarda en el almacenamiento **local**, no en el
+  sincronizado: si viajara con la cuenta de Chrome, todos los perfiles del
+  usuario serían el mismo equipo y el tope no contaría nada.
+
+Lo que este tope frena es que una clave circule por un foro. No frena a quien
+se ponga a borrar los datos del navegador, y no pretende hacerlo: cada plaza
+recuperada así le cuesta al usuario volver a configurar sus costes.
+
+El KV de Cloudflare no tiene transacciones, así que dos activaciones
+exactamente simultáneas podrían colar un equipo de más. El daño máximo es ese
+equipo extra; evitarlo pide un Durable Object, que cuesta más de lo que vale.
 
 Probado en [`test/licencias.test.mjs`](../../test/licencias.test.mjs): 14 pruebas,
 incluida una de punta a punta que compra, activa la licencia en la extensión y
@@ -148,6 +169,11 @@ entre cobrar tranquilo y regularizar a posteriori.
 **«He perdido la clave.»** Busca su compra en Stripe, copia el id de la sesión
 (`cs_...`) y abre
 `https://licencias-margen.<sub>.workers.dev/clave?session_id=cs_...`.
+
+**«Cambié de ordenador y no me deja activarla.»** Si ya no tiene acceso al
+navegador antiguo para liberar la plaza, libérasela tú:
+`/desactivar?clave=MRA-...&equipo=<id>`. Los identificadores activos de una
+clave están en el KV, en `clave:MRA-...`.
 
 **«Me han devuelto el dinero y sigo teniendo Pro.»** La extensión revalida cada
 siete días; hasta entonces sigue activa. Es deliberado: revalidar en cada clic

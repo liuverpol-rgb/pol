@@ -1,8 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import worker, { firmaValida, generarClave } from '../extension/licencias/worker.mjs';
+import worker, { LIMITE_EQUIPOS, firmaValida, generarClave } from '../extension/licencias/worker.mjs';
 import { almacenMemoria } from '../extension/lib/almacen.mjs';
-import { activar, estadoLicencia } from '../extension/lib/licencia.mjs';
+import { activar, desactivar, estadoLicencia, idDeEquipo } from '../extension/lib/licencia.mjs';
 
 const SECRETO = 'whsec_de_mentira_para_las_pruebas';
 const DIA = 24 * 60 * 60 * 1000;
@@ -99,7 +99,8 @@ test('una compra genera la clave, y la extension la da por buena', async () => {
   assert.match(porSesion.clave, /^MRA-/);
 
   const validacion = await (await pedir(env, `/validar?clave=${porSesion.clave}`)).json();
-  assert.deepEqual(validacion, { valida: true, expira: null });
+  assert.equal(validacion.valida, true);
+  assert.equal(validacion.expira, null);
 });
 
 test('Stripe reintenta el mismo evento y no se duplica la clave', async () => {
@@ -197,8 +198,9 @@ test('de punta a punta: comprar, activar en la extension y que un reembolso lo t
   const clave = (await (await pedir(env, `/clave?session_id=${COMPRA.id}`)).json()).clave;
 
   const almacen = almacenMemoria();
+  const equipo = await idDeEquipo(almacenMemoria());
   const compra = new Date('2026-09-13T10:00:00Z');
-  await activar(clave, { almacen, config, buscar, ahora: compra });
+  await activar(clave, { almacen, config, buscar, ahora: compra, equipo });
   assert.equal((await estadoLicencia(almacen, { config, buscar, ahora: compra })).pro, true);
 
   // A los seis dias todavia no se revalida: sigue Pro aunque el Worker caiga.
@@ -218,7 +220,112 @@ test('una clave de otro cliente no sirve para activar', async () => {
   const env = entorno();
   const config = { proveedor: 'propio', endpoint: 'https://licencias.ejemplo.workers.dev/validar' };
   const buscar = (url, opciones = {}) => worker.fetch(new Request(url, opciones), env);
-  await assert.rejects(activar('MRA-ZZZZ-ZZZZ-ZZZZ', { almacen: almacenMemoria(), config, buscar }), {
-    motivo: 'no-valida',
-  });
+  await assert.rejects(
+    activar('MRA-ZZZZ-ZZZZ-ZZZZ', { almacen: almacenMemoria(), config, buscar, equipo: 'eq-1' }),
+    { motivo: 'no-valida' },
+  );
+});
+
+// --- Tope de equipos ---
+
+/** Compra una licencia y devuelve su clave. */
+async function comprar(env) {
+  await avisar(env, evento('checkout.session.completed', COMPRA));
+  return (await (await pedir(env, `/clave?session_id=${COMPRA.id}`)).json()).clave;
+}
+
+test('una clave entra en dos equipos y el tercero se queda fuera', async () => {
+  const env = entorno();
+  const clave = await comprar(env);
+
+  for (let i = 1; i <= LIMITE_EQUIPOS; i++) {
+    const r = await (await pedir(env, `/activar?clave=${clave}&equipo=eq-${i}`)).json();
+    assert.equal(r.valida, true, `el equipo ${i} deberia entrar`);
+    assert.equal(r.equipos, i);
+    assert.equal(r.limite, LIMITE_EQUIPOS);
+  }
+
+  const sobra = await (await pedir(env, `/activar?clave=${clave}&equipo=eq-99`)).json();
+  assert.equal(sobra.valida, false);
+  assert.equal(sobra.motivo, 'limite-equipos');
+  assert.match(sobra.mensaje, /Libera uno/);
+  assert.equal((await env.LICENCIAS.get(`clave:${clave}`, 'json')).equipos.length, LIMITE_EQUIPOS);
+});
+
+test('reinstalar en el mismo equipo no gasta plaza', async () => {
+  const env = entorno();
+  const clave = await comprar(env);
+  await pedir(env, `/activar?clave=${clave}&equipo=eq-1`);
+  const otra = await (await pedir(env, `/activar?clave=${clave}&equipo=eq-1`)).json();
+  assert.equal(otra.valida, true);
+  assert.equal(otra.equipos, 1, 'sigue siendo un equipo');
+});
+
+test('liberar un equipo deja sitio para otro, y el liberado deja de valer', async () => {
+  const env = entorno();
+  const clave = await comprar(env);
+  await pedir(env, `/activar?clave=${clave}&equipo=eq-1`);
+  await pedir(env, `/activar?clave=${clave}&equipo=eq-2`);
+
+  const suelta = await (await pedir(env, `/desactivar?clave=${clave}&equipo=eq-1`)).json();
+  assert.equal(suelta.liberada, true);
+  assert.equal(suelta.equipos, 1);
+
+  assert.equal((await (await pedir(env, `/activar?clave=${clave}&equipo=eq-3`)).json()).valida, true);
+  // El que se solto se entera en su siguiente revalidacion.
+  const viejo = await (await pedir(env, `/validar?clave=${clave}&equipo=eq-1`)).json();
+  assert.equal(viejo.valida, false);
+  assert.equal(viejo.motivo, 'equipo-liberado');
+  assert.equal((await (await pedir(env, `/validar?clave=${clave}&equipo=eq-2`)).json()).valida, true);
+});
+
+test('activar sin identificador de equipo no cuela', async () => {
+  const env = entorno();
+  const clave = await comprar(env);
+  const r = await (await pedir(env, `/activar?clave=${clave}`)).json();
+  assert.equal(r.valida, false);
+  assert.equal(r.motivo, 'sin-equipo');
+});
+
+test('una clave reembolsada no se puede activar en ningun equipo', async () => {
+  const env = entorno();
+  const clave = await comprar(env);
+  await avisar(env, evento('charge.refunded', { payment_intent: COMPRA.payment_intent }));
+  const r = await (await pedir(env, `/activar?clave=${clave}&equipo=eq-1`)).json();
+  assert.equal(r.valida, false);
+  assert.equal(r.motivo, 'no-valida');
+});
+
+test('el identificador de equipo se genera una vez y no cambia', async () => {
+  const local = almacenMemoria();
+  const primero = await idDeEquipo(local);
+  assert.ok(primero.length >= 8);
+  assert.equal(await idDeEquipo(local), primero);
+  assert.notEqual(await idDeEquipo(almacenMemoria()), primero, 'otra instalacion, otro identificador');
+});
+
+test('de punta a punta: el tercer equipo se topa, y liberar uno le abre la puerta', async () => {
+  const env = entorno();
+  const config = { proveedor: 'propio', endpoint: 'https://licencias.ejemplo.workers.dev/validar' };
+  const buscar = (url, opciones = {}) => worker.fetch(new Request(url, opciones), env);
+  const clave = await comprar(env);
+
+  // Tres instalaciones distintas de la extension, cada una con su almacen.
+  const equipos = await Promise.all([almacenMemoria(), almacenMemoria(), almacenMemoria()].map(idDeEquipo));
+  const almacenes = [almacenMemoria(), almacenMemoria(), almacenMemoria()];
+  const ahora = new Date('2026-09-13T10:00:00Z');
+
+  await activar(clave, { almacen: almacenes[0], config, buscar, ahora, equipo: equipos[0] });
+  await activar(clave, { almacen: almacenes[1], config, buscar, ahora, equipo: equipos[1] });
+  await assert.rejects(
+    activar(clave, { almacen: almacenes[2], config, buscar, ahora, equipo: equipos[2] }),
+    (e) => e.motivo === 'limite-equipos',
+  );
+
+  // El primero la suelta: ahora cabe el tercero y el primero se queda en gratis.
+  await desactivar(almacenes[0], { config, buscar });
+  await activar(clave, { almacen: almacenes[2], config, buscar, ahora, equipo: equipos[2] });
+  assert.equal((await estadoLicencia(almacenes[2], { config, buscar, ahora })).pro, true);
+  assert.equal((await estadoLicencia(almacenes[0], { config, buscar, ahora })).pro, false);
+  assert.equal((await estadoLicencia(almacenes[1], { config, buscar, ahora, forzar: true })).pro, true);
 });

@@ -10,11 +10,14 @@
  *                       clave; es la unica entrega que no depende de que un
  *                       correo llegue a la bandeja de entrada.
  *   GET  /clave         El JSON que consulta esa pagina, por id de sesion.
- *   GET  /validar       Lo que pregunta la extension: ¿esta clave vale?
+ *   GET  /activar       Da de alta un equipo en la clave, si queda sitio.
+ *   GET  /desactivar    Lo suelta, para poder usarlo en otro.
+ *   GET  /validar       Lo que pregunta la extension: ¿esta clave sigue
+ *                       valiendo en ESTE equipo?
  *
  * Estado, en un KV llamado LICENCIAS:
  *
- *   clave:<CLAVE>    {estado, expira, correo, sesion, creada}
+ *   clave:<CLAVE>    {estado, expira, correo, sesion, creada, equipos:[]}
  *   sesion:<cs_...>  la clave de esa compra (para /exito y para no duplicar)
  *   pago:<pi_...>    la clave de ese cobro (para revocarla si se devuelve)
  *
@@ -27,6 +30,19 @@ import { paginaExito } from './exito.mjs';
 
 const ALFABETO = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // sin O/0 ni I/1: se dictan por telefono
 const TOLERANCIA_MS = 5 * 60 * 1000;
+
+/**
+ * En cuantos equipos vale una clave.
+ *
+ * Dos, porque el portatil y el de casa son el caso normal de una persona, y
+ * la oficina entera no lo es. Subirlo es cambiar este numero y desplegar.
+ *
+ * Ojo con lo que NO es: el identificador de equipo lo pone la extension y
+ * vive en el almacenamiento local del navegador, asi que cuenta perfiles de
+ * Chrome, no maquinas. Frena que una clave circule por un foro; no frena a
+ * quien se ponga a borrar datos del navegador. Esa es toda la ambicion.
+ */
+export const LIMITE_EQUIPOS = 2;
 
 const json = (datos, estado = 200) =>
   new Response(JSON.stringify(datos), {
@@ -97,6 +113,7 @@ async function altaDeCompra(env, sesion, azar) {
     correo: sesion.customer_details?.email ?? null,
     sesion: sesion.id,
     creada: new Date().toISOString(),
+    equipos: [],
   };
   await env.LICENCIAS.put(`clave:${clave}`, JSON.stringify(registro));
   await env.LICENCIAS.put(`sesion:${sesion.id}`, clave);
@@ -115,6 +132,42 @@ async function revocarPorPago(env, pagoId, motivo) {
   return true;
 }
 
+/** Lee un registro de licencia por su clave, normalizando lo que falte. */
+async function leerLicencia(env, claveCruda) {
+  const clave = String(claveCruda ?? '').trim().toUpperCase();
+  if (!clave) return { clave: '', registro: null };
+  const registro = await env.LICENCIAS.get(`clave:${clave}`, 'json');
+  if (!registro) return { clave, registro: null };
+  return { clave, registro: { ...registro, equipos: Array.isArray(registro.equipos) ? registro.equipos : [] } };
+}
+
+/**
+ * Da de alta un equipo. Idempotente: reactivar el mismo equipo no gasta
+ * plaza, que es lo que pasa cada vez que alguien reinstala la extension.
+ *
+ * Sin transacciones: el KV de Cloudflare no las tiene. Dos activaciones
+ * exactamente simultaneas podrian colar un equipo de mas. Es un caso raro y
+ * el dano maximo es un equipo extra; montar un Durable Object para evitarlo
+ * cuesta mas de lo que vale.
+ */
+async function activarEquipo(env, clave, registro, equipo) {
+  if (registro.equipos.includes(equipo)) {
+    return { valida: true, expira: registro.expira ?? null, equipos: registro.equipos.length, limite: LIMITE_EQUIPOS };
+  }
+  if (registro.equipos.length >= LIMITE_EQUIPOS) {
+    return {
+      valida: false,
+      motivo: 'limite-equipos',
+      mensaje: `Esta clave ya esta activa en ${LIMITE_EQUIPOS} equipos. Libera uno para usarla aqui.`,
+      equipos: registro.equipos.length,
+      limite: LIMITE_EQUIPOS,
+    };
+  }
+  const equipos = [...registro.equipos, equipo];
+  await env.LICENCIAS.put(`clave:${clave}`, JSON.stringify({ ...registro, equipos }));
+  return { valida: true, expira: registro.expira ?? null, equipos: equipos.length, limite: LIMITE_EQUIPOS };
+}
+
 export default {
   async fetch(peticion, env) {
     const url = new URL(peticion.url);
@@ -130,14 +183,43 @@ export default {
       });
     }
 
+    // Alta de un equipo: lo que llama la extension cuando pegas la clave.
+    if (url.pathname === '/activar' && peticion.method === 'GET') {
+      const equipo = (url.searchParams.get('equipo') ?? '').trim();
+      const { clave, registro } = await leerLicencia(env, url.searchParams.get('clave'));
+      if (!registro || registro.estado !== 'activa') {
+        return json({ valida: false, motivo: 'no-valida', mensaje: registro ? 'La clave ya no esta activa.' : 'Clave no encontrada.' });
+      }
+      if (!equipo) return json({ valida: false, motivo: 'sin-equipo', mensaje: 'Falta el identificador del equipo.' });
+      return json(await activarEquipo(env, clave, registro, equipo));
+    }
+
+    // Soltar un equipo para poder usar la clave en otro.
+    if (url.pathname === '/desactivar' && peticion.method === 'GET') {
+      const equipo = (url.searchParams.get('equipo') ?? '').trim();
+      const { clave, registro } = await leerLicencia(env, url.searchParams.get('clave'));
+      if (!registro || !equipo) return json({ liberada: false });
+      const equipos = registro.equipos.filter((e) => e !== equipo);
+      if (equipos.length !== registro.equipos.length) {
+        await env.LICENCIAS.put(`clave:${clave}`, JSON.stringify({ ...registro, equipos }));
+      }
+      return json({ liberada: true, equipos: equipos.length, limite: LIMITE_EQUIPOS });
+    }
+
     // Lo que pregunta la extension cada siete dias.
     if (url.pathname === '/validar' && peticion.method === 'GET') {
-      const clave = (url.searchParams.get('clave') ?? '').trim().toUpperCase();
-      const registro = clave ? await env.LICENCIAS.get(`clave:${clave}`, 'json') : null;
+      const equipo = (url.searchParams.get('equipo') ?? '').trim();
+      const { registro } = await leerLicencia(env, url.searchParams.get('clave'));
       if (!registro || registro.estado !== 'activa') {
-        return json({ valida: false, mensaje: registro ? 'La clave ya no esta activa.' : 'Clave no encontrada.' });
+        return json({ valida: false, motivo: 'no-valida', mensaje: registro ? 'La clave ya no esta activa.' : 'Clave no encontrada.' });
       }
-      return json({ valida: true, expira: registro.expira ?? null });
+      // Un equipo liberado desde otro sitio deja de valer aqui en la
+      // siguiente revalidacion. Sin `equipo` solo se dice si la clave existe
+      // y esta al corriente: sirve para soporte, no desbloquea nada.
+      if (equipo && !registro.equipos.includes(equipo)) {
+        return json({ valida: false, motivo: 'equipo-liberado', mensaje: 'Esta clave ya no esta activa en este equipo.' });
+      }
+      return json({ valida: true, expira: registro.expira ?? null, equipos: registro.equipos.length, limite: LIMITE_EQUIPOS });
     }
 
     // La pagina donde aterriza el comprador, y su JSON.

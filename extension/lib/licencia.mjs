@@ -31,6 +31,9 @@
  *     cliente en un tren no es un moroso.
  *   - Si la API responde con claridad que la clave ya no vale (revocada,
  *     caducada, reembolsada), se cae a gratis en el acto.
+ *   - Cada instalacion tiene un identificador de equipo, que se manda al
+ *     activar y al revalidar. Es lo que permite un tope de equipos por clave
+ *     y lo que hace que soltar un equipo desde otro sitio surta efecto aqui.
  */
 
 export const CLAVE = 'licencia';
@@ -101,7 +104,10 @@ function comprobarOrigen(meta, config) {
  * Activa una clave de licencia en este equipo y la guarda.
  * @returns {Promise<object>} estado guardado
  */
-export async function activar(claveLicencia, { almacen, config, buscar = globalThis.fetch, ahora = new Date() } = {}) {
+export async function activar(
+  claveLicencia,
+  { almacen, config, buscar = globalThis.fetch, ahora = new Date(), equipo = '' } = {},
+) {
   const clave = String(claveLicencia ?? '').trim();
   if (!clave) throw new ErrorLicencia('clave-vacia', 'Escribe la clave que te llego por correo.');
 
@@ -109,9 +115,11 @@ export async function activar(claveLicencia, { almacen, config, buscar = globalT
   let estado;
 
   if (proveedor === 'propio') {
-    const datos = await consultarPropio(clave, config, buscar);
-    if (!datos.valida) throw new ErrorLicencia('no-valida', datos.mensaje ?? 'La clave no es valida.');
-    estado = { proveedor, clave, instancia: '', expira: datos.expira ?? null };
+    const datos = await pedirPropio('activar', { clave, equipo }, config, buscar);
+    if (datos?.valida !== true) {
+      throw new ErrorLicencia(datos?.motivo ?? 'no-valida', datos?.mensaje ?? 'La clave no es valida.');
+    }
+    estado = { proveedor, clave, instancia: equipo, expira: datos.expira ?? null };
   } else {
     const datos = await postLemon('activate', { license_key: clave, instance_name: nombreInstancia() }, buscar);
     // activated:true es la unica respuesta buena. Ojo: cuando se agota el
@@ -142,24 +150,51 @@ function motivoDeEstado(estado, error) {
   return 'no-valida';
 }
 
-async function consultarPropio(clave, config, buscar) {
-  const base = config?.endpoint;
-  if (!base) throw new ErrorLicencia('sin-configurar', 'Falta el endpoint de validacion en config.mjs.');
+/**
+ * Raiz del servidor de licencias. Acepta tanto la raiz como la URL de
+ * /validar, que es lo que se suele copiar del README.
+ */
+export function baseDe(endpoint) {
+  const url = new URL(endpoint);
+  url.search = '';
+  url.hash = '';
+  url.pathname = url.pathname.replace(/\/(validar|activar|desactivar)\/?$/, '');
+  return url.toString().replace(/\/$/, '');
+}
+
+/** Llama a una ruta del servidor propio y devuelve su JSON tal cual. */
+async function pedirPropio(ruta, parametros, config, buscar) {
+  if (!config?.endpoint) throw new ErrorLicencia('sin-configurar', 'Falta el endpoint de validacion en config.mjs.');
   let respuesta;
   try {
-    const url = new URL(base);
-    url.searchParams.set('clave', clave);
+    const url = new URL(`${baseDe(config.endpoint)}/${ruta}`);
+    for (const [nombre, valor] of Object.entries(parametros)) {
+      if (valor) url.searchParams.set(nombre, valor);
+    }
     respuesta = await buscar(url.toString(), { headers: { Accept: 'application/json' } });
   } catch (e) {
     throw new ErrorLicencia('sin-conexion', `No se ha podido contactar con el servidor de licencias: ${e.message}`);
   }
-  let datos = null;
   try {
-    datos = await respuesta.json();
+    return await respuesta.json();
   } catch {
     throw new ErrorLicencia('respuesta-invalida', 'El servidor de licencias ha respondido algo que no se entiende.');
   }
-  return { valida: datos?.valida === true, expira: datos?.expira ?? null, mensaje: datos?.mensaje };
+}
+
+/**
+ * Identificador de esta instalacion. Se guarda una vez y no cambia.
+ *
+ * Va en un almacen LOCAL a proposito: si viajara con la sincronizacion de
+ * Chrome, todos los perfiles del usuario compartirian identificador y el tope
+ * de equipos no contaria nada. No lleva ningun dato personal: es azar.
+ */
+export async function idDeEquipo(almacenLocal) {
+  const guardado = await almacenLocal.leer('equipo');
+  if (typeof guardado === 'string' && guardado.length >= 8) return guardado;
+  const nuevo = globalThis.crypto?.randomUUID?.() ?? `eq-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+  await almacenLocal.escribir('equipo', nuevo);
+  return nuevo;
 }
 
 /**
@@ -226,8 +261,9 @@ export async function estadoLicencia(
 
 async function revalidar(guardado, { config, buscar }) {
   if (guardado.proveedor === 'propio') {
-    const datos = await consultarPropio(guardado.clave, config, buscar);
-    return { valida: datos.valida, expira: datos.expira, motivo: datos.valida ? undefined : 'no-valida' };
+    const datos = await pedirPropio('validar', { clave: guardado.clave, equipo: guardado.instancia }, config, buscar);
+    if (datos?.valida !== true) return { valida: false, motivo: datos?.motivo ?? 'no-valida' };
+    return { valida: true, expira: datos.expira ?? null };
   }
   const cuerpo = { license_key: guardado.clave };
   if (guardado.instancia) cuerpo.instance_id = guardado.instancia;
@@ -248,8 +284,12 @@ async function revalidar(guardado, { config, buscar }) {
 export async function desactivar(almacen, { config, buscar = globalThis.fetch } = {}) {
   const guardado = await almacen.leer(CLAVE);
   await almacen.borrar(CLAVE);
-  if (!guardado?.clave || guardado.proveedor === 'propio' || !guardado.instancia) return { liberada: false };
+  if (!guardado?.clave || !guardado.instancia) return { liberada: false };
   try {
+    if (guardado.proveedor === 'propio') {
+      const datos = await pedirPropio('desactivar', { clave: guardado.clave, equipo: guardado.instancia }, config, buscar);
+      return { liberada: datos?.liberada === true };
+    }
     const datos = await postLemon('deactivate', { license_key: guardado.clave, instance_id: guardado.instancia }, buscar);
     return { liberada: datos?.deactivated === true };
   } catch {

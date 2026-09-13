@@ -150,9 +150,12 @@ Lo implementa [`lib/licencia.mjs`](lib/licencia.mjs), con
 - Si el servidor responde con claridad que la clave está revocada, caducada o
   reembolsada —un `charge.refunded` de Stripe hace justo eso—, se cae a gratis
   en el acto y se recuerda, sin volver a preguntar.
-- "Usar en otro equipo" borra la clave de ese navegador. Con Lemon Squeezy
-  además libera la activación remota; con Stripe no hay nada que liberar,
-  porque el Worker no limita equipos.
+- **Una clave vale para dos navegadores.** Cada instalación manda un
+  identificador de equipo (azar, guardado en local) al activar y al
+  revalidar. Reinstalar en el mismo sitio no gasta plaza.
+- "Usar en otro equipo" libera la plaza en el servidor y borra la clave de
+  ese navegador. El equipo liberado se entera en su siguiente revalidación y
+  vuelve a la versión gratuita.
 
 ## Qué falta antes de publicar
 
