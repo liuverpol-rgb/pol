@@ -1,13 +1,39 @@
-# Dos negocios con poco capital
+# Cuatro negocios con poco capital
 
-Este repositorio contiene dos negocios construidos, no dos ideas:
+Este repositorio contiene cuatro negocios construidos, no cuatro ideas:
 
 | | Qué es | Tu parte | Dinero |
 | --- | --- | --- | --- |
-| **[`webs-locales/`](webs-locales/README.md)** | Vender webs a bares y peluquerías por 300 € | Hablar con dueños de negocio | Días. **Empieza por aquí.** |
+| **[`fichas-google/`](fichas-google/README.md)** | Dejar bien la ficha de Google de un negocio local: 120 € y 25 €/mes | Mirar su ficha y llamar a la puerta | Hoy. **Empieza por aquí.** |
+| **[`webs-locales/`](webs-locales/README.md)** | Vender webs a bares y peluquerías por 300 € | Hablar con dueños de negocio | Días. Se vende **en la misma visita** que la ficha |
+| **[`dropshipping/`](dropshipping/README.md)** | Vender artículos impresos bajo demanda, sin stock | Conseguir el pedido; el resto lo hace el proveedor | Semanas. Necesita 65-90 € por delante |
 | **`web/`** (abajo) | Calculadora fiscal con ingresos por afiliación | Escribir contenido | 3-6 meses, incierto |
 
-Si solo vas a hacer una cosa, lee **[`webs-locales/VENTAS.md`](webs-locales/VENTAS.md)**.
+Los tres primeros se venden **en la misma puerta**, y ese es todo el plan:
+
+1. **Entras con la ficha de Google.** Cuesta 0 €, se audita desde el móvil en diez
+   minutos, y le enseñas algo que ya es suyo con una nota de 37 sobre 100 encima.
+   Es el sí más fácil de los tres, y lo necesitan todos los negocios, también los
+   que ya tienen buena web.
+2. **Uno de los 19 criterios es «¿tiene web enlazada?».** Cuando la respuesta es
+   no, la conversación de los 300 € viene sola, con el mismo dueño y sin volver a
+   llamar a la puerta.
+3. **Al Handwerker que no te compra ninguna de las dos** le puedes colocar veinte
+   sudaderas con su logo, cobradas por adelantado.
+
+Si solo vas a leer un documento, que sea
+**[`fichas-google/VENTAS.md`](fichas-google/VENTAS.md)**. Si solo vas a leer dos, el
+segundo es [`webs-locales/VENTAS.md`](webs-locales/VENTAS.md): la web deja 300 € de
+una sola conversación, pero hay que convencer a alguien de algo que todavía no
+existe. La ficha ya existe.
+
+**Antes de tocar la ficha de Google de nadie**, lee las seis reglas de
+[`fichas-google/alemania/RECHT.md`](fichas-google/alemania/RECHT.md) — sobre todo la
+de no reclamarla nunca a tu nombre. Antes de escribir en frío a nadie,
+[`webs-locales/alemania/RECHT.md`](webs-locales/alemania/RECHT.md). Y antes de vender
+nada físico en Alemania,
+[`dropshipping/alemania/RECHT.md`](dropshipping/alemania/RECHT.md).
+
 El plan de la calculadora está en [`NEGOCIO.md`](NEGOCIO.md).
 
 ---
@@ -43,8 +69,11 @@ docs/VERIFICAR-TARIFAS.md  Qué contrastar antes de publicar
 ## Desarrollo
 
 ```bash
-npm test        # 20 pruebas: motor de cálculo y generador de webs
+npm test        # 76 pruebas: cálculo fiscal, generador de webs, márgenes y tienda
 npm run dev     # sirve web/ en http://localhost:8080
+npm run nichos  # criba de nichos para vender sin stock
+npm run margen  # qué queda de cada pedido, plataforma por plataforma
+npm run tienda  # genera la tienda estática con sus páginas legales
 ```
 
 No hay paso de compilación ni `node_modules` en producción. Node solo hace falta

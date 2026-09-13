@@ -1,0 +1,16 @@
+{
+  "nombre": "Taza ceramica 330 ml impresa",
+  "proveedor": "Print-on-demand con produccion en la UE — [confirmar tarifa actual]",
+  "precioVenta": 16.9,
+  "envioCobrado": 3.5,
+  "costeGenero": 8.4,
+  "costeGeneroLlevaIva": true,
+  "costeEnvio": 4.9,
+  "costeEnvioLlevaIva": true,
+  "licenciaEnvase": 0.15,
+  "tasaDevolucion": 0.04,
+  "recuperacionDevolucion": 0,
+  "envioRetornoAsumido": 0,
+  "unidades": 1,
+  "notas": "El caso que ensena la trampa del producto barato: el precio de venta es bajo, pero el porte, la comision fija y el IVA no bajan con el. Añade la rotura en transito (1-3 % en ceramica), que se paga igual que una devolucion. Producto de regalo: casi todo se vende en noviembre y diciembre."
+}

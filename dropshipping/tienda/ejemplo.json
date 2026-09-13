@@ -1,0 +1,75 @@
+{
+  "_nota": "Ficha de ejemplo. Copiala, cambia los datos y quita los [prüfen]. Mientras quede un solo marcador o falte un dato obligatorio, generar.mjs se niega a producir una tienda publicable: solo la vista previa con demo:true.",
+  "demo": true,
+  "tienda": {
+    "nombre": "Sachsenwald Druck",
+    "claim": "Motive aus Reinbek und dem Sachsenwald, in Deutschland gedruckt",
+    "entradilla": "Jedes Motiv wird erst nach der Bestellung gedruckt. Keine Lager, keine Restposten.",
+    "emoji": "🌳",
+    "colores": { "acento": "#2f6b4a" }
+  },
+  "titular": {
+    "nombre": "[prüfen] Vor- und Nachname",
+    "calle": "[prüfen] Straße und Hausnummer",
+    "cp": "21465",
+    "ciudad": "Reinbek",
+    "pais": "Deutschland",
+    "email": "[prüfen] hallo@deine-domain.de",
+    "telefono": "[prüfen] +49 ...",
+    "kleinunternehmer": true,
+    "ustIdNr": null,
+    "lucid": null
+  },
+  "envio": {
+    "coste": 3.9,
+    "gratisDesde": 50,
+    "plazoDias": [3, 6],
+    "paises": ["Deutschland"],
+    "notaPaises": "Versand derzeit nur innerhalb Deutschlands.",
+    "retornoPagaCliente": true
+  },
+  "pago": ["Kreditkarte", "PayPal", "Klarna", "Apple Pay"],
+  "encargados": [
+    { "nombre": "[prüfen] Zahlungsdienstleister", "finalidad": "Zahlungsabwicklung", "sede": "Irland" },
+    { "nombre": "[prüfen] Print-on-Demand-Hersteller", "finalidad": "Produktion und Versand", "sede": "Deutschland" }
+  ],
+  "productos": [
+    {
+      "id": "lamina-sachsenwald",
+      "nombre": "Kunstdruck Sachsenwald 30 × 40 cm",
+      "descripcion": "Klimaneutral gedruckt auf 200 g Naturpapier, ohne Rahmen. Wird gerollt im Versandrohr geliefert.",
+      "precio": 21.9,
+      "referencia": "SW-3040",
+      "material": "200 g/m² Naturpapier, FSC-zertifiziert",
+      "produccionDias": 2,
+      "personalizado": false,
+      "enlacePago": null,
+      "fabricante": {
+        "nombre": "[prüfen] Name der Druckerei",
+        "direccion": "[prüfen] Straße, PLZ, Ort, Deutschland",
+        "email": "[prüfen] kontakt@druckerei.de",
+        "extraUe": false
+      }
+    },
+    {
+      "id": "hoodie-firmenlogo",
+      "nombre": "Arbeits-Hoodie mit Ihrem Firmenlogo",
+      "descripcion": "Ab 10 Stück. Sie schicken Ihr Logo, wir drucken und liefern direkt an Ihre Adresse. Preis pro Stück.",
+      "precio": 32.0,
+      "referencia": "HD-LOGO",
+      "material": "85 % Baumwolle, 15 % Polyester",
+      "variantes": ["S", "M", "L", "XL", "XXL"],
+      "produccionDias": 5,
+      "textil": true,
+      "personalizado": true,
+      "enlacePago": null,
+      "fabricante": {
+        "nombre": "[prüfen] Name des Textilherstellers",
+        "direccion": "[prüfen] Straße, PLZ, Ort, EU-Land",
+        "email": "[prüfen] kontakt@hersteller.eu",
+        "extraUe": false
+      },
+      "seguridad": "Waschanleitung im Etikett beachten. Nicht für Kinder unter 3 Jahren geeignet."
+    }
+  ]
+}

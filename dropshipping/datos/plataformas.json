@@ -1,0 +1,62 @@
+{
+  "_nota": "Comisiones vigentes en septiembre de 2026 para un vendedor con sede en Alemania. TODAS las cifras estan sin contrastar contra la pagina oficial de cada plataforma: verifica antes de fijar un precio de venta, porque cambian sin avisar. Fuentes en alemania/PROVEEDORES.md.",
+  "_verificado": false,
+  "plataformas": [
+    {
+      "id": "etsy",
+      "nombre": "Etsy",
+      "comision": 0.065,
+      "comisionSobreEnvio": true,
+      "comisionPago": 0.04,
+      "fijoPago": 0.30,
+      "costeListado": 0.18,
+      "ventasPorListado": 1,
+      "comisionPagoReembolsable": false,
+      "reverseCharge": true,
+      "sede": "Irlanda",
+      "notas": "El listado cuesta 0,20 USD y dura 4 meses o hasta la venta; se renueva en cada venta. ventasPorListado = cuantas ventas esperas de un listado antes de renovarlo: con 1 estas contando el caso peor. Trafico propio: es la unica plataforma de esta tabla donde el comprador llega solo."
+    },
+    {
+      "id": "ebay",
+      "nombre": "eBay (profesional, DE)",
+      "comision": 0.11,
+      "comisionSobreEnvio": true,
+      "comisionPago": 0.0,
+      "fijoPago": 0.35,
+      "costeListado": 0,
+      "ventasPorListado": 1,
+      "comisionPagoReembolsable": true,
+      "reverseCharge": true,
+      "sede": "Luxemburgo",
+      "notas": "La comision depende mucho de la categoria (entre el 8 % y el 13 %) e incluye ya la gestion de pago. El fijo por pedido y los listados gratuitos mensuales cambian segun el tipo de cuenta. Confirma la tuya en la tabla de tarifas de tu categoria."
+    },
+    {
+      "id": "tienda-propia",
+      "nombre": "Tienda propia (Stripe)",
+      "comision": 0,
+      "comisionSobreEnvio": true,
+      "comisionPago": 0.015,
+      "fijoPago": 0.25,
+      "costeListado": 0,
+      "ventasPorListado": 1,
+      "comisionPagoReembolsable": false,
+      "reverseCharge": true,
+      "sede": "Irlanda",
+      "notas": "1,5 % + 0,25 EUR para tarjetas del EEE; las de fuera del EEE cuestan bastante mas. Cero coste fijo, cero comision de plataforma... y cero trafico: aqui el visitante lo traes tu. Es la plataforma mas rentable por pedido y la mas dificil de llenar."
+    },
+    {
+      "id": "tienda-propia-paypal",
+      "nombre": "Tienda propia (PayPal)",
+      "comision": 0,
+      "comisionSobreEnvio": true,
+      "comisionPago": 0.0249,
+      "fijoPago": 0.35,
+      "costeListado": 0,
+      "ventasPorListado": 1,
+      "comisionPagoReembolsable": false,
+      "reverseCharge": true,
+      "sede": "Luxemburgo",
+      "notas": "Mas caro que Stripe pero mucha gente en Alemania solo compra si ve PayPal. Merece la pena tenerlo como segunda opcion de pago, no como unica."
+    }
+  ]
+}
