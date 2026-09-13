@@ -11,7 +11,8 @@
     "cartas": "node webs-locales/contacto/generar-cartas.mjs",
     "datos": "node webs-locales/datos-necesarios.mjs",
     "margen": "node dropshipping/calcular.mjs",
-    "nichos": "node dropshipping/nichos.mjs"
+    "nichos": "node dropshipping/nichos.mjs",
+    "tienda": "node dropshipping/tienda/generar.mjs"
   },
   "license": "MIT"
 }

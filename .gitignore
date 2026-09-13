@@ -9,3 +9,6 @@ webs-locales/sitios/
 
 # Textos de contacto generados
 webs-locales/contacto/salida/
+
+# Tiendas generadas: se regeneran con "node dropshipping/tienda/generar.mjs"
+dropshipping/tienda/salida/
