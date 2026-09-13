@@ -12,3 +12,6 @@ webs-locales/contacto/salida/
 
 # Tiendas generadas: se regeneran con "node dropshipping/tienda/generar.mjs"
 dropshipping/tienda/salida/
+
+# Hojas de auditoria generadas: se regeneran con "node fichas-google/auditar.mjs <id> --html"
+fichas-google/hojas/

@@ -1,21 +1,37 @@
-# Tres negocios con poco capital
+# Cuatro negocios con poco capital
 
-Este repositorio contiene tres negocios construidos, no tres ideas:
+Este repositorio contiene cuatro negocios construidos, no cuatro ideas:
 
 | | Qué es | Tu parte | Dinero |
 | --- | --- | --- | --- |
-| **[`webs-locales/`](webs-locales/README.md)** | Vender webs a bares y peluquerías por 300 € | Hablar con dueños de negocio | Días. **Empieza por aquí.** |
-| **[`dropshipping/`](dropshipping/README.md)** | Vender artículos impresos bajo demanda, sin stock | Conseguir el pedido; el resto lo hace el proveedor | Semanas. Se vende **en la misma visita** que la web |
+| **[`fichas-google/`](fichas-google/README.md)** | Dejar bien la ficha de Google de un negocio local: 120 € y 25 €/mes | Mirar su ficha y llamar a la puerta | Hoy. **Empieza por aquí.** |
+| **[`webs-locales/`](webs-locales/README.md)** | Vender webs a bares y peluquerías por 300 € | Hablar con dueños de negocio | Días. Se vende **en la misma visita** que la ficha |
+| **[`dropshipping/`](dropshipping/README.md)** | Vender artículos impresos bajo demanda, sin stock | Conseguir el pedido; el resto lo hace el proveedor | Semanas. Necesita 65-90 € por delante |
 | **`web/`** (abajo) | Calculadora fiscal con ingresos por afiliación | Escribir contenido | 3-6 meses, incierto |
 
-Si solo vas a hacer una cosa, lee **[`webs-locales/VENTAS.md`](webs-locales/VENTAS.md)**:
-una web deja 300 € de una sola conversación y no cuesta nada montarla. Un pedido
-de camisetas deja 5 €. Esa comparación está hecha con números en
-[`dropshipping/PLAN.md`](dropshipping/PLAN.md), y es la razón del orden de la tabla.
+Los tres primeros se venden **en la misma puerta**, y ese es todo el plan:
 
-El segundo negocio existe porque **se vende en la puerta que ya estás llamando**:
-al Handwerker que no te compra la web le puedes colocar veinte sudaderas con su
-logo, cobradas por adelantado. Antes de vender nada físico en Alemania, lee
+1. **Entras con la ficha de Google.** Cuesta 0 €, se audita desde el móvil en diez
+   minutos, y le enseñas algo que ya es suyo con una nota de 37 sobre 100 encima.
+   Es el sí más fácil de los tres, y lo necesitan todos los negocios, también los
+   que ya tienen buena web.
+2. **Uno de los 19 criterios es «¿tiene web enlazada?».** Cuando la respuesta es
+   no, la conversación de los 300 € viene sola, con el mismo dueño y sin volver a
+   llamar a la puerta.
+3. **Al Handwerker que no te compra ninguna de las dos** le puedes colocar veinte
+   sudaderas con su logo, cobradas por adelantado.
+
+Si solo vas a leer un documento, que sea
+**[`fichas-google/VENTAS.md`](fichas-google/VENTAS.md)**. Si solo vas a leer dos, el
+segundo es [`webs-locales/VENTAS.md`](webs-locales/VENTAS.md): la web deja 300 € de
+una sola conversación, pero hay que convencer a alguien de algo que todavía no
+existe. La ficha ya existe.
+
+**Antes de tocar la ficha de Google de nadie**, lee las seis reglas de
+[`fichas-google/alemania/RECHT.md`](fichas-google/alemania/RECHT.md) — sobre todo la
+de no reclamarla nunca a tu nombre. Antes de escribir en frío a nadie,
+[`webs-locales/alemania/RECHT.md`](webs-locales/alemania/RECHT.md). Y antes de vender
+nada físico en Alemania,
 [`dropshipping/alemania/RECHT.md`](dropshipping/alemania/RECHT.md).
 
 El plan de la calculadora está en [`NEGOCIO.md`](NEGOCIO.md).

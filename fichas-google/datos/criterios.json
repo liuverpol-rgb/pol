@@ -1,0 +1,221 @@
+{
+  "version": "2026-09",
+  "nota": "Los criterios son campos reales del Google-Unternehmensprofil, comprobables mirando la ficha desde el movil. Los pesos son juicio propio, no un dato de Google: suman 100 para que la nota sea legible, y estan ordenados por lo que de verdad decide que a un negocio local le entren llamadas.",
+  "grupos": {
+    "grundlagen": "Grundlagen",
+    "sichtbarkeit": "Gefunden werden",
+    "vertrauen": "Vertrauen",
+    "pflege": "Pflege"
+  },
+  "criterios": [
+    {
+      "id": "reclamado",
+      "grupo": "grundlagen",
+      "titulo": "Profil ist beansprucht und bestätigt",
+      "peso": 12,
+      "quien": "inhaber",
+      "mira": "Busca el negocio en Google Maps desde el movil. Si sale «Inhaber dieses Unternehmens?» o «Diesen Eintrag beanspruchen», nadie lo ha reclamado.",
+      "efecto": "Solange das Profil nicht bestätigt ist, gehört es Ihnen nicht: Sie können nichts ändern, Sie sehen keine Anfragen, und Fremde können Änderungen vorschlagen, die Google übernimmt.",
+      "arreglo": "Esto no lo puedes hacer tu: la verificacion va a nombre del duenno (postal, video o telefono). Tu le acompannas, y cuando este bestätigt le pides acceso como Administrator.",
+      "minutos": 15
+    },
+    {
+      "id": "nombre_sin_keywords",
+      "grupo": "grundlagen",
+      "titulo": "Name ist der echte Betriebsname",
+      "peso": 3,
+      "quien": "tu",
+      "mira": "Lee el nombre tal cual aparece. Si lleva colgado «— Friseur Reinbek günstig» o similar, esta infringiendo las normas.",
+      "efecto": "Zusätze wie Ort oder Branche im Namen verstoßen gegen die Google-Richtlinien. Das Profil kann deswegen gesperrt werden — und gesperrte Profile sind wochenlang weg.",
+      "arreglo": "Dejar el nombre que figura en el Gewerbeschein. Esto protege la ficha, no la optimiza: dilo asi.",
+      "minutos": 5
+    },
+    {
+      "id": "kategoria_principal",
+      "grupo": "grundlagen",
+      "titulo": "Hauptkategorie ist die genaueste, die es gibt",
+      "peso": 10,
+      "quien": "tu",
+      "mira": "La categoria sale bajo el nombre. Comparala con la de los tres primeros resultados de la misma busqueda.",
+      "efecto": "Die Hauptkategorie entscheidet, bei welchen Suchen Sie überhaupt auftauchen. Keine andere Einstellung im Profil wirkt so stark.",
+      "arreglo": "Cambiarla por la mas especifica que exista (Friseursalon, no Geschäft) despues de mirar que usan los que salen arriba.",
+      "minutos": 15
+    },
+    {
+      "id": "horario",
+      "grupo": "grundlagen",
+      "titulo": "Öffnungszeiten sind vollständig",
+      "peso": 9,
+      "quien": "tu",
+      "mira": "Sin horario completo no aparece «Jetzt geöffnet». Comprueba tambien que el dia de descanso este puesto como geschlossen y no en blanco.",
+      "efecto": "Ohne vollständige Zeiten zeigt Google kein „Jetzt geöffnet“. Das ist die Angabe, die die meisten Leute anschauen, bevor sie losfahren.",
+      "arreglo": "Meter los siete dias, incluidas las pausas del mediodia.",
+      "minutos": 10
+    },
+    {
+      "id": "telefono",
+      "grupo": "grundlagen",
+      "titulo": "Telefonnummer stimmt und wird abgenommen",
+      "peso": 5,
+      "quien": "tu",
+      "mira": "Llama al numero desde tu movil. Que suene, y que sea el que el duenno usa hoy.",
+      "efecto": "Der Anruf aus dem Profil heraus ist bei lokalen Betrieben der häufigste Weg, wie ein Neukunde Sie erreicht.",
+      "arreglo": "Corregir el numero y, si tiene movil de empresa, ponerlo como segundo.",
+      "minutos": 5
+    },
+    {
+      "id": "kategoria_secundaria",
+      "grupo": "sichtbarkeit",
+      "titulo": "Zusatzkategorien sind gesetzt",
+      "peso": 3,
+      "quien": "tu",
+      "mira": "No se ven desde fuera con seguridad. Marcalo como comprobado solo cuando tengas acceso al perfil.",
+      "efecto": "Zusatzkategorien bringen Sie in Suchen, die die Hauptkategorie nicht abdeckt — etwa „Herrenfriseur“ neben „Friseursalon“.",
+      "arreglo": "Annadir de dos a cinco, solo servicios que preste de verdad.",
+      "minutos": 10
+    },
+    {
+      "id": "web_enlace",
+      "grupo": "sichtbarkeit",
+      "titulo": "Website ist verlinkt",
+      "peso": 4,
+      "quien": "tu",
+      "mira": "Si no hay boton «Website», aqui tienes la puerta abierta para la web de 300 EUR.",
+      "efecto": "Ohne Website-Link endet der Besuch im Profil. Mit Link sehen Kunden Ihre Leistungen und Preise in Ruhe nach.",
+      "arreglo": "Poner el enlace. Si no tiene web, es el momento de ensennarle la de webs-locales/.",
+      "minutos": 5
+    },
+    {
+      "id": "servicios",
+      "grupo": "sichtbarkeit",
+      "titulo": "Leistungen mit Preis sind hinterlegt",
+      "peso": 6,
+      "quien": "tu",
+      "mira": "Mira si hay pestanna «Leistungen» con lista propia, no solo la descripcion.",
+      "efecto": "Die Leistungsliste beantwortet direkt im Profil die Frage, wegen der die meisten anrufen: was kostet das und machen Sie das überhaupt.",
+      "arreglo": "Cargar entre ocho y quince servicios con precio. Los precios los dice el duenno; no se inventa ninguno.",
+      "minutos": 30
+    },
+    {
+      "id": "atributos",
+      "grupo": "sichtbarkeit",
+      "titulo": "Attribute sind ausgefüllt",
+      "peso": 3,
+      "quien": "tu",
+      "mira": "Parkplatz, barrierefrei, Kartenzahlung, Termin erforderlich, WLAN, Hunde erlaubt.",
+      "efecto": "Attribute sind Filter in der Google-Suche. Wer sie nicht gesetzt hat, fällt aus den Filtern einfach heraus.",
+      "arreglo": "Repasar la lista entera del gremio y marcar solo lo que sea cierto.",
+      "minutos": 10
+    },
+    {
+      "id": "nap_coherente",
+      "grupo": "sichtbarkeit",
+      "titulo": "Name, Adresse und Telefon stimmen überall überein",
+      "peso": 3,
+      "quien": "tu",
+      "mira": "Compara la ficha con Gelbe Seiten, Das Örtliche y Facebook. Busca abreviaturas distintas de la calle y numeros viejos.",
+      "efecto": "Wenn Ihre Daten an verschiedenen Stellen unterschiedlich stehen, kann Google sie schlechter zuordnen — und Kunden landen bei einer alten Nummer.",
+      "arreglo": "Lista de las diferencias y correccion de cada directorio. Es trabajo aburrido y por eso nadie lo hace.",
+      "minutos": 30
+    },
+    {
+      "id": "descripcion",
+      "grupo": "vertrauen",
+      "titulo": "Unternehmensbeschreibung ist geschrieben",
+      "peso": 5,
+      "quien": "tu",
+      "mira": "Apartado «Info». Suele estar vacio.",
+      "efecto": "750 Zeichen, in denen Sie selbst sagen, was Sie machen, seit wann und für wen. Das steht mitten im Profil und wird gelesen.",
+      "arreglo": "Escribirla con lo que te cuente el duenno en la visita. Sin superlativos y sin palabras clave metidas a la fuerza.",
+      "minutos": 20
+    },
+    {
+      "id": "fotos_cantidad",
+      "grupo": "vertrauen",
+      "titulo": "Mindestens zehn eigene Fotos",
+      "peso": 8,
+      "quien": "tu",
+      "mira": "Cuenta las fotos del duenno, no las de los clientes. Google separa «Von Inhaber» de «Von Besuchern».",
+      "efecto": "Ohne eigene Fotos zeigt Google die Bilder, die Kunden gemacht haben — oder gar keine. Dann entscheiden Sie nicht, wie Ihr Betrieb aussieht.",
+      "arreglo": "Diez fotos con el movil: fachada, entrada, interior, puesto de trabajo, equipo, trabajo terminado, detalle. Es la parte que mas tiempo lleva y la que mas se nota.",
+      "minutos": 45
+    },
+    {
+      "id": "foto_portada_logo",
+      "grupo": "vertrauen",
+      "titulo": "Titelbild und Logo sind gesetzt",
+      "peso": 3,
+      "quien": "tu",
+      "mira": "Es lo que sale junto al nombre en la lista de resultados.",
+      "efecto": "Titelbild und Logo sind das Erste, was in der Trefferliste neben Ihrem Namen erscheint.",
+      "arreglo": "Elegir la mejor foto horizontal como Titelbild y subir el logo cuadrado.",
+      "minutos": 10
+    },
+    {
+      "id": "resenas_respondidas",
+      "grupo": "vertrauen",
+      "titulo": "Auf Bewertungen wird geantwortet",
+      "peso": 8,
+      "quien": "tu",
+      "mira": "Mira si hay respuesta bajo las resennas, sobre todo bajo las malas.",
+      "efecto": "Ihre Antwort liest jeder, der das Profil öffnet — auch die, die selbst nie etwas schreiben. Eine unbeantwortete schlechte Bewertung steht sonst unwidersprochen da.",
+      "arreglo": "Responder a todas las pendientes, empezando por las negativas. Respuestas cortas, sin plantilla repetida y sin dar datos del cliente.",
+      "minutos": 30
+    },
+    {
+      "id": "resenas_pedidas",
+      "grupo": "vertrauen",
+      "titulo": "Es gibt einen Weg, Bewertungen zu bekommen",
+      "peso": 5,
+      "quien": "tu",
+      "mira": "Pregunta al duenno si pide resennas y como. Casi siempre la respuesta es que no.",
+      "efecto": "Neue Bewertungen kommen selten von allein. Mit dem kurzen Bewertungslink dauert es für den Kunden zwanzig Sekunden.",
+      "arreglo": "Sacar el enlace corto del perfil, hacerle la tarjeta del mostrador con fichas-google/qr-resena.mjs. Se pide la resenna, nunca se compra ni se regala nada a cambio.",
+      "minutos": 20
+    },
+    {
+      "id": "fotos_recientes",
+      "grupo": "pflege",
+      "titulo": "Das letzte Foto ist aus diesem Monat",
+      "peso": 4,
+      "quien": "tu",
+      "mira": "Google pone la fecha bajo cada foto.",
+      "efecto": "Ein Profil, dessen letztes Foto zwei Jahre alt ist, wirkt wie ein Betrieb, den es vielleicht nicht mehr gibt.",
+      "arreglo": "Una o dos fotos al mes. Es parte del mantenimiento, no del trabajo inicial.",
+      "minutos": 5
+    },
+    {
+      "id": "publicaciones",
+      "grupo": "pflege",
+      "titulo": "Es gibt aktuelle Beiträge",
+      "peso": 4,
+      "quien": "tu",
+      "mira": "Apartado «Updates» o «Beiträge». Casi ningun negocio pequenno lo usa.",
+      "efecto": "Beiträge erscheinen direkt im Profil und zeigen, dass der Betrieb aktiv ist. Angebot, Urlaub, neue Leistung — zwei Sätze reichen.",
+      "arreglo": "Un Beitrag por semana. Tambien es mantenimiento.",
+      "minutos": 10
+    },
+    {
+      "id": "horario_festivos",
+      "grupo": "pflege",
+      "titulo": "Sonderöffnungszeiten für Feiertage sind gepflegt",
+      "peso": 3,
+      "quien": "tu",
+      "mira": "Mira el proximo festivo. Si no esta puesto, Google avisa de que el horario puede no ser correcto.",
+      "efecto": "An Feiertagen blendet Google „Öffnungszeiten können abweichen“ ein. Wer das liest, ruft lieber woanders an.",
+      "arreglo": "Cargar los festivos de los proximos doce meses de una vez.",
+      "minutos": 10
+    },
+    {
+      "id": "mensajes",
+      "grupo": "pflege",
+      "titulo": "Nachrichten sind aktiviert oder bewusst aus",
+      "peso": 2,
+      "quien": "tu",
+      "mira": "Si sale el boton «Nachricht senden», pregunta al duenno si lo mira. Lo normal es que no sepa que existe.",
+      "efecto": "Eine Anfrage, die tagelang unbeantwortet liegt, ist schlimmer als gar kein Nachrichtenkanal.",
+      "arreglo": "O se activa con aviso al movil del duenno, o se apaga. Las dos son buenas; dejarlo a medias no.",
+      "minutos": 5
+    }
+  ]
+}

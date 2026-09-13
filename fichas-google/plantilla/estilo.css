@@ -1,0 +1,98 @@
+/*
+ * Hoja de auditoria para ensenar en el movil y, si hace falta, imprimir.
+ *
+ * Deliberadamente NO usa los colores ni el logotipo de Google. La hoja es
+ * tuya, no de Google, y darlo a entender seria enganoso (y en Alemania,
+ * irregular). Paleta calida, la misma familia que las webs de clientes.
+ */
+:root {
+  --fondo: #ffffff;
+  --tenue: #faf8f5;
+  --borde: #e8e2da;
+  --texto: #1a1714;
+  --suave: #6d665d;
+  --rojo: #b03a2e;
+  --verde: #17724f;
+  --ambar: #9a6b05;
+  --radio: 12px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--tenue);
+  color: var(--texto);
+  font: 17px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.hoja { max-width: 720px; margin: 0 auto; background: var(--fondo); padding: 28px 20px 40px; }
+
+.marca { font-size: 0.78rem; letter-spacing: 0.09em; text-transform: uppercase; color: var(--suave); margin: 0 0 6px; }
+h1 { font-size: 1.5rem; line-height: 1.25; margin: 0 0 4px; }
+.fecha { color: var(--suave); font-size: 0.92rem; margin: 0 0 24px; }
+
+.aviso {
+  background: #fdeceb;
+  border: 1px solid #f0c4bf;
+  border-left: 4px solid var(--rojo);
+  border-radius: var(--radio);
+  padding: 14px 16px;
+  margin: 0 0 24px;
+}
+.aviso strong { color: var(--rojo); }
+.aviso p { margin: 6px 0 0; font-size: 0.95rem; }
+
+.nota {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  background: var(--tenue);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: 18px 20px;
+  margin: 0 0 28px;
+}
+.nota-cifra { font-size: 2.6rem; font-weight: 700; line-height: 1; }
+.nota-cifra span { font-size: 1.1rem; font-weight: 500; color: var(--suave); }
+.nota-texto { font-size: 0.98rem; color: var(--suave); }
+.nota-texto strong { display: block; color: var(--texto); font-size: 1.05rem; }
+.baja .nota-cifra { color: var(--rojo); }
+.media .nota-cifra { color: var(--ambar); }
+.alta .nota-cifra { color: var(--verde); }
+
+h2 { font-size: 1.12rem; margin: 32px 0 12px; }
+h2 .cuenta { color: var(--suave); font-weight: 500; }
+
+.falta { border: 1px solid var(--borde); border-left: 3px solid var(--rojo); border-radius: var(--radio); padding: 14px 16px; margin: 0 0 10px; }
+.falta h3 { font-size: 1rem; margin: 0 0 4px; }
+.falta p { margin: 0; font-size: 0.94rem; color: var(--suave); }
+.puntos { float: right; font-size: 0.8rem; color: var(--suave); margin-left: 12px; }
+
+ul.lista { list-style: none; padding: 0; margin: 0; }
+ul.lista li { padding: 7px 0 7px 26px; border-bottom: 1px solid var(--borde); font-size: 0.96rem; position: relative; }
+ul.lista li:last-child { border-bottom: 0; }
+ul.lista li::before { content: "✓"; position: absolute; left: 0; color: var(--verde); font-weight: 700; }
+ul.pendiente li::before { content: "?"; color: var(--suave); }
+ul.pendiente li { color: var(--suave); }
+
+.oferta { background: var(--tenue); border: 1px solid var(--borde); border-radius: var(--radio); padding: 20px; margin: 32px 0 0; }
+.oferta h2 { margin-top: 0; }
+.paquete { border-top: 1px solid var(--borde); padding: 14px 0 0; margin: 14px 0 0; }
+.paquete:first-of-type { border-top: 0; padding-top: 0; margin-top: 0; }
+.precio { font-size: 1.5rem; font-weight: 700; }
+.precio span { font-size: 0.92rem; font-weight: 500; color: var(--suave); }
+.paquete h3 { margin: 0 0 2px; font-size: 1.02rem; }
+.paquete ul { margin: 8px 0 0; padding-left: 20px; font-size: 0.94rem; color: var(--suave); }
+.paquete .horas { font-size: 0.88rem; color: var(--suave); margin: 8px 0 0; }
+.junto { font-size: 0.94rem; color: var(--suave); border-top: 1px solid var(--borde); margin: 16px 0 0; padding: 14px 0 0; }
+
+footer { margin: 36px 0 0; padding: 16px 0 0; border-top: 1px solid var(--borde); font-size: 0.82rem; color: var(--suave); }
+footer p { margin: 0 0 6px; }
+
+@media print {
+  body { background: #fff; font-size: 11pt; }
+  .hoja { max-width: none; padding: 0; }
+  .falta, .nota, .oferta { break-inside: avoid; }
+}

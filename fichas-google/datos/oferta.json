@@ -1,0 +1,49 @@
+{
+  "nota": "El precio vive aqui y en ningun otro sitio. Si lo cambias, cambia en la hoja del cliente, en el resumen de consola y en el presupuesto a la vez.",
+  "moneda": "EUR",
+  "paquetes": [
+    {
+      "id": "einrichtung",
+      "titulo": "Google-Profil einrichten",
+      "precio": 120,
+      "unidad": "einmalig",
+      "incluye": [
+        "Kategorien, Öffnungszeiten, Leistungen und Attribute vollständig",
+        "Unternehmensbeschreibung",
+        "Zehn eigene Fotos, von mir vor Ort gemacht",
+        "Antworten auf alle offenen Bewertungen",
+        "Bewertungslink mit QR-Aufsteller für den Tresen"
+      ],
+      "horas": "3 bis 5 Stunden Arbeit"
+    },
+    {
+      "id": "pflege",
+      "titulo": "Monatliche Pflege",
+      "precio": 25,
+      "unidad": "pro Monat, monatlich kündbar",
+      "incluye": [
+        "Ein Beitrag pro Woche",
+        "Neue Fotos jeden Monat",
+        "Antwort auf jede neue Bewertung innerhalb von zwei Tagen",
+        "Feiertage und Sonderzeiten immer aktuell"
+      ],
+      "horas": "etwa eine Stunde im Monat"
+    }
+  ],
+  "descuento_con_web": {
+    "titulo": "Zusammen mit der Website",
+    "texto": "Wenn Sie die Website dazunehmen, ist die Einrichtung des Google-Profils enthalten.",
+    "precio_web": 300
+  },
+  "alternativa": {
+    "nota": "No sale en la hoja a proposito. Es lo que ofreces de palabra, y solo si el precio le frena. Ver VENTAS.md.",
+    "titulo": "Nur die Grundlagen",
+    "precio": 60,
+    "unidad": "einmalig",
+    "incluye": [
+      "Kategorien, Öffnungszeiten, Leistungen, Attribute",
+      "Unternehmensbeschreibung"
+    ],
+    "sin": "ohne Fotos und ohne Bewertungsantworten"
+  }
+}

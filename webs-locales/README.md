@@ -12,6 +12,11 @@ Tú hablas con ellos; el resto está automatizado aquí.
 
 Es lo único que decide si esto gana dinero. La web la genera el ordenador.
 
+> **Antes de esta puerta hay otra más fácil.** La ficha de Google de ese mismo
+> negocio cuesta 0 € auditarla, se vende por 120 € y no hay que convencer a nadie
+> de nada que no exista ya: [`../fichas-google/`](../fichas-google/README.md).
+> La web es el segundo sí de la misma visita, no el primero.
+
 ## Cómo se hace una web
 
 Desde un prospecto del CSV, que es lo normal:

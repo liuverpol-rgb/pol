@@ -1,0 +1,38 @@
+{
+  "_nota": "Los criterios estan en null = sin comprobar. Se miran uno a uno en Google Maps desde el movil y se ponen a true o false. Un criterio en null no cuenta para la nota y sale aparte en la hoja del cliente.",
+  "id": "fahrschule-am-bahnhof",
+  "nombre": "Fahrschule am Bahnhof",
+  "ciudad": "Reinbek",
+  "telefono": "+49 40 7226665",
+  "gremio": "fahrschule",
+  "propuesta_de": "[dein Name]",
+  "comprobado": null,
+  "perfil_url": "",
+  "categoria_actual": "",
+  "resenas": {
+    "cantidad": null,
+    "nota": null
+  },
+  "criterios": {
+    "reclamado": null,
+    "nombre_sin_keywords": null,
+    "kategoria_principal": null,
+    "horario": null,
+    "telefono": null,
+    "kategoria_secundaria": null,
+    "web_enlace": null,
+    "servicios": null,
+    "atributos": null,
+    "nap_coherente": null,
+    "descripcion": null,
+    "fotos_cantidad": null,
+    "foto_portada_logo": null,
+    "resenas_respondidas": null,
+    "resenas_pedidas": null,
+    "fotos_recientes": null,
+    "publicaciones": null,
+    "horario_festivos": null,
+    "mensajes": null
+  },
+  "notas": ""
+}
