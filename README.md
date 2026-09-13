@@ -1,13 +1,23 @@
-# Dos negocios con poco capital
+# Tres negocios con poco capital
 
-Este repositorio contiene dos negocios construidos, no dos ideas:
+Este repositorio contiene tres negocios construidos, no tres ideas:
 
 | | Qué es | Tu parte | Dinero |
 | --- | --- | --- | --- |
 | **[`webs-locales/`](webs-locales/README.md)** | Vender webs a bares y peluquerías por 300 € | Hablar con dueños de negocio | Días. **Empieza por aquí.** |
+| **[`dropshipping/`](dropshipping/README.md)** | Vender artículos impresos bajo demanda, sin stock | Conseguir el pedido; el resto lo hace el proveedor | Semanas. Se vende **en la misma visita** que la web |
 | **`web/`** (abajo) | Calculadora fiscal con ingresos por afiliación | Escribir contenido | 3-6 meses, incierto |
 
-Si solo vas a hacer una cosa, lee **[`webs-locales/VENTAS.md`](webs-locales/VENTAS.md)**.
+Si solo vas a hacer una cosa, lee **[`webs-locales/VENTAS.md`](webs-locales/VENTAS.md)**:
+una web deja 300 € de una sola conversación y no cuesta nada montarla. Un pedido
+de camisetas deja 5 €. Esa comparación está hecha con números en
+[`dropshipping/PLAN.md`](dropshipping/PLAN.md), y es la razón del orden de la tabla.
+
+El segundo negocio existe porque **se vende en la puerta que ya estás llamando**:
+al Handwerker que no te compra la web le puedes colocar veinte sudaderas con su
+logo, cobradas por adelantado. Antes de vender nada físico en Alemania, lee
+[`dropshipping/alemania/RECHT.md`](dropshipping/alemania/RECHT.md).
+
 El plan de la calculadora está en [`NEGOCIO.md`](NEGOCIO.md).
 
 ---
@@ -43,8 +53,11 @@ docs/VERIFICAR-TARIFAS.md  Qué contrastar antes de publicar
 ## Desarrollo
 
 ```bash
-npm test        # 20 pruebas: motor de cálculo y generador de webs
+npm test        # 76 pruebas: cálculo fiscal, generador de webs, márgenes y tienda
 npm run dev     # sirve web/ en http://localhost:8080
+npm run nichos  # criba de nichos para vender sin stock
+npm run margen  # qué queda de cada pedido, plataforma por plataforma
+npm run tienda  # genera la tienda estática con sus páginas legales
 ```
 
 No hay paso de compilación ni `node_modules` en producción. Node solo hace falta
