@@ -1,0 +1,16 @@
+{
+  "nombre": "Camiseta algodon organico con diseno propio",
+  "proveedor": "Print-on-demand con produccion en la UE (Letonia o Espana) — [confirmar tarifa actual]",
+  "precioVenta": 24.9,
+  "envioCobrado": 3.9,
+  "costeGenero": 12.5,
+  "costeGeneroLlevaIva": true,
+  "costeEnvio": 4.79,
+  "costeEnvioLlevaIva": true,
+  "licenciaEnvase": 0.08,
+  "tasaDevolucion": 0.08,
+  "recuperacionDevolucion": 0,
+  "envioRetornoAsumido": 0,
+  "unidades": 1,
+  "notas": "La ropa es lo que mas se devuelve de todo el comercio online: la talla. Un 8 % es optimista para prenda; en moda se habla del 20-40 %. Y como la camiseta va impresa con tu diseno, la devolucion es perdida total: no la revendes. recuperacionDevolucion queda en 0 por eso. El cliente paga el retorno si lo dices en la Widerrufsbelehrung."
+}
