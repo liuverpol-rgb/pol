@@ -34,6 +34,13 @@ de no reclamarla nunca a tu nombre. Antes de escribir en frío a nadie,
 nada físico en Alemania,
 [`dropshipping/alemania/RECHT.md`](dropshipping/alemania/RECHT.md).
 
+Y hay una quinta cosa que no es un negocio aparte sino la herramienta de
+`dropshipping/` puesta donde se decide el precio:
+**[`extension/`](extension/README.md)**, una extensión de Chrome que, sobre la
+ficha de un producto de Amazon, dice lo que de verdad queda de esa venta. Cinco
+análisis gratis al mes y una versión de pago; el
+[plan de lanzamiento](extension/LANZAMIENTO.md) cuesta 5 $ y ningún coste fijo.
+
 El plan de la calculadora está en [`NEGOCIO.md`](NEGOCIO.md).
 
 ---
@@ -69,11 +76,12 @@ docs/VERIFICAR-TARIFAS.md  Qué contrastar antes de publicar
 ## Desarrollo
 
 ```bash
-npm test        # 76 pruebas: cálculo fiscal, generador de webs, márgenes y tienda
+npm test        # 135 pruebas: cálculo fiscal, webs, márgenes, tienda y extensión
 npm run dev     # sirve web/ en http://localhost:8080
 npm run nichos  # criba de nichos para vender sin stock
 npm run margen  # qué queda de cada pedido, plataforma por plataforma
 npm run tienda  # genera la tienda estática con sus páginas legales
+npm run extension  # prepara la extensión de Chrome (copia el motor de margen)
 ```
 
 No hay paso de compilación ni `node_modules` en producción. Node solo hace falta
