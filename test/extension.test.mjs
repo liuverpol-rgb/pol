@@ -1,11 +1,13 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync, existsSync } from 'node:fs';
+import { readFileSync, existsSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { asinDeUrl, categoriaDeTarifa, esFichaDeProducto, leerProducto, precioDeTexto } from '../extension/lib/amazon.mjs';
 import { analizar, categoriaSugerida, plataformaAmazon } from '../extension/lib/calculo.mjs';
+import { TIENDA } from '../extension/config.mjs';
 import { desglosar } from '../dropshipping/margen.mjs';
 import { DESTINO, ORIGEN } from '../extension/sincronizar.mjs';
+import { FUERA } from '../extension/empaquetar.mjs';
 
 const RAIZ = new URL('../', import.meta.url).pathname;
 const TARIFAS = JSON.parse(readFileSync(join(RAIZ, 'extension/datos/amazon.json'), 'utf8'));
@@ -155,5 +157,37 @@ test('los recursos que carga el content script estan declarados para los mismos 
 
 test('la extension no pide mas permisos de los que usa', () => {
   assert.deepEqual(MANIFIESTO.permissions.sort(), ['activeTab', 'scripting', 'storage']);
-  assert.deepEqual(MANIFIESTO.host_permissions, ['https://api.lemonsqueezy.com/*']);
+  assert.equal(MANIFIESTO.host_permissions.length, 1, 'un solo dominio: el del servidor de licencias');
+});
+
+test('el servidor de licencias de config.mjs esta permitido en el manifiesto', () => {
+  // Si estas dos cosas no coinciden, Chrome bloquea la validacion de la
+  // licencia sin un solo mensaje de error y quien ha pagado se queda fuera.
+  const destino = TIENDA.proveedor === 'propio' ? TIENDA.endpoint : 'https://api.lemonsqueezy.com/';
+  const origen = new URL(destino).origin;
+  const permitidos = MANIFIESTO.host_permissions.map((p) => new URL(p.replace('/*', '/')).origin);
+  assert.ok(
+    permitidos.includes(origen),
+    `host_permissions no cubre ${origen}: ${permitidos.join(', ')}`,
+  );
+});
+
+test('todo lo que hay en extension/ o se empaqueta o se excluye a conciencia', () => {
+  // Si anades algo a extension/, este test te obliga a decidir si viaja dentro
+  // del ZIP que se sube a la tienda. Asi no se cuela un generador ni se queda
+  // fuera un archivo que la extension necesita para arrancar.
+  const ENVIADOS = [
+    'manifest.json', 'contenido.js', 'fondo.mjs',
+    'popup.html', 'popup.css', 'popup.mjs', 'config.mjs',
+    'lib', 'datos', 'iconos',
+  ];
+  const excluido = (nombre) =>
+    FUERA.some((p) => p === nombre || (p.endsWith('/*') && nombre === p.slice(0, -2)));
+
+  for (const entrada of readdirSync(join(RAIZ, 'extension'))) {
+    assert.ok(
+      ENVIADOS.includes(entrada) || excluido(entrada),
+      `extension/${entrada} no esta ni en el paquete ni en la lista de exclusiones de empaquetar.mjs`,
+    );
+  }
 });

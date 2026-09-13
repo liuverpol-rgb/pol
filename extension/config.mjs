@@ -13,23 +13,29 @@ export const TIENDA = {
   /** Pon true el dia que el producto este publicado y cobrando. */
   configurada: false,
 
-  /** "lemonsqueezy" (sin servidor) o "propio" (Stripe + tu endpoint). Ver README. */
-  proveedor: 'lemonsqueezy',
-
-  /** Enlace de compra (checkout de Lemon Squeezy o Payment Link de Stripe). */
-  urlCompra: 'https://TU-TIENDA.lemonsqueezy.com/checkout/buy/TU-VARIANTE',
+  /** "propio" = Stripe con tu Worker (licencias/). "lemonsqueezy" = sin servidor. */
+  proveedor: 'propio',
 
   /**
-   * Ids de tu tienda y de tu producto en Lemon Squeezy. Se comprueban al
-   * activar: sin esto, la clave de CUALQUIER producto de Lemon Squeezy
-   * desbloquearia esta extension. Estan en el panel, en la URL de la tienda
-   * y del producto.
+   * El Payment Link de Stripe. En Stripe, al crearlo, pon como pagina de
+   * confirmacion tu propia URL:
+   *
+   *   https://licencias-margen.TU-SUBDOMINIO.workers.dev/exito?session_id={CHECKOUT_SESSION_ID}
+   *
+   * Ahi es donde el comprador ve su clave. Sin eso, paga y no recibe nada.
    */
+  urlCompra: 'https://buy.stripe.com/TU-PAYMENT-LINK',
+
+  /**
+   * Tu validador. Responde {valida, expira}. Lo sirve el Worker de
+   * licencias/, y su dominio tiene que estar tambien en host_permissions
+   * del manifiesto: si no, Chrome bloquea la peticion sin decir nada.
+   */
+  endpoint: 'https://licencias-margen.EJEMPLO.workers.dev/validar',
+
+  /** Solo para Lemon Squeezy: se comprueban al activar la clave. */
   tiendaId: 0,
   productoId: 0,
-
-  /** Solo para proveedor "propio": tu validador. Debe responder {valida, expira}. */
-  endpoint: '',
 
   /** Lo que se le ensena al usuario en el panel de compra. */
   precio: '19 € pago único',

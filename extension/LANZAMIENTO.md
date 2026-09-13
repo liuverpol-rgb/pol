@@ -134,8 +134,9 @@ al mes mantenerlo— y el tiempo se va al negocio que sí esté respondiendo.
 | --- | --- |
 | Cuenta de desarrollador de Chrome Web Store | 5 $, una vez |
 | Hosting de la política de privacidad | 0 € (Cloudflare Pages) |
-| Lemon Squeezy | 0 € fijos; ~5 % + 0,50 $ por venta |
-| Worker de validación, si vas con Stripe | 0 € hasta 100.000 peticiones/día |
+| Stripe | 0 € fijos; 1,5 % + 0,25 € por venta en tarjetas del EEE |
+| Stripe Tax, para el IVA de la UE | ~0,5 % por transacción |
+| Worker de licencias en Cloudflare | 0 € hasta 100.000 peticiones/día |
 | Llamadas a APIs de pago | 0 €: todo el cálculo ocurre en el navegador |
 
 El suelo son 5 $. Si algún día añades una función que llame a una API que

@@ -80,7 +80,7 @@ envío y devoluciones. Todo el cálculo ocurre en el navegador del usuario.
 | `storage` | Guardar en el equipo del usuario sus costes de proveedor, el contador de los cinco análisis gratis del mes y, si la compra, su clave de licencia. |
 | `activeTab` | Leer el precio y el título de la ficha de Amazon que el usuario tiene abierta, y solo en el momento en que pulsa el icono de la extensión. |
 | `scripting` | Inyectar el script de lectura en esa misma pestaña cuando el usuario pulsa el icono, si la página se cargó antes de instalar la extensión. |
-| Permisos de host (`api.lemonsqueezy.com`) | Validar la clave de licencia de los usuarios que han comprado la versión de pago. No se envía ningún otro dato y no se usa nunca en la versión gratuita. |
+| Permisos de host (tu Worker de licencias) | Validar la clave de licencia de los usuarios que han comprado la versión de pago: se envía la clave y nada más. En la versión gratuita no se usa nunca. |
 | Código remoto | **No.** Todo el código se distribuye dentro del paquete; la extensión no descarga ni ejecuta código externo. |
 
 ## Prácticas de privacidad (formulario de datos del usuario)
