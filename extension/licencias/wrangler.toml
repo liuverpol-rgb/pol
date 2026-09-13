@@ -1,0 +1,20 @@
+# Configuracion del Worker de licencias. Se despliega con:
+#
+#   npx wrangler kv namespace create LICENCIAS     # copia el id que imprime
+#   npx wrangler secret put STRIPE_WEBHOOK_SECRET  # el whsec_... del webhook
+#   npx wrangler deploy
+#
+# El plan gratuito de Workers da 100.000 peticiones al dia y el de KV 1.000
+# escrituras: para vender licencias sobra por varios ordenes de magnitud.
+
+name = "licencias-margen"
+main = "worker.mjs"
+compatibility_date = "2026-09-01"
+
+# Pega aqui el id que imprime "wrangler kv namespace create LICENCIAS".
+[[kv_namespaces]]
+binding = "LICENCIAS"
+id = "PEGA_AQUI_EL_ID_DEL_KV"
+
+# STRIPE_WEBHOOK_SECRET no va en este archivo: es un secreto y se sube con
+# "wrangler secret put". Este archivo se versiona; los secretos no.

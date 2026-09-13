@@ -1,0 +1,43 @@
+{
+  "_nota": "Tarifas de Amazon.de y Amazon.es para un vendedor con sede en Alemania, septiembre de 2026. TODAS las cifras estan SIN CONTRASTAR contra Seller Central: la comision por referencia cambia por categoria, por tramo de precio y sin avisar. Verifica la de TU categoria antes de fijar un precio. La extension avisa al usuario mientras _verificado sea false.",
+  "_verificado": false,
+  "_fuente": "Seller Central > Tarifas de venta en Amazon",
+  "plataforma": {
+    "id": "amazon",
+    "nombre": "Amazon",
+    "comisionSobreEnvio": true,
+    "comisionPago": 0,
+    "reverseCharge": true,
+    "sede": "Luxemburgo",
+    "notas": "Amazon EU S.a r.l. factura desde Luxemburgo: si eres Kleinunternehmer pagas el 19 % de reverse charge sobre las comisiones y no lo deduces (§ 13b con § 19 UStG). La gestion de pago va incluida en la comision por referencia, por eso comisionPago es 0."
+  },
+  "planes": [
+    {
+      "id": "particular",
+      "nombre": "Plan Individual",
+      "fijoPago": 0.99,
+      "cuotaMensual": 0,
+      "notas": "0,99 EUR por articulo vendido, sin cuota. Sale a cuenta por debajo de unas 40 ventas al mes."
+    },
+    {
+      "id": "profesional",
+      "nombre": "Plan Profesional",
+      "fijoPago": 0,
+      "cuotaMensual": 39,
+      "notas": "39 EUR al mes mas IVA, sin coste por articulo. Esta cuota es un coste FIJO y este calculo no la reparte entre pedidos: con 40 ventas al mes anade casi 1 EUR a cada una."
+    }
+  ],
+  "categorias": [
+    { "id": "general", "nombre": "General", "comision": 0.15, "equivalencias": ["otros", "sonstiges"] },
+    { "id": "informatica", "nombre": "Informática", "comision": 0.07, "equivalencias": ["ordenadores", "computer", "pc"] },
+    { "id": "electronica", "nombre": "Electrónica", "comision": 0.07, "equivalencias": ["elektronik", "foto", "tv", "audio"] },
+    { "id": "hogar", "nombre": "Hogar y cocina", "comision": 0.15, "equivalencias": ["cocina", "kuche", "haushalt", "jardin"] },
+    { "id": "ropa", "nombre": "Ropa y accesorios", "comision": 0.15, "equivalencias": ["moda", "bekleidung", "zapatos", "schuhe"] },
+    { "id": "belleza", "nombre": "Belleza y cuidado personal", "comision": 0.15, "equivalencias": ["cosmetica", "beauty", "drogerie"] },
+    { "id": "deporte", "nombre": "Deportes", "comision": 0.15, "equivalencias": ["sport", "aire libre", "outdoor"] },
+    { "id": "juguetes", "nombre": "Juguetes y juegos", "comision": 0.15, "equivalencias": ["spielzeug", "juegos"] },
+    { "id": "herramientas", "nombre": "Bricolaje y herramientas", "comision": 0.15, "equivalencias": ["baumarkt", "werkzeug", "bricolaje"] },
+    { "id": "libros", "nombre": "Libros", "comision": 0.15, "equivalencias": ["bucher", "libro"] },
+    { "id": "joyeria", "nombre": "Joyería", "comision": 0.2, "equivalencias": ["schmuck", "relojes", "uhren"] }
+  ]
+}

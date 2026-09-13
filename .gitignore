@@ -15,3 +15,6 @@ dropshipping/tienda/salida/
 
 # Hojas de auditoria generadas: se regeneran con "node fichas-google/auditar.mjs <id> --html"
 fichas-google/hojas/
+
+# ZIP de la extension para la Chrome Web Store
+margen-amazon-*.zip

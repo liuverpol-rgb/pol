@@ -1,0 +1,57 @@
+{
+  "manifest_version": 3,
+  "name": "Margen real en Amazon",
+  "version": "0.1.0",
+  "description": "Lo que de verdad te queda de cada venta en Amazon: comisión, IVA, envío y devoluciones descontados.",
+  "permissions": ["storage", "activeTab", "scripting"],
+  "host_permissions": ["https://licencias-margen.EJEMPLO.workers.dev/*"],
+  "action": {
+    "default_title": "Margen real en Amazon",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "iconos/16.png",
+      "32": "iconos/32.png",
+      "48": "iconos/48.png",
+      "128": "iconos/128.png"
+    }
+  },
+  "icons": {
+    "16": "iconos/16.png",
+    "32": "iconos/32.png",
+    "48": "iconos/48.png",
+    "128": "iconos/128.png"
+  },
+  "background": {
+    "service_worker": "fondo.mjs",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.amazon.de/*",
+        "https://www.amazon.es/*",
+        "https://www.amazon.fr/*",
+        "https://www.amazon.it/*",
+        "https://www.amazon.nl/*",
+        "https://www.amazon.co.uk/*",
+        "https://www.amazon.com/*"
+      ],
+      "js": ["contenido.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["lib/*.mjs", "datos/*.json"],
+      "matches": [
+        "https://www.amazon.de/*",
+        "https://www.amazon.es/*",
+        "https://www.amazon.fr/*",
+        "https://www.amazon.it/*",
+        "https://www.amazon.nl/*",
+        "https://www.amazon.co.uk/*",
+        "https://www.amazon.com/*"
+      ]
+    }
+  ]
+}
