@@ -16,6 +16,7 @@
     "nichos": "node dropshipping/nichos.mjs",
     "tienda": "node dropshipping/tienda/generar.mjs",
     "extension": "node extension/sincronizar.mjs",
+    "empaquetar": "node extension/empaquetar.mjs",
     "iconos": "node extension/iconos/generar.mjs"
   },
   "license": "MIT"

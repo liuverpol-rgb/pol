@@ -29,8 +29,8 @@
   ],
   "categorias": [
     { "id": "general", "nombre": "General", "comision": 0.15, "equivalencias": ["otros", "sonstiges"] },
-    { "id": "informatica", "nombre": "Informatica", "comision": 0.07, "equivalencias": ["ordenadores", "computer", "pc"] },
-    { "id": "electronica", "nombre": "Electronica", "comision": 0.07, "equivalencias": ["elektronik", "foto", "tv", "audio"] },
+    { "id": "informatica", "nombre": "Informática", "comision": 0.07, "equivalencias": ["ordenadores", "computer", "pc"] },
+    { "id": "electronica", "nombre": "Electrónica", "comision": 0.07, "equivalencias": ["elektronik", "foto", "tv", "audio"] },
     { "id": "hogar", "nombre": "Hogar y cocina", "comision": 0.15, "equivalencias": ["cocina", "kuche", "haushalt", "jardin"] },
     { "id": "ropa", "nombre": "Ropa y accesorios", "comision": 0.15, "equivalencias": ["moda", "bekleidung", "zapatos", "schuhe"] },
     { "id": "belleza", "nombre": "Belleza y cuidado personal", "comision": 0.15, "equivalencias": ["cosmetica", "beauty", "drogerie"] },
@@ -38,6 +38,6 @@
     { "id": "juguetes", "nombre": "Juguetes y juegos", "comision": 0.15, "equivalencias": ["spielzeug", "juegos"] },
     { "id": "herramientas", "nombre": "Bricolaje y herramientas", "comision": 0.15, "equivalencias": ["baumarkt", "werkzeug", "bricolaje"] },
     { "id": "libros", "nombre": "Libros", "comision": 0.15, "equivalencias": ["bucher", "libro"] },
-    { "id": "joyeria", "nombre": "Joyeria", "comision": 0.2, "equivalencias": ["schmuck", "relojes", "uhren"] }
+    { "id": "joyeria", "nombre": "Joyería", "comision": 0.2, "equivalencias": ["schmuck", "relojes", "uhren"] }
   ]
 }

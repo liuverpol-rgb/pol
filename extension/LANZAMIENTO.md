@@ -12,12 +12,17 @@ Se paga en [chrome.google.com/webstore/devconsole](https://chrome.google.com/web
 Antes de subir nada:
 
 ```bash
-npm run extension && npm test          # la copia del motor al día y todo en verde
-cd extension && zip -r ../margen-amazon-0.1.0.zip . -x '*.DS_Store'
+npm test              # todo en verde
+npm run empaquetar    # margen-amazon-0.1.0.zip, listo para subir
 ```
 
-El ZIP se sube tal cual: no hay compilación. Comprueba que dentro están
-`manifest.json`, `iconos/*.png` y `lib/`.
+`npm run empaquetar` copia el motor de margen, regenera los iconos, deja fuera
+los archivos de desarrollo y te dice en voz alta lo que queda por configurar.
+El ZIP se sube tal cual: no hay compilación.
+
+Los textos de la ficha —nombre, descripciones, justificación de cada permiso y
+el formulario de privacidad— están escritos y listos para pegar en
+[`tienda/FICHA.md`](tienda/FICHA.md).
 
 ### Lo que pide la ficha de la tienda
 
@@ -28,7 +33,7 @@ El ZIP se sube tal cual: no hay compilación. Comprueba que dentro están
 | Mosaico pequeño | 440×280 (opcional, pero aparece en las listas) | Fondo verde con el icono y el título |
 | Descripción corta | 132 caracteres | Abajo |
 | Descripción larga | Hasta 16.000 | Abajo |
-| Política de privacidad | URL pública obligatoria | Una página en tu dominio |
+| Política de privacidad | URL pública obligatoria | [`tienda/privacidad.html`](tienda/privacidad.html), subida a tu dominio |
 | Prácticas de datos | Formulario declarativo | "No se recogen datos de usuario" |
 
 **Las capturas son el 80 % de la conversión.** Cuatro que funcionan, en este
@@ -44,12 +49,11 @@ orden:
 Tacha datos reales de proveedor antes de subirlas. En cada captura, una frase
 sobreimpresa de seis palabras; nadie lee más.
 
-### Descripción corta (132 caracteres)
+### Descripción corta y larga
 
-> Lo que de verdad te queda de cada venta en Amazon: comisión, IVA, envío y
-> devoluciones descontados. 5 análisis gratis al mes.
-
-### Descripción larga: el esqueleto
+Escritas y contadas (125 de los 132 caracteres) en
+[`tienda/FICHA.md`](tienda/FICHA.md). El esqueleto de la larga, por si la
+reescribes:
 
 1. **El problema, en una frase.** "Vendes a 24,90 €, el género te cuesta 12,50
    y crees que ganas 12,40. Te quedan 5,16."

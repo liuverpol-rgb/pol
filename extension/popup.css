@@ -57,6 +57,8 @@ h2 { font-size: .95rem; margin: 0 0 6px; }
 .precio { margin: 0; font-size: .85rem; color: var(--suave); }
 
 .resultado { border-color: var(--acento); background: var(--acento-suave); }
+/* A perdida cambia la tarjeta entera, no solo la cifra: es lo primero que se ve. */
+.resultado.perdida { border-color: var(--alerta); background: var(--alerta-fondo); }
 .cifra { margin: 0; font-size: 1.6rem; font-weight: 700; letter-spacing: -.02em; }
 .cifra .suave { font-size: .85rem; font-weight: 400; }
 .cifra.perdida { color: var(--alerta); }

@@ -78,20 +78,23 @@ export function analizar(producto, costes, datos) {
   };
 }
 
+/** Importes tal y como se escriben en espanol: 8,08 EUR, no 8.08. */
+const eurosEs = (n) => `${redondear(n).toFixed(2).replace('.', ',')} €`;
+
 /** Las tres cosas que hay que decirle al usuario aunque no las pregunte. */
 function avisos(desglose, plataforma, ficha, datos) {
   const lista = [];
   if (datos._verificado !== true) {
-    lista.push('Las comisiones de esta tabla estan sin contrastar con Seller Central. Comprueba la de tu categoria antes de fijar el precio.');
+    lista.push('Las comisiones de esta tabla están sin contrastar con Seller Central. Comprueba la de tu categoría antes de fijar el precio.');
   }
   if (ficha.costeGenero === 0) {
-    lista.push('No has puesto lo que te cuesta el genero: el beneficio que ves es el techo, no el real.');
+    lista.push('No has puesto lo que te cuesta el género: el beneficio que ves es el techo, no el real.');
   }
   if (plataforma.cuotaMensual > 0) {
     lista.push(`El Plan Profesional cuesta ${plataforma.cuotaMensual} €/mes aparte. Con ${Math.max(1, Math.ceil(plataforma.cuotaMensual / Math.max(desglose.beneficio, 0.01)))} ventas al mes solo cubres esa cuota.`);
   }
   if (desglose.beneficio > 0 && desglose.perdidaDevolucion > desglose.beneficioVenta) {
-    lista.push(`Una devolucion cuesta ${redondear(desglose.perdidaDevolucion)} €: se come ${Math.ceil(desglose.perdidaDevolucion / desglose.beneficio)} ventas.`);
+    lista.push(`Una devolución cuesta ${eurosEs(desglose.perdidaDevolucion)}: se come ${Math.ceil(desglose.perdidaDevolucion / desglose.beneficio)} ventas.`);
   }
   return lista;
 }

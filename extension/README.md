@@ -25,17 +25,24 @@ licencia, y solo si has comprado Pro. Por eso el manifiesto pide un único
 
 ## Instalar en local
 
-```
-chrome://extensions → Modo de desarrollador → Cargar descomprimida → elige extension/
-```
-
-No hay compilación ni dependencias. Antes de cargarla por primera vez, o
-después de tocar el motor de margen:
-
 ```bash
 npm run extension     # copia dropshipping/margen.mjs dentro de la extensión
 npm test              # 135 pruebas; 38 son de esta extensión
 ```
+
+Y en Chrome:
+
+1. `chrome://extensions`
+2. Activa **Modo de desarrollador** (arriba a la derecha).
+3. **Cargar descomprimida** → elige la carpeta `extension/`.
+4. Ancla el icono a la barra: el número que verás encima son los análisis
+   gratis que te quedan este mes.
+5. Abre cualquier ficha de producto de Amazon y pulsa el icono.
+
+No hay compilación ni dependencias. Cuando toques el motor de margen, vuelve a
+ejecutar `npm run extension` y pulsa *Actualizar* en `chrome://extensions`.
+
+Para el paquete de la tienda: `npm run empaquetar`.
 
 ## Estructura
 
@@ -53,6 +60,9 @@ lib/calculo.mjs      une la ficha con el motor de margen
 lib/margen.mjs       COPIA GENERADA de dropshipping/margen.mjs. No editar
 datos/amazon.json    comisiones por categoría y planes de vendedor
 iconos/generar.mjs   dibuja los PNG del manifiesto
+empaquetar.mjs       el ZIP para la Chrome Web Store: npm run empaquetar
+tienda/FICHA.md      textos de la ficha de la tienda, listos para pegar
+tienda/privacidad.html  política de privacidad para publicar en tu dominio
 ```
 
 ## El contador de usos

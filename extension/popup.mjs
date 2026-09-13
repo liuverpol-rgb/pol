@@ -33,7 +33,7 @@ async function arrancar() {
   // con usos gratis todavia en el bolsillo tambien tiene que poder activarla.
   $('activar').hidden = pro;
   if (licencia.motivo === 'sin-conexion') {
-    $('pie').textContent = 'Sin conexion: la licencia se revalidara cuando vuelvas a tener red.';
+    $('pie').textContent = 'Sin conexión: la licencia se revalidará cuando vuelvas a tener red.';
   }
 
   const ficha = await leerFicha();
@@ -61,7 +61,7 @@ async function arrancar() {
 async function leerFicha() {
   const [pestana] = await chrome.tabs.query({ active: true, currentWindow: true });
   if (!pestana?.url || !/^https:\/\/www\.amazon\./.test(pestana.url)) {
-    $('estado').textContent = 'Abre la ficha de un producto de Amazon y vuelve a pulsar aqui.';
+    $('estado').textContent = 'Abre la ficha de un producto de Amazon y vuelve a pulsar aquí.';
     return null;
   }
   if (!esFichaDeProducto(pestana.url)) {
@@ -80,7 +80,7 @@ async function leerFicha() {
     } catch {
       /* cae al mensaje de abajo */
     }
-    $('estado').textContent = 'No he podido leer la pagina. Recargala y vuelve a intentarlo.';
+    $('estado').textContent = 'No he podido leer la página. Recárgala y vuelve a intentarlo.';
     return null;
   }
 }
@@ -89,7 +89,7 @@ const preguntar = (tabId) => chrome.tabs.sendMessage(tabId, { tipo: 'leer-ficha'
 
 function pintarCuota(uso) {
   if (pro) {
-    $('cuota').textContent = 'Pro · sin limite';
+    $('cuota').textContent = 'Pro · sin límite';
     return;
   }
   const dia = proximoReinicio(new Date()).toLocaleDateString('es-ES', { day: 'numeric', month: 'long' });
@@ -98,7 +98,7 @@ function pintarCuota(uso) {
 
 function pintarProducto() {
   $('estado').hidden = true;
-  $('titulo').textContent = producto.titulo || 'Producto sin titulo';
+  $('titulo').textContent = producto.titulo || 'Producto sin título';
   $('precio').textContent = `Precio en la ficha: ${euros(producto.precio)}`;
   $('asin').textContent = producto.asin ? `· ${producto.asin}` : '';
   $('producto').hidden = false;
@@ -161,16 +161,18 @@ function calcular() {
   const { desglose, equilibrio, avisos } = analizar(producto, costes, datos);
 
   $('beneficio').textContent = euros(desglose.beneficio);
-  $('beneficio').parentElement.classList.toggle('perdida', desglose.beneficio <= 0);
+  const aPerdida = desglose.beneficio <= 0;
+  $('beneficio').parentElement.classList.toggle('perdida', aPerdida);
+  $('resultado').classList.toggle('perdida', aPerdida);
   $('margen').textContent = porcentaje(desglose.margen);
-  $('equilibrio').textContent = Number.isFinite(equilibrio) ? euros(equilibrio) : 'ningun precio';
+  $('equilibrio').textContent = Number.isFinite(equilibrio) ? euros(equilibrio) : 'ningún precio';
 
   const filas = [
-    ['Cobras (con envio)', desglose.bruto],
+    ['Cobras (con envío)', desglose.bruto],
     ['IVA repercutido', -desglose.iva],
     ['Comisiones de Amazon', -desglose.comisiones],
-    ['Genero', -desglose.costeGenero],
-    ['Envio', -desglose.costeEnvio],
+    ['Género', -desglose.costeGenero],
+    ['Envío', -desglose.costeEnvio],
     ['Licencia de envase', -desglose.licenciaEnvase],
     ['Coste esperado de devoluciones', -(desglose.beneficioVenta - desglose.beneficio)],
   ].filter(([, v]) => Math.abs(v) >= 0.005);
@@ -208,13 +210,13 @@ function mostrarMuro(uso) {
   const dia = uso.reinicia.toLocaleDateString('es-ES', { day: 'numeric', month: 'long' });
   const comprar = $('comprar');
   if (TIENDA.configurada) {
-    $('muro-texto').textContent = `Pro quita el limite: ${TIENDA.precio}. Si prefieres esperar, el ${dia} vuelves a tener ${uso.limite}.`;
+    $('muro-texto').textContent = `Pro quita el límite: ${TIENDA.precio}. Si prefieres esperar, el ${dia} vuelves a tener ${uso.limite}.`;
     comprar.href = TIENDA.urlCompra;
   } else {
-    $('muro-texto').textContent = `La version de pago todavia no esta abierta. El ${dia} vuelves a tener ${uso.limite} analisis.`;
+    $('muro-texto').textContent = `La versión de pago todavía no está abierta. El ${dia} vuelves a tener ${uso.limite} análisis.`;
     comprar.setAttribute('aria-disabled', 'true');
     comprar.removeAttribute('href');
-    comprar.textContent = 'Pro, proximamente';
+    comprar.textContent = 'Pro, próximamente';
   }
   $('muro').hidden = false;
   $('activar').open = true;
@@ -231,7 +233,7 @@ $('form-licencia').addEventListener('submit', async (e) => {
   } catch (error) {
     aviso.textContent =
       error instanceof ErrorLicencia
-        ? { 'sin-conexion': 'Sin conexion con el servidor de licencias. Prueba en un minuto.', 'limite-equipos': 'Esa clave ya esta en demasiados equipos. Liberala en el otro.', caducada: 'Esa clave ha caducado.', revocada: 'Esa clave ya no vale.' }[error.motivo] ?? error.message
+        ? { 'sin-conexion': 'Sin conexión con el servidor de licencias. Prueba en un minuto.', 'limite-equipos': 'Esa clave ya está en demasiados equipos. Libérala en el otro.', caducada: 'Esa clave ha caducado.', revocada: 'Esa clave ya no vale.' }[error.motivo] ?? error.message
         : 'No se ha podido activar.';
   }
 });

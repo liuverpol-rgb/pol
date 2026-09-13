@@ -32,7 +32,7 @@ export const TIENDA = {
   endpoint: '',
 
   /** Lo que se le ensena al usuario en el panel de compra. */
-  precio: '19 € pago unico',
+  precio: '19 € pago único',
 };
 
 /** Valores de partida del calculo. El usuario los cambia y se guardan. */
